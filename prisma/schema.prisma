@@ -1,0 +1,171 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+    provider        = "prisma-client-js"
+    previewFeatures = ["fullTextSearch"]
+}
+
+datasource db {
+    provider = "postgresql"
+    url      = env("DATABASE_URL")
+}
+
+enum ROLE {
+    USER
+    ADMIN
+    BANNED
+    EMPLOYEE
+}
+
+enum AMENITIY {
+    total
+    partial
+    none
+}
+
+enum PARKING {
+    limited
+    valet
+    withTicket
+    offstreet
+}
+
+enum CATEGORY {
+    MUSIC
+    SPORTS
+    COMEDY
+}
+
+model Faq {
+    id        String   @id
+    title     String
+    subtitle  String
+    body      String[]
+    createdAt DateTime @default(now())
+    updatedAt DateTime @default(now())
+}
+
+model Location {
+    id     Int     @id @default(autoincrement())
+    street String
+    zip    Int
+    city   String
+    state  String  @default("Il")
+    lat    Float?
+    long   Float?
+    Arena  Arena[]
+}
+
+model User {
+    username                String                 @id @unique
+    email                   String                 @unique
+    password                String
+    role                    ROLE                   @default(USER)
+    createdAt               DateTime               @default(now())
+    paymentAccount          PaymentAccountDetails? @relation(fields: [paymentAccountDetailsId], references: [id])
+    paymentAccountDetailsId Int?
+    purchaseHistory         PurchaseHistory?
+    verified                Boolean
+}
+
+model Event {
+    id           Int            @id @default(autoincrement())
+    category     CATEGORY
+    arena        Arena          @relation(fields: [arenaId], references: [id])
+    arenaId      Int
+    tickets      Ticket[]
+    ticketGroups TicketGroup[]
+    amenities    ArenaAmenities @relation(fields: [amenitiesId], references: [id])
+    amenitiesId  Int
+    tags         Tag[]
+}
+
+model TicketGroup {
+    id             Int      @id @default(autoincrement())
+    Event          Event?   @relation(fields: [eventId], references: [id])
+    eventId        Int?
+    tickets        Ticket[]
+    seatedTogether Boolean
+}
+
+model Ticket {
+    id             Int          @id @default(autoincrement())
+    Event          Event?       @relation(fields: [eventId], references: [id])
+    eventId        Int?
+    TicketGroup    TicketGroup? @relation(fields: [ticketGroupId], references: [id])
+    ticketGroupId  Int?
+    arenaSection   ArenaSection @relation(fields: [arenaSectionId], references: [id])
+    arenaSectionId Int
+}
+
+model ArenaSection {
+    id      Int      @id @default(autoincrement())
+    Arena   Arena    @relation(fields: [arenaId], references: [id])
+    arenaId Int
+    Ticket  Ticket[]
+}
+
+model ArenaAmenities {
+    id               Int      @id @default(autoincrement())
+    Arena            Arena[]
+    indoor           AMENITIY @default(partial)
+    covered          AMENITIY @default(partial)
+    outdoor          AMENITIY @default(partial)
+    food             Boolean  @default(true)
+    alcohol          Boolean  @default(true)
+    parking          PARKING  @default(limited)
+    shuttleAvailable Boolean  @default(false)
+    Event            Event[]
+}
+
+model Tag {
+    id    Int     @id @default(autoincrement())
+    value String
+    Event Event[]
+}
+
+model Image {
+    id        Int      @id @default(autoincrement())
+    publicUrl String?
+    Arena     Arena[]
+    createdAt DateTime @default(now())
+    updatedAt DateTime @default(now())
+}
+
+model Arena {
+    id               Int            @id @default(autoincrement())
+    events           Event[]
+    location         Location       @relation(fields: [locationId], references: [id])
+    sections         ArenaSection[]
+    amenities        ArenaAmenities @relation(fields: [arenaAmenitiesId], references: [id])
+    sectionImage     Image          @relation(fields: [sectionImageId], references: [id])
+    arenaAmenitiesId Int
+    locationId       Int
+    sectionImageId   Int
+}
+
+model PaymentAccountDetails {
+    id            Int    @id @default(autoincrement())
+    nameOnAccount String
+    User          User[]
+}
+
+model Transaction {
+    id        Int             @id @default(autoincrement())
+    price     Float
+    paymentId String
+    sellerId  Int
+    buyerId   Int
+    seller    PurchaseHistory @relation(fields: [sellerId], references: [id], name: "seller")
+    buyer     PurchaseHistory @relation(fields: [buyerId], references: [id], name: "buyer")
+    date      DateTime        @default(now())
+}
+
+model PurchaseHistory {
+    id       Int           @id @default(autoincrement())
+    bought   Transaction[] @relation("buyer")
+    sold     Transaction[] @relation("seller")
+    user     User          @relation(fields: [userName], references: [username])
+    userName String        @unique
+}
