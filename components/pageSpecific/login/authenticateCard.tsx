@@ -2,6 +2,7 @@
 import Checkbox from '#/components/forms/inputs/checkbox';
 import LoginForm from '#/components/forms/login/form';
 import SignupMainForm from '#/components/forms/signup/form';
+import WrappedSignupForm from '#/components/forms/signup/wrappedForm';
 import Button from '#/components/ui/button';
 import Card from '#/components/ui/card';
 import { LoginBaseType } from '#/types/AuthTypes';
@@ -46,7 +47,7 @@ const AuthenticateCard = () => {
                     </div>
                 </LoginForm>
                 :
-                <SignupMainForm setLogin={() => setAuthenticateType("Login")} />
+                <WrappedSignupForm setLogin={() => setAuthenticateType("Login")} />
             }
         </Card>
     )

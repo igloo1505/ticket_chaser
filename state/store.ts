@@ -2,6 +2,7 @@ import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import AuthReducer from "./slices/auth";
 import UIReducer from "./slices/ui";
 import NetworkReducer from "./slices/network";
+import FormReducer from "./slices/form";
 import initialState from "./initial/initialState";
 import storage from './local/storage'
 import { persistReducer, persistStore } from "redux-persist"
@@ -11,7 +12,8 @@ import { persistReducer, persistStore } from "redux-persist"
 const rootReducer = {
     auth: AuthReducer,
     UI: UIReducer,
-    network: NetworkReducer
+    network: NetworkReducer,
+    form: FormReducer,
 }
 
 

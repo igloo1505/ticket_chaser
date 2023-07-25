@@ -8,8 +8,8 @@ import FormErrorIndicator from '#/components/ui/formErrorIndicator';
 import PasswordStrengthInput from '../../inputs/passwordStrengthTextInput';
 
 
-interface Props extends SignupStepProps { showPasswordMismatch: string | null }
-const SignupStepOne = ({ form, setFormData, showPasswordMismatch, step }: Props) => {
+interface Props extends SignupStepProps { showPasswordMismatch: string | null, showInvalidEmail: string | null }
+const BasicInfoForm = ({ form, setFormData, showPasswordMismatch, step, showInvalidEmail }: Props) => {
     const [passwordValid, setPasswordValid] = useState<boolean>(true)
     const handleChange = (e: ChangeEvent) => {
         const target = e.target as HTMLInputElement
@@ -28,11 +28,12 @@ const SignupStepOne = ({ form, setFormData, showPasswordMismatch, step }: Props)
         })
     }
     return (
-        <MultiStepTransition step={step} activeStep={parseInt(form.activeStep)}>
-            <div className={'w-full flex flex-col justify-center items-center gap-4'}>
+        <MultiStepTransition step={step} activeStep={parseInt(form.activeStep)} relative>
+            <div className={'w-full flex flex-col justify-center items-center gap-4 py-4'}>
                 <TextInput onChange={handleChange} name="email" label="Email" value={form.data.email}
                 />
-                <div className={'w-full flex flex-col justify-center items-center gap-4'}>
+                    <FormErrorIndicator message={showInvalidEmail} />
+                <div className={'w-full flex flex-col justify-center items-center'}>
                     <div className={'w-full flex flex-col justify-center items-center md:grid md:grid-cols-2 gap-4'}>
                         <PasswordStrengthInput onChange={handleChange} name="password" protect label="Password" value={form.data.password}
                             indicateError={!passwordValid}
@@ -49,9 +50,9 @@ const SignupStepOne = ({ form, setFormData, showPasswordMismatch, step }: Props)
 }
 
 
-SignupStepOne.displayName = "SignupStepOne"
+BasicInfoForm.displayName = "BasicInfoForm"
 
 
-export default SignupStepOne;
+export default BasicInfoForm;
 
 

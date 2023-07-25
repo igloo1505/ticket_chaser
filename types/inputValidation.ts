@@ -1,5 +1,4 @@
-import { Location } from "@prisma/client"
-import { CreateUserReqBody } from "./AuthTypes"
+import { CreateUserFormData, SignupFormDataType, SignupFormType } from "#/state/initial/forms/signup"
 
 interface StateItem {
     name: string
@@ -66,21 +65,13 @@ const states: StateItem[] = [
     { name: "Wyoming", abbrev: "WY" }
 ]
 
-interface CreateUserFormData extends CreateUserReqBody {
-    confirmPassword: ""
-}
 
 
 export type Steps = "1" | "2"
 export const steps: Steps[] = ["1", "2"]
 
 export interface SignupStepProps {
-    form: {
-        data: CreateUserFormData
-        activeStep: Steps
-        firstStep: boolean
-        lastStep: boolean
-    }
+    form: SignupFormType
     step: number
     setFormData: (v: CreateUserFormData) => void
 }

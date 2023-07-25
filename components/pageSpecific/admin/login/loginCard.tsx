@@ -30,7 +30,7 @@ const AdminLoginCard = (props: AdminLoginCardProps) => {
 
     }
     return (
-        <Card title="Admin Login" shadow container={{
+        <Card title="Admin Login" shadow elevate={"200"} container={{
             className: "min-w-[min(400px,85vw)] max-w-[calc(100vw-2rem)]"
         }}>
             <LoginForm handleChange={handleChange} formData={formData}>

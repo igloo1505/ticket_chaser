@@ -13,3 +13,6 @@ body {
     padding-top: 1rem
 }
 
+.drawer-side > *:not(.drawer-overlay) {
+    transition: transform 0.2s ease-in-out;
+}

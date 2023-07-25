@@ -16,7 +16,7 @@ const FormErrorIndicator = (props: FormErrorIndicatorProps) => {
     }, [props.message])
 
     return (
-        <div className={'text-sm text-error text-center flex justify-center items-center'} ref={container}
+        <div className={'text-sm mt-2 text-error text-center flex justify-center items-center'} ref={container}
         >
             <div ref={text} style={{
                 opacity: 0,
@@ -41,11 +41,13 @@ const handleErrorIndicator = (container: RefObject<HTMLDivElement>, text: RefObj
     let tl = gsap.timeline()
     if(!container.current || !text.current) return
     if(open){
-        tl.to(container.current, {
+        tl.fromTo(container.current, {
+            height: 0,
+            duration: 0.3
+        }, {
             height: openHeight,
             duration: 0.3,
         })
-        console.log("Here?")
         tl.to(text.current, {
             opacity: 1,
             scale: 1,
@@ -54,15 +56,18 @@ const handleErrorIndicator = (container: RefObject<HTMLDivElement>, text: RefObj
         })
     }
     if(!open){
-        tl.to(text, {
+        tl.to(text.current, {
             opacity: 0,
             scale: 0,
-            duration: 300,
+            duration: 0.3,
             ease: "power3.out"
         })
-        tl.to(container, {
-            height: "0px",
-            duration: 300,
+        tl.fromTo(container.current, {
+            height: openHeight,
+            duration: 0.3
+        }, {
+            height: 0,
+            duration: 0.3,
             ease: "power3.out"
         })
     }

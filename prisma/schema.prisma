@@ -92,10 +92,11 @@ enum PARKING {
 }
 
 enum CATEGORY {
-    MUSIC
-    SPORTS
-    COMEDY
+    Music
+    Sports
+    Comedy
 }
+
 
 model Faq {
     id        String   @id

@@ -91,8 +91,7 @@ const Navbar = connector(({ ui }: NavbarProps) => {
             </div>
             <div className="drawer-side z-[999]">
                 <label htmlFor="mainDrawer" className="drawer-overlay"></label>
-                <ul className="menu p-4 w-fit h-full elevate-200">
-                    {/* Sidebar content here */}
+                <ul className="menu p-4 w-fit h-full bg-base-100">
                     <li><a>Sidebar Item 1</a></li>
                     <li><a>Sidebar Item 2</a></li>
 

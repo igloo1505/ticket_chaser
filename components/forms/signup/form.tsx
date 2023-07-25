@@ -1,34 +1,56 @@
 "use client"
 import { SignupStepProps, Steps, steps } from '#/types/inputValidation'
 import React, { useState } from 'react'
-import SignupStepOne from './steps/stepOne'
+import BasicInfoForm from './steps/basicInfo'
 import Button from '#/components/ui/button'
-import Checkbox from '../inputs/checkbox'
-import SignupStepTwo from './steps/stepTwo'
+import LocationForm from './steps/locationInfo'
 import clsx from 'clsx'
-import { validatePassword } from '#/utils/client/validate'
+import { validateEmail, validatePassword } from '#/utils/client/validate'
 
 
+import store, { RootState } from '#/state/store';
+import { connect } from 'react-redux';
+import { SignupFormDataType, SignupFormType } from '#/state/initial/forms/signup'
+import { setSignupFormData } from '#/state/slices/form'
 
+const connector = connect((state: RootState, props: any) => ({
+    formData: state.form.signUp,
+    props: props
+}))
+
+type validationState = null | string
 
 interface IndicateState {
     validated1: boolean
     validated2: boolean
-    passwordMismatch: null | string
+    passwordMismatch: validationState
+    validEmail: validationState
 }
 
 
-const validateMap: { [k in Steps]: (d: SignupStepProps['form']) => Partial<IndicateState> } = {
+
+interface ValidateReturn {
+    validState: Partial<IndicateState>
+    shouldContinue: boolean
+}
+
+
+const validateMap: { [k in Steps]: (d: SignupFormType) => ValidateReturn } = {
     "1": (form) => {
-        let d = {} as Partial<IndicateState>
-        d.validated1 = true
+        let validState = {} as Partial<IndicateState>
+        let shouldContinue = true
+        validState.validated1 = true
         let pMatch = validatePassword(form.data.password, form.data.confirmPassword)
-        console.log("pMatch: ", pMatch)
-        d['passwordMismatch'] = pMatch
-        return d
+        validState.passwordMismatch = pMatch
+        let eMatch = validateEmail(form.data.email)
+        validState.validEmail = eMatch
+        if (pMatch || eMatch) {
+            shouldContinue = false
+        }
+        return { validState, shouldContinue }
     },
     "2": (form) => {
-        let d = {} as Partial<IndicateState>
+        let d = {} as ValidateReturn
         return d
     }
 }
@@ -36,42 +58,38 @@ const validateMap: { [k in Steps]: (d: SignupStepProps['form']) => Partial<Indic
 const initialValidateState: IndicateState = {
     validated1: false,
     validated2: false,
-    passwordMismatch: null
+    passwordMismatch: null,
+    validEmail: null
+}
+
+interface Props {
+    setLogin: () => void,
+    formData: RootState['form']['signUp']
 }
 
 
-const SignupMainForm = ({ setLogin }: { setLogin: () => void }) => {
+const SignupMainForm = connector(({ setLogin, formData }: Props) => {
     const [indicateState, setIndicateState] = useState<IndicateState>(initialValidateState)
-    const [formData, setFormData] = useState<SignupStepProps['form']>({
-        data: {
-            email: "",
-            password: "",
-            confirmPassword: "",
-            name: {
-                first: "",
-                middle: null,
-                last: ""
-            },
-        },
-        activeStep: "1",
-        firstStep: true,
-        lastStep: false
-    })
+    
+    const setFormData = (d: SignupFormType) => {
+        store.dispatch(setSignupFormData(d))
+            
+        }
 
     const handleSignup = () => {
 
     }
 
     const handleValidateStep = (): boolean => {
-        const validState = validateMap[`${formData.activeStep}`](formData)
+        const { validState, shouldContinue } = validateMap[`${formData.activeStep}`](formData)
+        console.log("validState, shouldContinue: ", validState, shouldContinue)
         if (validState) {
             setIndicateState({
                 ...indicateState,
                 ...validState
             })
-            return false
         }
-        return true
+        return shouldContinue
     }
 
     const nextStep = () => {
@@ -82,7 +100,7 @@ const SignupMainForm = ({ setLogin }: { setLogin: () => void }) => {
             setFormData({
                 ...formData,
                 activeStep: `${ns}` as Steps,
-                lastStep: ns === steps.length - 1,
+                lastStep: ns === steps.length,
                 firstStep: ns === 0
             })
             return
@@ -96,7 +114,7 @@ const SignupMainForm = ({ setLogin }: { setLogin: () => void }) => {
             setFormData({
                 ...formData,
                 activeStep: `${ns}` as Steps,
-                lastStep: ns === steps.length - 1,
+                lastStep: ns === steps.length,
                 firstStep: ns === 1
             })
         }
@@ -107,25 +125,30 @@ const SignupMainForm = ({ setLogin }: { setLogin: () => void }) => {
             ...formData,
             data: data
         }
-        if (indicateState[`validated${formData.activeStep}`]) {
-            const validState = validateMap[`${formData.activeStep}`](newFormData)
-                setIndicateState({
-                    ...indicateState,
-                    ...validState
-                })
+        if (indicateState.validated1) {
+            const { validState, shouldContinue } = validateMap[`${formData.activeStep}`](newFormData)
+            setIndicateState({
+                ...indicateState,
+                ...validState
+            })
         }
         setFormData(newFormData)
     }
 
     return (
-        <div>
-            <SignupStepOne form={formData} setFormData={handleFormData} step={1} showPasswordMismatch={indicateState.passwordMismatch ? indicateState.passwordMismatch : null} />
-            <SignupStepTwo form={formData} setFormData={handleFormData} step={2} />
+        <div className={"w-full h-full flex flex-col justify-center items-center"}>
+            <div className={"w-full h-full flex flex-col justify-center items-center relative"}>
+                <BasicInfoForm form={formData} setFormData={handleFormData} step={1}
+                    showPasswordMismatch={indicateState.passwordMismatch ? indicateState.passwordMismatch : null}
+                    showInvalidEmail={indicateState.validEmail ? indicateState.validEmail : null}
+                />
+                <LocationForm form={formData} setFormData={handleFormData} step={2} />
+            </div>
             <div className={'card-actions pb-2 w-full h-fit flex flex-col justify-center items-center'}>
                 <div className={clsx('w-full grid gap-4 grid-cols-1', !formData.firstStep && "grid-cols-2")}>
                     {!formData.firstStep && <Button label="Back" onClick={prevStep} className={'w-full'} />}
                     {formData.lastStep ?
-                        <Button label="Login" onClick={handleSignup} className={'w-full'} />
+                        <Button label="Submit" onClick={handleSignup} className={'w-full'} />
                         :
                         <Button label="Continue" onClick={nextStep} className={'w-full'} />
                     }
@@ -136,7 +159,7 @@ const SignupMainForm = ({ setLogin }: { setLogin: () => void }) => {
             </div>
         </div>
     )
-}
+})
 
 
 SignupMainForm.displayName = "SignupMainForm"

@@ -1,7 +1,8 @@
-const darkTheme = "night"
-const lightTheme = "light"
-const darkBackground = "#0e1729"
-
+import { darkEvelations, darkTheme } from './daisy/dark'
+import { lightElevations, lightTheme } from './daisy/light'
+import { daisySafeList } from './daisy/safelist'
+console.log("lightElevations: ", lightElevations)
+console.log("darkEvelations: ", darkEvelations)
 /** @type {import('tailwindcss').Config} */
 module.exports = {
     content: [
@@ -1018,76 +1019,26 @@ module.exports = {
         require("daisyui")
     ],
     safelist: [
+        ...daisySafeList,
         {
             pattern: /p[x|y]-\d/gm
         }
+        // {
+        //     pattern: /elevate-\d/gm
+        // }
     ],
     daisyui: {
         themes: [
             {
                 [`${lightTheme}`]: {
                     ...require("daisyui/src/theming/themes")[`[data-theme=${lightTheme}]`],
-                    ".elevate-100": {
-                        "background-color": "unset"
-                    },
-                    ".elevate-200": {
-                        "background-color": "unset"
-                    },
-                    ".elevate-300": {
-                        "background-color": "unset"
-                    },
-                    ".elevate-400": {
-                        "background-color": "unset"
-                    },
-                    ".elevate-500": {
-                        "background-color": "unset"
-                    },
-                    ".elevate-600": {
-                        "background-color": "unset"
-                    },
-                    ".elevate-700": {
-                        "background-color": "unset"
-                    },
-                    ".elevate-800": {
-                        "background-color": "unset"
-                    },
-                    ".elevate-900": {
-                        "background-color": "unset"
-                    },
+                    ...lightElevations
                 },
             },
             {
                 [`${darkTheme}`]: {
                     ...require("daisyui/src/theming/themes")[`[data-theme=${darkTheme}]`],
-                    ".elevate-100": {
-                        "background-color": `color-mix(in srgb, ${darkBackground} 98%, white)`
-                    },
-                    ".elevate-200": {
-                        "background-color": `color-mix(in srgb, ${darkBackground} 96%, white)`
-                    },
-                    ".elevate-300": {
-                        "background-color": `color-mix(in srgb, ${darkBackground} 94%, white)`
-                    },
-                    ".elevate-400": { 
-                        "background-color": `color-mix(in srgb, ${darkBackground} 92%, white)`
-                    },
-
-                    ".elevate-500": { 
-                        "background-color": `color-mix(in srgb, ${darkBackground} 90%, white)`
-                    },
-
-                    ".elevate-600": { 
-                        "background-color": `color-mix(in srgb, ${darkBackground} 88%, white)`
-                    },
-                    ".elevate-700": { 
-                        "background-color": `color-mix(in srgb, ${darkBackground} 86%, white)`
-                    },
-                    ".elevate-800": { 
-                        "background-color": `color-mix(in srgb, ${darkBackground} 84%, white)`
-                    },
-                    ".elevate-900": { 
-                        "background-color": `color-mix(in srgb, ${darkBackground} 82%, white)`
-                    },
+                    ...darkEvelations
                 },
             },
         ],
