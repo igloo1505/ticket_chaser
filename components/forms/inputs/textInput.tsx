@@ -4,7 +4,7 @@ import clsx from 'clsx';
 import React, { useEffect } from 'react'
 
 
-interface TextInputProps extends InputBaseProps {
+export interface TextInputProps extends InputBaseProps {
     helperText?: string
     value: string
     label: string

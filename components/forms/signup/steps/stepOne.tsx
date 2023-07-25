@@ -5,6 +5,7 @@ import React, { ChangeEvent, useEffect, useState } from 'react'
 import TextInput from '../../inputs/textInput';
 import { twoValuesMatch } from '#/utils/client/validate';
 import FormErrorIndicator from '#/components/ui/formErrorIndicator';
+import PasswordStrengthInput from '../../inputs/passwordStrengthTextInput';
 
 
 interface Props extends SignupStepProps { showPasswordMismatch: string | null }
@@ -33,7 +34,7 @@ const SignupStepOne = ({ form, setFormData, showPasswordMismatch, step }: Props)
                 />
                 <div className={'w-full flex flex-col justify-center items-center gap-4'}>
                     <div className={'w-full flex flex-col justify-center items-center md:grid md:grid-cols-2 gap-4'}>
-                        <TextInput onChange={handleChange} name="password" protect label="Password" value={form.data.password}
+                        <PasswordStrengthInput onChange={handleChange} name="password" protect label="Password" value={form.data.password}
                             indicateError={!passwordValid}
                         />
                         <TextInput onChange={handleChange} name="confirmPassword" label="Confirm Password" protect value={form.data.confirmPassword}

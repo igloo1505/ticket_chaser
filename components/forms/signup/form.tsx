@@ -121,7 +121,7 @@ const SignupMainForm = ({ setLogin }: { setLogin: () => void }) => {
         <div>
             <SignupStepOne form={formData} setFormData={handleFormData} step={1} showPasswordMismatch={indicateState.passwordMismatch ? indicateState.passwordMismatch : null} />
             <SignupStepTwo form={formData} setFormData={handleFormData} step={2} />
-            <div className={'card-actions w-full h-fit flex flex-col justify-center items-center'}>
+            <div className={'card-actions pb-2 w-full h-fit flex flex-col justify-center items-center'}>
                 <div className={clsx('w-full grid gap-4 grid-cols-1', !formData.firstStep && "grid-cols-2")}>
                     {!formData.firstStep && <Button label="Back" onClick={prevStep} className={'w-full'} />}
                     {formData.lastStep ?

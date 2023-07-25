@@ -1,3 +1,7 @@
+const darkTheme = "night"
+const lightTheme = "light"
+const darkBackground = "#0e1729"
+
 /** @type {import('tailwindcss').Config} */
 module.exports = {
     content: [
@@ -116,6 +120,7 @@ module.exports = {
             md: '0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1)',
             lg: '0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1)',
             xl: '0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1)',
+            card: "rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset",
             '2xl': '0 25px 50px -12px rgb(0 0 0 / 0.25)',
             inner: 'inset 0 2px 4px 0 rgb(0 0 0 / 0.05)',
             none: 'none',
@@ -138,9 +143,6 @@ module.exports = {
         colors: ({ colors }) => ({
             inherit: colors.inherit,
             current: colors.current,
-            primary: "#b19df7",
-            primaryLight: "#7254f3",
-            secondary: "var(--text-color-secondary)",
             card: "var(--surface-card)",
             border: "var(--surface-border)",
             transparent: colors.transparent,
@@ -865,7 +867,10 @@ module.exports = {
             2: '2',
         },
         supports: {},
-        data: {},
+        data: {
+            dark: `theme~="${darkTheme}"`,
+            light: `theme~="${lightTheme}"`,
+        },
         textColor: ({ theme }) => theme('colors'),
         textDecorationColor: ({ theme }) => theme('colors'),
         textDecorationThickness: {
@@ -1016,6 +1021,76 @@ module.exports = {
         {
             pattern: /p[x|y]-\d/gm
         }
-    ]
-}
+    ],
+    daisyui: {
+        themes: [
+            {
+                [`${lightTheme}`]: {
+                    ...require("daisyui/src/theming/themes")[`[data-theme=${lightTheme}]`],
+                    ".elevate-100": {
+                        "background-color": "unset"
+                    },
+                    ".elevate-200": {
+                        "background-color": "unset"
+                    },
+                    ".elevate-300": {
+                        "background-color": "unset"
+                    },
+                    ".elevate-400": {
+                        "background-color": "unset"
+                    },
+                    ".elevate-500": {
+                        "background-color": "unset"
+                    },
+                    ".elevate-600": {
+                        "background-color": "unset"
+                    },
+                    ".elevate-700": {
+                        "background-color": "unset"
+                    },
+                    ".elevate-800": {
+                        "background-color": "unset"
+                    },
+                    ".elevate-900": {
+                        "background-color": "unset"
+                    },
+                },
+            },
+            {
+                [`${darkTheme}`]: {
+                    ...require("daisyui/src/theming/themes")[`[data-theme=${darkTheme}]`],
+                    ".elevate-100": {
+                        "background-color": `color-mix(in srgb, ${darkBackground} 98%, white)`
+                    },
+                    ".elevate-200": {
+                        "background-color": `color-mix(in srgb, ${darkBackground} 96%, white)`
+                    },
+                    ".elevate-300": {
+                        "background-color": `color-mix(in srgb, ${darkBackground} 94%, white)`
+                    },
+                    ".elevate-400": { 
+                        "background-color": `color-mix(in srgb, ${darkBackground} 92%, white)`
+                    },
 
+                    ".elevate-500": { 
+                        "background-color": `color-mix(in srgb, ${darkBackground} 90%, white)`
+                    },
+
+                    ".elevate-600": { 
+                        "background-color": `color-mix(in srgb, ${darkBackground} 88%, white)`
+                    },
+                    ".elevate-700": { 
+                        "background-color": `color-mix(in srgb, ${darkBackground} 86%, white)`
+                    },
+                    ".elevate-800": { 
+                        "background-color": `color-mix(in srgb, ${darkBackground} 84%, white)`
+                    },
+                    ".elevate-900": { 
+                        "background-color": `color-mix(in srgb, ${darkBackground} 82%, white)`
+                    },
+                },
+            },
+        ],
+        darkTheme: darkTheme,
+    },
+}

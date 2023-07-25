@@ -2,7 +2,9 @@ import { ToastConfigType } from "#/types/uiTypes"
 
 type modalValue = boolean | number
 
+
 export interface InitialUIStateType {
+    darkMode: boolean,
     modals: {
         tos: modalValue
         privacy: modalValue
@@ -11,11 +13,17 @@ export interface InitialUIStateType {
     toast: ToastConfigType
     drawer: {
         open: boolean
+    },
+    viewport: {
+        height: number
+        width: number
+        navbarHeight: number
     }
 }
 
 
 const initialUiState: InitialUIStateType = {
+    darkMode: true,
     modals: {
         tos: false,
         privacy: false,
@@ -30,6 +38,11 @@ const initialUiState: InitialUIStateType = {
     },
     drawer: {
         open: false
+    },
+    viewport: {
+        navbarHeight: -1,
+        height: -1,
+        width: -1
     }
 }
 

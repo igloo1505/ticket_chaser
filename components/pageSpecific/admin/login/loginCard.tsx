@@ -14,7 +14,6 @@ interface AdminLoginCardProps {
 }
 
 const AdminLoginCard = (props: AdminLoginCardProps) => {
-
     const [formData, setFormData] = useState<LoginBaseType>({
         email: "",
         password: "",
@@ -27,8 +26,12 @@ const AdminLoginCard = (props: AdminLoginCardProps) => {
             [target.name]: target.value
         })
     }
+
+    const handleLogin = () => {
+            
+        }
     return (
-        <Card title="Admin Login" container={{
+        <Card title="Admin Login" shadow container={{
             className: "min-w-[min(400px,85vw)] max-w-[calc(100vw-2rem)]"
         }}>
             <LoginForm handleChange={handleChange} formData={formData}>
@@ -39,6 +42,7 @@ const AdminLoginCard = (props: AdminLoginCardProps) => {
                         rememberMe: !formData.rememberMe
                     })} />
                 </div>
+                            <Button label="Login" onClick={handleLogin} />
             </div>
             </LoginForm>
         </Card>

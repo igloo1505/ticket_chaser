@@ -10,7 +10,7 @@ interface LoginPageProps {
 const LoginPage = (props: LoginPageProps) => {
 
     return (
-        <div className={'w-full h-full min-h-screen flex flex-col justify-center items-center'}>
+        <div className={'w-full h-full flex flex-col justify-center items-center'}>
             <AuthenticateCard />
         </div>
     )

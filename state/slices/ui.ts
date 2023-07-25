@@ -31,11 +31,14 @@ const slice = createSlice({
         },
         hideAllModals(state) {
             state.modals = initialUiState.modals
+        },
+        setDarkMode(state, action: PayloadAction<boolean>) {
+            state.darkMode = action.payload
         }
     }
 })
 
 
-export const { showToast, setDrawerOpen, clearToast, showModal, hideModal, hideAllModals } = slice.actions
+export const { showToast, setDrawerOpen, clearToast, showModal, hideModal, hideAllModals, setDarkMode } = slice.actions
 export default slice.reducer
 

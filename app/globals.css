@@ -7,3 +7,9 @@
 body {
     overflow-x: hidden;
 }
+
+.card-body {
+    padding-bottom: 1rem;
+    padding-top: 1rem
+}
+

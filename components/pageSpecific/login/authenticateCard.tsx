@@ -27,15 +27,15 @@ const AuthenticateCard = () => {
 
     }
     return (
-        <Card title={authenticateType} container={{
+        <Card title={authenticateType} shadow container={{
             className: "min-w-[min(400px,85vw)] max-w-[calc(100vw-2rem)]"
         }}>
             {authenticateType === "Login" ?
                 <LoginForm formData={formData} handleChange={handleChange}>
-                    <div className={'card-actions w-full h-fit flex flex-col justify-center items-center'}>
-                        <div className={'w-full  flex flex-col sm:flex-row sm:justify-between py-4 px-4 gap-4'}>
-                            <div className={'flex flex-row justify-start items-center w-full sm:w-fit'}>
-                                <Checkbox name="admin-login-rememberme" label="Remember Me" value={formData.rememberMe} onChange={() => setFormData({
+                    <div className={'card-actions pb-2 w-full h-fit flex flex-col justify-center items-center'}>
+                        <div className={'w-full grid grid-cols-1 sm:grid-cols-2 py-4 gap-4'}>
+                            <div className={'flex flex-row justify-start sm:justify-center items-center w-full sm:w-fit'}>
+                                <Checkbox name="admin-login-rememberme"  label="Remember Me" value={formData.rememberMe} onChange={() => setFormData({
                                     ...formData,
                                     rememberMe: !formData.rememberMe
                                 })} />

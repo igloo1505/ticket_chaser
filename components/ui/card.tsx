@@ -11,19 +11,20 @@ interface CardProps {
     title?: string
     bordered?: boolean
     variants?: variants[]
+    shadow?: boolean
 }
 
 
 
 
-const Card = ({container, title, variants, children, bordered=true}: CardProps) => {
+const Card = ({container, shadow, title, variants, children, bordered=true}: CardProps) => {
     const _variants = variants ? variants.join(" ") : ""
     if(!container){
         container = {}
     }
     return (
-        <div {...container} className={clsx("card", _variants, container.className && container.className, bordered && "card-bordered")}>
-            {title && <div className={'card-title'}>{title}</div>}
+        <div {...container} className={clsx("card elevate-200", _variants, container.className && container.className, bordered && "data-dark:border-darkBorder data-light:border-lightBorder", shadow && "shadow-lg")}>
+            {title && <div className={'card-title w-full text-center justify-center items-center pt-4'}>{title}</div>}
             <div className={'card-body'}>
             {children}
             </div>
