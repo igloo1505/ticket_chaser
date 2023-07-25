@@ -1,27 +1,50 @@
+"use client"
 import { InputBaseProps } from '#/types/uiTypes';
 import clsx from 'clsx';
-import { InputText } from 'primereact/inputtext'
-import React from 'react'
+import React, { useEffect } from 'react'
 
 
 interface TextInputProps extends InputBaseProps {
     helperText?: string
-    id?: string
     value: string
     label: string
     className?: string
+    placeholder?: string
     protect?: boolean
+    errorMessage?: string
+    indicateError?: boolean
 }
 
-const TextInput = ({ onChange, label, value, id, helperText, className, protect, name }: TextInputProps) => {
+interface IdGroup {
+    label: string
+    input: string
+}
+
+const TextInput = ({ onChange, indicateError, errorMessage, label, placeholder, value, helperText, className, protect, name }: TextInputProps) => {
+    const id = {
+        input: `form-input-${name}`,
+        label: `form-input-label-${name}`,
+}
+
+    useEffect(() => {
+        if (indicateError) {
+            wigglewigglewiggle(id)
+        }
+        if (!indicateError) {
+            resetErrorIndicator(id)
+        }
+    }, [indicateError])
+
     return (
-        <div className={clsx('flex flex-col gap-2 w-full', className && className)}>
-            {label && id && <label htmlFor={id}>{label}</label>}
-        <InputText value={value} type={protect ? "password": "text"} onChange={onChange} name={name} id={id ? id : undefined} />
-            {helperText && id && <small id={id}>
-                {helperText}
-            </small>
-            }
+        <div className={clsx("w-full", className && className)}>
+            <label className="label" id={id.label}>
+                <span className="label-text">{label}</span>
+            </label>
+            <input type={protect ? "password" : "ghost"} id={id.input} name={name} placeholder={placeholder} className={clsx("input input-bordered w-full", indicateError && "input-error")} onChange={onChange} value={value} />
+            {errorMessage && (<label className="label">
+                <span className={clsx("label-text-alt text-error", errorMessage ? "opacity-100" : "opacity-0")}>{errorMessage}</span>
+            </label>
+            )}
         </div>
     )
 }
@@ -31,3 +54,12 @@ TextInput.displayName = "TextInput"
 
 
 export default TextInput;
+
+
+const wigglewigglewiggle = (id: IdGroup) => {
+    console.log("Handle that wiggle animation when back on wifi and can look up the keyframe that looks best.")
+}
+
+const resetErrorIndicator = (id: IdGroup) => {
+    console.log("Handle that wiggle animation when back on wifi and can look up the keyframe that looks best.")
+}

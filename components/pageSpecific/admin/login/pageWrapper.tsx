@@ -11,6 +11,7 @@ const AdminLoginPageWrapper = (props: AdminLoginPageWrapperProps) => {
     return (
         <div className={'w-full h-full min-h-screen flex flex-col justify-center items-center'}>
             <AdminLoginCard />
+
         </div>
     )
 }

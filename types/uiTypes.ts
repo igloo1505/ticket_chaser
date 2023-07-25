@@ -1,5 +1,6 @@
 import React, { ChangeEvent } from "react"
 
+
 export interface ToastConfigType {
     variant?: "success" | "info" | "warn" | "error"
     content: string

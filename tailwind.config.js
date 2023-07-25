@@ -1002,8 +1002,15 @@ module.exports = {
             50: '50',
         },
     },
+    extend: {
+        containers: {
+        }
+
+    },
     plugins: [
         require('@tailwindcss/forms'),
+        require('@tailwindcss/container-queries'),
+        require("daisyui")
     ],
     safelist: [
         {
