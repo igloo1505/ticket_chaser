@@ -111,7 +111,7 @@ model Location {
     street String
     zip    Int
     city   String
-    state  String  @default("Il")
+    state  USSTATE  @default(WI)
     lat    Float?
     long   Float?
     Arena  Arena[]

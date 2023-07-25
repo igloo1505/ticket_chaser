@@ -1,11 +1,10 @@
-import React from 'react'
-import { CheckboxChangeEvent, Checkbox as PrimeCheckbox } from 'primereact/checkbox';
+import React, { ChangeEvent } from 'react'
 import clsx from 'clsx';
 
 
 
 interface CheckboxProps {
-    onChange: (e: CheckboxChangeEvent) => void
+    onChange: (e: ChangeEvent) => void
     label?: string
     value: boolean
     name: string

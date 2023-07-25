@@ -1,9 +1,10 @@
-import { USSTATE } from "@prisma/client"
+import { Location } from "@prisma/client"
 import { CreateUserReqBody } from "./AuthTypes"
 
 interface StateItem {
     name: string
-    abbrev: USSTATE
+    // abbrev: Location['state']
+    abbrev: string
 }
 const states: StateItem[] = [
     { name: "Alabama", abbrev: "AL	" },
