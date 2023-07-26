@@ -1,11 +1,17 @@
 import { CreateUserFormData, SignupFormDataType, SignupFormType } from "#/state/initial/forms/signup"
 
+
+
+export type StateByName =  "Alabama" | "Kentucky" | "Ohio" | "Alaska" | "Louisiana" | "Oklahoma" | "Arizona" | "Maine" | "Oregon" | "Arkansas" | "Maryland" | "Pennsylvania" | "American Samoa" | "Massachusetts" | "Puerto Rico" | "California" | "Michigan" | "Rhode Island" | "Colorado" | "Minnesota" | "South Carolina" | "Connecticut" | "Mississippi" | "South Dakota" | "Delaware" | "Missouri" | "Tennessee" | "District of Columbia" | "Montana" | "Texas" | "Florida" | "Nebraska" | "Trust Territories" | "Georgia" | "Nevada" | "Utah" | "Guam" | "New Hampshire" | "Vermont" | "Hawaii" | "New Jersey" | "Virginia" | "Idaho" | "New Mexico" | "Virgin Islands" | "Illinois" | "New York" | "Washington" | "Indiana" | "North Carolina" | "West Virginia" | "Iowa" | "North Dakota" | "Wisconsin" | "Northern Mariana Islands" | "Kansas" | "Wyoming"
+
+
 interface StateItem {
-    name: string
+    name: StateByName
     // abbrev: Location['state']
     abbrev: string
 }
-const states: StateItem[] = [
+
+export const states: StateItem[] = [
     { name: "Alabama", abbrev: "AL	" },
     { name: "Kentucky", abbrev: "KY	" },
     { name: "Ohio", abbrev: "OH" },
@@ -67,8 +73,11 @@ const states: StateItem[] = [
 
 
 
-export type Steps = "1" | "2"
-export const steps: Steps[] = ["1", "2"]
+
+
+
+export type Steps = "1" | "2" | "3"
+export const steps: Steps[] = ["1", "2", "3"]
 
 export interface SignupStepProps {
     form: SignupFormType

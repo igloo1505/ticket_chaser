@@ -29,12 +29,13 @@ const BasicInfoForm = ({ form, setFormData, showPasswordMismatch, step, showInva
     }
     return (
         <MultiStepTransition step={step} activeStep={parseInt(form.activeStep)} relative>
-            <div className={'w-full flex flex-col justify-center items-center gap-4 py-4'}>
+            <div className={'w-full flex flex-col justify-center items-center py-4'}>
                 <TextInput onChange={handleChange} name="email" label="Email" value={form.data.email}
+                    className={"mb-2"}
                 />
                     <FormErrorIndicator message={showInvalidEmail} />
                 <div className={'w-full flex flex-col justify-center items-center'}>
-                    <div className={'w-full flex flex-col justify-center items-center md:grid md:grid-cols-2 gap-4'}>
+                    <div className={'w-full flex flex-col justify-center items-center md:grid md:grid-cols-2 gap-2 md:gap-4'}>
                         <PasswordStrengthInput onChange={handleChange} name="password" protect label="Password" value={form.data.password}
                             indicateError={!passwordValid}
                         />

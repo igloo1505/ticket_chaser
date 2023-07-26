@@ -11,15 +11,18 @@ const FormErrorIndicator = (props: FormErrorIndicatorProps) => {
     const container = useRef<HTMLDivElement>(null!)
     const text = useRef<HTMLDivElement>(null!)
     useEffect(() => {
-    /* if(props.open && !props.message) return */
-      handleErrorIndicator(container, text, Boolean(props.message), props.openHeight || "16px")  
+      handleErrorIndicator(container, text, Boolean(props.message), props.openHeight || "32px")  
     }, [props.message])
 
     return (
-        <div className={'text-sm mt-2 text-error text-center flex justify-center items-center'} ref={container}
+        <div className={'text-sm h-0 text-error text-center flex justify-center items-center'} 
+            ref={container}
+            style={{
+                height: "0px"
+            }}
         >
             <div ref={text} style={{
-                opacity: 0,
+                opacity: 1,
                 /* transform: "scale(0)" */
             }}>
                 {props.message}
@@ -62,14 +65,19 @@ const handleErrorIndicator = (container: RefObject<HTMLDivElement>, text: RefObj
             duration: 0.3,
             ease: "power3.out"
         })
-        tl.fromTo(container.current, {
-            height: openHeight,
-            duration: 0.3
-        }, {
+        tl.to(container.current, {
             height: 0,
             duration: 0.3,
             ease: "power3.out"
         })
+        /* tl.fromTo(container.current, { */
+        /*     height: openHeight, */
+        /*     duration: 0.3 */
+        /* }, { */
+        /*     height: 0, */
+        /*     duration: 0.3, */
+        /*     ease: "power3.out" */
+        /* }) */
     }
         
     }

@@ -3,7 +3,7 @@ import { SignupStepProps, Steps, steps } from '#/types/inputValidation'
 import React, { useState } from 'react'
 import BasicInfoForm from './steps/basicInfo'
 import Button from '#/components/ui/button'
-import LocationForm from './steps/locationInfo'
+import CityForm from './steps/location/city'
 import clsx from 'clsx'
 import { validateEmail, validatePassword } from '#/utils/client/validate'
 
@@ -12,6 +12,7 @@ import store, { RootState } from '#/state/store';
 import { connect } from 'react-redux';
 import { SignupFormDataType, SignupFormType } from '#/state/initial/forms/signup'
 import { setSignupFormData } from '#/state/slices/form'
+import StateLocationForm from './steps/location/state'
 
 const connector = connect((state: RootState, props: any) => ({
     formData: state.form.signUp,
@@ -50,9 +51,16 @@ const validateMap: { [k in Steps]: (d: SignupFormType) => ValidateReturn } = {
         return { validState, shouldContinue }
     },
     "2": (form) => {
-        let d = {} as ValidateReturn
-        return d
-    }
+        let validState = {} as Partial<IndicateState>
+        let shouldContinue = true
+        return { validState, shouldContinue }
+    },
+
+    "3": (form) => {
+        let validState = {} as Partial<IndicateState>
+        let shouldContinue = true
+        return { validState, shouldContinue }
+    },
 }
 
 const initialValidateState: IndicateState = {
@@ -70,11 +78,11 @@ interface Props {
 
 const SignupMainForm = connector(({ setLogin, formData }: Props) => {
     const [indicateState, setIndicateState] = useState<IndicateState>(initialValidateState)
-    
+
     const setFormData = (d: SignupFormType) => {
         store.dispatch(setSignupFormData(d))
-            
-        }
+
+    }
 
     const handleSignup = () => {
 
@@ -142,7 +150,8 @@ const SignupMainForm = connector(({ setLogin, formData }: Props) => {
                     showPasswordMismatch={indicateState.passwordMismatch ? indicateState.passwordMismatch : null}
                     showInvalidEmail={indicateState.validEmail ? indicateState.validEmail : null}
                 />
-                <LocationForm form={formData} setFormData={handleFormData} step={2} />
+                <StateLocationForm form={formData} setFormData={handleFormData} step={2} />
+                <CityForm form={formData} setFormData={handleFormData} step={3} />
             </div>
             <div className={'card-actions pb-2 w-full h-fit flex flex-col justify-center items-center'}>
                 <div className={clsx('w-full grid gap-4 grid-cols-1', !formData.firstStep && "grid-cols-2")}>

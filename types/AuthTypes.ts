@@ -2,11 +2,6 @@ import type { ROLE } from "@prisma/client"
 
 export type AccessType = ROLE | "AUTHENTICATED" | "DEVELOPMENT" | "UNKNOWN" | false
 
-interface LegalName {
-    first: string
-    middle?: string | null
-    last: string
-}
 
 export interface RetrievedUserData {
     id: string | number
@@ -30,11 +25,6 @@ export interface LoginBaseType {
     rememberMe: boolean
 }
 
-export interface CreateUserReqBody {
-    email: string
-    password: string
-    name: LegalName
-}
 
 
 export type protectedRoleType = Extract<ROLE, "ADMIN" | "EMPLOYEE">

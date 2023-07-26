@@ -1,10 +1,8 @@
 "use client"
 import MultiStepTransition from '#/components/animate/multiStepTransition';
+import TextInput from '#/components/forms/inputs/textInput';
 import { SignupStepProps } from '#/types/inputValidation';
 import React, { ChangeEvent } from 'react'
-import TextInput from '../../inputs/textInput';
-import form from '../form';
-import { twoValuesMatch } from '#/utils/client/validate';
 
 
 
@@ -14,14 +12,17 @@ const LocationForm = ({ form, setFormData, step }: Props) => {
         const target = e.target as HTMLInputElement
         setFormData({
             ...form.data,
-            [target.name]: target.value
+            location: {
+                ...form.data.location,
+                [target.name]: target.value
+            }
         })
     }
 
     return (
         <MultiStepTransition step={step} activeStep={parseInt(form.activeStep)}>
             <div className={'w-full h-full flex flex-col justify-center items-center gap-4'}>
-                <TextInput onChange={handleChange} name="confirmPassword" label="Confirm Password" protect value={form.data.confirmPassword}
+                <TextInput onChange={handleChange} name="city" label="City" value={form.data.location.city}
                 />
             </div>
         </MultiStepTransition>

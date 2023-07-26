@@ -6,19 +6,19 @@ import InterestItem from './interestItem'
 
 
 interface InterestCategoryProps {
-   items: InterestType[]
+    items: InterestType[]
     category: CATEGORY
 }
 
 const InterestCategory = (props: InterestCategoryProps) => {
-return (
-    <div>
+    return (
+        <div>
             <div>{props.category}</div>
             <div>{
-                props.items.map((c, i) => <InterestItem item={c} key={`interestItem-${props.category}-${i}`}/>)
+                props.items.map((c, i) => <InterestItem item={c} key={`interestItem-${props.category}-${i}`} />)
             }</div>
         </div>
-)
+    )
 }
 
 

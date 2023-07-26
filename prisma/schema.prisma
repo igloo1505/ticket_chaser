@@ -115,7 +115,7 @@ model Location {
     state  USSTATE  @default(WI)
     lat    Float?
     long   Float?
-    Arena  Arena[]
+    arena  Arena[]
 }
 
 model User {
