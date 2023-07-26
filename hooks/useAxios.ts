@@ -7,7 +7,7 @@ const handleErrorDisplay = (err: AppError) => {
        console.log("err: ", err) 
     }
 
-const useAxios = async (method: Method, url: string, data?: object, config?: AxiosRequestConfig) => {
+const handleAxios = async (method: Method, url: string, data?: object, config?: AxiosRequestConfig) => {
     store.dispatch(setLoading(true))
     const res = await axios({
         url: url,
@@ -19,6 +19,7 @@ const useAxios = async (method: Method, url: string, data?: object, config?: Axi
     if(res.data.error) {
          handleErrorDisplay(res.data.error as AppError)
     }
+    return res
 }
 
-export default useAxios
+export default handleAxios

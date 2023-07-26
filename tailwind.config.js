@@ -1,8 +1,7 @@
 import { darkEvelations, darkTheme } from './daisy/dark'
 import { lightElevations, lightTheme } from './daisy/light'
 import { daisySafeList } from './daisy/safelist'
-console.log("lightElevations: ", lightElevations)
-console.log("darkEvelations: ", darkEvelations)
+
 /** @type {import('tailwindcss').Config} */
 module.exports = {
     content: [

@@ -81,7 +81,6 @@ const SignupMainForm = connector(({ setLogin, formData }: Props) => {
 
     const setFormData = (d: SignupFormType) => {
         store.dispatch(setSignupFormData(d))
-
     }
 
     const handleSignup = () => {

@@ -1,78 +1,101 @@
 import { CreateUserFormData, SignupFormDataType, SignupFormType } from "#/state/initial/forms/signup"
+import { USSTATE } from "@prisma/client"
 
 
 
-export type StateByName =  "Alabama" | "Kentucky" | "Ohio" | "Alaska" | "Louisiana" | "Oklahoma" | "Arizona" | "Maine" | "Oregon" | "Arkansas" | "Maryland" | "Pennsylvania" | "American Samoa" | "Massachusetts" | "Puerto Rico" | "California" | "Michigan" | "Rhode Island" | "Colorado" | "Minnesota" | "South Carolina" | "Connecticut" | "Mississippi" | "South Dakota" | "Delaware" | "Missouri" | "Tennessee" | "District of Columbia" | "Montana" | "Texas" | "Florida" | "Nebraska" | "Trust Territories" | "Georgia" | "Nevada" | "Utah" | "Guam" | "New Hampshire" | "Vermont" | "Hawaii" | "New Jersey" | "Virginia" | "Idaho" | "New Mexico" | "Virgin Islands" | "Illinois" | "New York" | "Washington" | "Indiana" | "North Carolina" | "West Virginia" | "Iowa" | "North Dakota" | "Wisconsin" | "Northern Mariana Islands" | "Kansas" | "Wyoming"
+
+export type StateByName = "Alabama" | "Alaska" | "American Samoa" | "Arizona" | "Arkansas" | "Baker Island" | "California" | "Colorado" | "Connecticut" | "Delaware" | "District of Columbia" | "Florida" | "Georgia" | "Guam" | "Hawaii" | "Howland Island" | "Idaho" | "Illinois" | "Indiana" | "Iowa" | "Jarvis Island" | "Johnston Atoll" | "Kansas" | "Kentucky" | "Kingman Reef" | "Louisiana" | "Maine" | "Maryland" | "Massachusetts" | "Michigan" | "Midway Atoll" | "Minnesota" | "Mississippi" | "Missouri" | "Montana" | "Navassa Island" | "Nebraska" | "Nevada" | "New Hampshire" | "New Jersey" | "New Mexico" | "New York" | "North Carolina" | "North Dakota" | "Northern Mariana Islands" | "Ohio" | "Oklahoma" | "Oregon" | "Palmyra Atoll" | "Pennsylvania" | "Puerto Rico" | "Rhode Island" | "South Carolina" | "South Dakota" | "Tennessee" | "Texas" | "United States Minor Outlying Islands" | "United States Virgin Islands" | "Utah" | "Vermont" | "Virginia" | "Wake Island" | "Washington" | "West Virginia" | "Wisconsin" | "Wyoming"
+
+
 
 
 interface StateItem {
     name: StateByName
     // abbrev: Location['state']
-    abbrev: string
+    abbrev: USSTATE
 }
 
+
+
+
 export const states: StateItem[] = [
-    { name: "Alabama", abbrev: "AL	" },
-    { name: "Kentucky", abbrev: "KY	" },
+    { name: "Alabama", abbrev: "AL" },
+    { name: "Alaska", abbrev: "AK" },
+    { name: "American Samoa", abbrev: "AS" },
+    { name: "Arizona", abbrev: "AZ" },
+    { name: "Arkansas", abbrev: "AR" },
+    { name: "Baker Island", abbrev: "UM_81" },
+    { name: "California", abbrev: "CA" },
+    { name: "Connecticut", abbrev: "CT" },
+    { name: "Colorado", abbrev: "CO" },
+    { name: "Delaware", abbrev: "DE" },
+    { name: "District of Columbia", abbrev: "DC" },
+    { name: "Florida", abbrev: "FL" },
+    { name: "Georgia", abbrev: "GA" },
+    { name: "Guam", abbrev: "GU" },
+    { name: "Hawaii", abbrev: "HI" },
+    { name: "Howland Island", abbrev: "UM_84" },
+    { name: "Idaho", abbrev: "ID" },
+    { name: "Illinois", abbrev: "IL" },
+    { name: "Indiana", abbrev: "IN" },
+    { name: "Iowa", abbrev: "IA" },
+    { name: "Jarvis Island", abbrev: "UM_86" },
+    { name: "Johnston Atoll", abbrev: "UM_67" },
+    { name: "Kansas", abbrev: "KS" },
+    { name: "Kentucky", abbrev: "KY" },
+    { name: "Kingman Reef", abbrev: "UM_89" },
+    { name: "Louisiana", abbrev: "LA" },
+    { name: "Maine", abbrev: "ME" },
+    { name: "Maryland", abbrev: "MD" },
+    { name: "Massachusetts", abbrev: "MA" },
+    { name: "Michigan", abbrev: "MI" },
+    { name: "Midway Atoll", abbrev: "UM_71" },
+    { name: "Minnesota", abbrev: "MN" },
+    { name: "Mississippi", abbrev: "MS" },
+    { name: "Missouri", abbrev: "MO" },
+    { name: "Montana", abbrev: "MT" },
+    { name: "Navassa Island", abbrev: "UM_76" },
+    { name: "Nebraska", abbrev: "NE" },
+    { name: "Nevada", abbrev: "NV" },
+    { name: "New Hampshire", abbrev: "NH" },
+    { name: "New Jersey", abbrev: "NJ" },
+    { name: "New Mexico", abbrev: "NM" },
+    { name: "New York", abbrev: "NY" },
+    { name: "North Carolina", abbrev: "NC" },
+    { name: "North Dakota", abbrev: "ND" },
+    { name: "Northern Mariana Islands", abbrev: "MP" },
     { name: "Ohio", abbrev: "OH" },
-    { name: "Alaska", abbrev: "AK	" },
-    { name: "Louisiana", abbrev: "LA	" },
     { name: "Oklahoma", abbrev: "OK" },
-    { name: "Arizona", abbrev: "AZ	" },
-    { name: "Maine", abbrev: "ME	" },
     { name: "Oregon", abbrev: "OR" },
-    { name: "Arkansas", abbrev: "AR	" },
-    { name: "Maryland", abbrev: "MD	" },
+    { name: "Palmyra Atoll", abbrev: "UM_95" },
     { name: "Pennsylvania", abbrev: "PA" },
-    { name: "American Samoa", abbrev: "AS	" },
-    { name: "Massachusetts", abbrev: "MA	" },
     { name: "Puerto Rico", abbrev: "PR" },
-    { name: "California", abbrev: "CA	" },
-    { name: "Michigan", abbrev: "MI	" },
     { name: "Rhode Island", abbrev: "RI" },
-    { name: "Colorado", abbrev: "CO	" },
-    { name: "Minnesota", abbrev: "MN	" },
     { name: "South Carolina", abbrev: "SC" },
-    { name: "Connecticut", abbrev: "CT	" },
-    { name: "Mississippi", abbrev: "MS	" },
     { name: "South Dakota", abbrev: "SD" },
-    { name: "Delaware", abbrev: "DE	" },
-    { name: "Missouri", abbrev: "MO	" },
     { name: "Tennessee", abbrev: "TN" },
-    { name: "District of Columbia", abbrev: "DC	" },
-    { name: "Montana", abbrev: "MT	" },
     { name: "Texas", abbrev: "TX" },
-    { name: "Florida", abbrev: "FL	" },
-    { name: "Nebraska", abbrev: "NE	" },
-    { name: "Trust Territories", abbrev: "TT" },
-    { name: "Georgia", abbrev: "GA	" },
-    { name: "Nevada", abbrev: "NV	" },
+    { name: "United States Minor Outlying Islands", abbrev: "UM" },
+    { name: "United States Virgin Islands", abbrev: "VI" },
     { name: "Utah", abbrev: "UT" },
-    { name: "Guam", abbrev: "GU	" },
-    { name: "New Hampshire", abbrev: "NH	" },
     { name: "Vermont", abbrev: "VT" },
-    { name: "Hawaii", abbrev: "HI	" },
-    { name: "New Jersey", abbrev: "NJ	" },
     { name: "Virginia", abbrev: "VA" },
-    { name: "Idaho", abbrev: "ID	" },
-    { name: "New Mexico", abbrev: "NM	" },
-    { name: "Virgin Islands", abbrev: "VI" },
-    { name: "Illinois", abbrev: "IL	" },
-    { name: "New York", abbrev: "NY	" },
+    { name: "Wake Island", abbrev: "UM_79" },
     { name: "Washington", abbrev: "WA" },
-    { name: "Indiana", abbrev: "IN	" },
-    { name: "North Carolina", abbrev: "NC	" },
     { name: "West Virginia", abbrev: "WV" },
-    { name: "Iowa", abbrev: "IA	" },
-    { name: "North Dakota", abbrev: "ND	" },
     { name: "Wisconsin", abbrev: "WI" },
-    { name: "Kansas", abbrev: "KS	" },
-    { name: "Northern Mariana Islands", abbrev: "MP	" },
-    { name: "Wyoming", abbrev: "WY" }
+    { name: "Wyoming", abbrev: "WY" },
 ]
 
 
+export interface CityDataType {
+    longitude: string
+    latitude: string
+    name: string
+    id: number
+}
 
+export type CityApiType = Omit<CityDataType, "latitude" | "longitude">
 
 
 
@@ -83,4 +106,9 @@ export interface SignupStepProps {
     form: SignupFormType
     step: number
     setFormData: (v: CreateUserFormData) => void
+}
+
+export interface CityFilterQueryParams {
+    state: StateByName
+    cityInput: string
 }

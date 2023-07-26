@@ -1,4 +1,5 @@
-import React, { Ref, RefObject, useEffect, useRef } from 'react'
+"use client"
+import React, { Ref, RefObject, useEffect, useRef, useState } from 'react'
 import gsap from 'gsap'
 
 
@@ -10,12 +11,22 @@ interface FormErrorIndicatorProps {
 const FormErrorIndicator = (props: FormErrorIndicatorProps) => {
     const container = useRef<HTMLDivElement>(null!)
     const text = useRef<HTMLDivElement>(null!)
+    const [isFirstRender, setIsFirstRender] = useState(true)
     useEffect(() => {
-      handleErrorIndicator(container, text, Boolean(props.message), props.openHeight || "32px")  
+        if (!props.message) {
+            handleErrorIndicator(container, text, false, props.openHeight || "42px")
+            setIsFirstRender(true)
+            return
+        }
+        if (isFirstRender) {
+            handleErrorIndicator(container, text, Boolean(props.message), props.openHeight || "32px")
+        }
+
+        setIsFirstRender(false)
     }, [props.message])
 
     return (
-        <div className={'text-sm h-0 text-error text-center flex justify-center items-center'} 
+        <div className={'text-sm h-0 pt-2 text-error text-center flex justify-center items-center'}
             ref={container}
             style={{
                 height: "0px"
@@ -42,8 +53,8 @@ export default FormErrorIndicator;
 
 const handleErrorIndicator = (container: RefObject<HTMLDivElement>, text: RefObject<HTMLDivElement>, open: boolean, openHeight: string) => {
     let tl = gsap.timeline()
-    if(!container.current || !text.current) return
-    if(open){
+    if (!container.current || !text.current) return
+    if (open) {
         tl.fromTo(container.current, {
             height: 0,
             duration: 0.3
@@ -58,7 +69,7 @@ const handleErrorIndicator = (container: RefObject<HTMLDivElement>, text: RefObj
             /* ease: "bounce-out" */
         })
     }
-    if(!open){
+    if (!open) {
         tl.to(text.current, {
             opacity: 0,
             scale: 0,
@@ -79,5 +90,5 @@ const handleErrorIndicator = (container: RefObject<HTMLDivElement>, text: RefObj
         /*     ease: "power3.out" */
         /* }) */
     }
-        
-    }
+
+}

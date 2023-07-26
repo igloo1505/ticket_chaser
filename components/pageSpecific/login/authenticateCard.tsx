@@ -10,6 +10,7 @@ import React, { ChangeEvent, useEffect, useState } from 'react'
 
 
 
+/* NOTE: Don't forget to add new grid columns in the stepIndicator component when adding new steps here, along with the 18 other places these steps are typed because you never plan anything ahead of time. */
 const indicatorSteps: StepIndicatorStep[] = [
    {
         label: "Login",
@@ -18,7 +19,12 @@ const indicatorSteps: StepIndicatorStep[] = [
     {
         label: "Location",
         activeRange: [2, 3]
-    }
+    },
+    {
+        label: "Interests",
+        activeRange: [4, 5]
+    },
+
 ]
 
 
@@ -44,7 +50,7 @@ const AuthenticateCard = () => {
         <Card title={authenticateType} id="signup-card-container" shadow elevate={200} container={{
             className: "min-w-[min(400px,85vw)] max-w-[calc(100vw-2rem)] relative"
         }}>
-            <StepIndicator steps={indicatorSteps} />
+            {authenticateType === "Sign Up" && <StepIndicator steps={indicatorSteps} />}
             {authenticateType === "Login" ?
                 <LoginForm formData={formData} handleChange={handleChange}>
                     <div className={'card-actions pb-2 w-full h-fit flex flex-col justify-center items-center'}>

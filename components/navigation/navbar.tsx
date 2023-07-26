@@ -1,13 +1,14 @@
 "use client"
 import { setDarkmode } from '#/actions/uiActions'
-import React, { useEffect } from 'react'
+import React, { useEffect, useRef } from 'react'
 import Button from '../ui/button'
 import { BsFillMoonStarsFill, BsFillSunFill } from 'react-icons/bs'
-import { RootState } from '#/state/store';
+import store, { RootState } from '#/state/store';
 import { connect } from 'react-redux';
 import IconButton from '../ui/iconButton';
 import clsx from 'clsx'
 import NavbarButton, { NavbarButtonProps } from './navbarButton'
+import { setViewportData } from '#/state/slices/ui'
 
 const connector = connect((state: RootState, props: any) => ({
     ui: state.UI,
@@ -58,12 +59,27 @@ const navbarButtons: NavbarButtonProps[] = [
 
 
 const Navbar = connector(({ ui }: NavbarProps) => {
+const ref = useRef<HTMLDivElement>(null!)
     useEffect(() => {
         animateDarkmode(ui.darkMode)
     }, [ui.darkMode])
     const toggleDark = () => {
         setDarkmode(!ui.darkMode)
     }
+    const monitorViewport = () => {
+        if(!ref.current) return
+        store.dispatch(setViewportData({
+            navbarHeight: ref.current.getBoundingClientRect().height,
+            height: window.innerHeight,
+            width: window.innerWidth
+
+        }))
+        }
+    useEffect(() => {
+       if (typeof window === "undefined") return; 
+        window.addEventListener("resize", monitorViewport)
+        return () => window.removeEventListener("resize", monitorViewport)
+    }, [])
     return (
         <div className="drawer">
             <input id="mainDrawer" type="checkbox" className="drawer-toggle" />
@@ -75,7 +91,7 @@ const Navbar = connector(({ ui }: NavbarProps) => {
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" className="inline-block w-6 h-6 stroke-current"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
                         </label>
                     </div>
-                    <div className="flex-row w-full justify-between items-center flex-nowrap hidden md:flex py-3 px-4">
+                    <div className="flex-row w-full justify-between items-center flex-nowrap hidden md:flex py-3 px-4" ref={ref}>
                         <div className={'text-xl pl-2'}>Title or Logo Here</div>
                         <div className={'flex flex-row justify-center items-center gap-4'}>
                             <IconButton onClick={toggleDark} circle className={'relative flex justify-center items-center'}>

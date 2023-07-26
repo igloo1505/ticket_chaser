@@ -2,6 +2,9 @@
 "use client"
 import MultiStepTransition from '#/components/animate/multiStepTransition';
 import Autocomplete from '#/components/forms/inputs/autocomplete';
+import { initialSignupFormState } from '#/state/initial/forms/signup';
+import { setRetrievedCities } from '#/state/slices/form';
+import store from '#/state/store';
 import { SignupStepProps, StateByName, states } from '#/types/inputValidation';
 import React, { ChangeEvent } from 'react'
 
@@ -32,12 +35,13 @@ const StateLocationForm = ({ form, setFormData, step }: Props) => {
                         value: form.data.location.state 
                     }}
                     onAccept={(v) => {
-                        console.log("states[v.index].name: ", states[v.index].name)
+                        store.dispatch(setRetrievedCities([]))
                         setFormData({
                         ...form.data,
                         location: {
                             ...form.data.location,
-                            state: states[v.index].name as StateByName
+                            state: states[v.index].name as StateByName,
+                            city: initialSignupFormState.data.location.city
                         }
                     })}}
                     items={states.map((s, i) => ({

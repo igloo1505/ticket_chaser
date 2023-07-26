@@ -34,11 +34,15 @@ const slice = createSlice({
         },
         setDarkMode(state, action: PayloadAction<boolean>) {
             state.darkMode = action.payload
-        }
+        },
+
+        setViewportData(state, action: PayloadAction<InitialUIStateType['viewport']>) {
+            state.viewport = action.payload
+        },
     }
 })
 
 
-export const { showToast, setDrawerOpen, clearToast, showModal, hideModal, hideAllModals, setDarkMode } = slice.actions
+export const { showToast, setDrawerOpen, clearToast, showModal, hideModal, hideAllModals, setDarkMode, setViewportData } = slice.actions
 export default slice.reducer
 

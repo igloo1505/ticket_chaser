@@ -1,5 +1,5 @@
 
-import { StateByName, Steps } from "#/types/inputValidation"
+import { CityApiType, StateByName, Steps } from "#/types/inputValidation"
 import { Location } from "@prisma/client"
 
 
@@ -17,7 +17,7 @@ export interface CreateUserReqBody {
     location: LocationFormData
 }
 
-export interface LocationFormData extends Omit<Location, "id" | "arena" | "lat" | "long" | "state"> {state: StateByName | ""}
+export interface LocationFormData extends Omit<Location, "id" | "city" | "arena" | "lat" | "long" | "state"> {state: StateByName | "", city: {name: string, id?: number | null}}
 
 export interface CreateUserFormData extends CreateUserReqBody {
     confirmPassword: ""
@@ -28,6 +28,7 @@ export interface SignupFormType {
     activeStep: Steps
     firstStep: boolean
     lastStep: boolean
+    localCities: CityApiType[]
 }
 
 export const initialSignupFormState: SignupFormType = {
@@ -43,13 +44,17 @@ export const initialSignupFormState: SignupFormType = {
         location: {
             street: "",
             zip: 90210,
-            city: "",
+            city: {
+                name: "",
+                id: null
+            },
             state: "",
         }
     },
-    activeStep: "2",
+    activeStep: "1",
     firstStep: true,
     lastStep: false,
+    localCities: []
 }
 
 
