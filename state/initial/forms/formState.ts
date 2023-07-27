@@ -1,4 +1,3 @@
-
 import {SignupFormType, initialSignupFormState} from './signup'
 export type InitialFormStateType = {
     signUp: SignupFormType
@@ -7,4 +6,5 @@ export type InitialFormStateType = {
 export const initialFormState = {
     signUp: initialSignupFormState
 }
+
 

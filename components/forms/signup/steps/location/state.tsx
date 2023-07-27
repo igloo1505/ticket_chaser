@@ -6,12 +6,13 @@ import { initialSignupFormState } from '#/state/initial/forms/signup';
 import { setRetrievedCities } from '#/state/slices/form';
 import store from '#/state/store';
 import { SignupStepProps, StateByName, states } from '#/types/inputValidation';
-import React, { ChangeEvent } from 'react'
+import React, { ChangeEvent, useRef } from 'react'
 
 
 
 interface Props extends SignupStepProps { }
-const StateLocationForm = ({ form, setFormData, step }: Props) => {
+const StateLocationForm = ({ form, relative, setFormData, step }: Props) => {
+        const containerRef = useRef<HTMLDivElement>(null!)
     const handleChange = (e: ChangeEvent) => {
         const target = e.target as HTMLInputElement
         setFormData({
@@ -24,7 +25,7 @@ const StateLocationForm = ({ form, setFormData, step }: Props) => {
     }
 
     return (
-        <MultiStepTransition step={step} activeStep={parseInt(form.activeStep)}>
+        <MultiStepTransition step={step} ref={containerRef} activeStep={parseInt(form.activeStep)} relative={Boolean(relative)}>
             <div className={'w-full h-full flex flex-col justify-center items-center gap-4'}>
                 <Autocomplete
                     maxDisplay={5}

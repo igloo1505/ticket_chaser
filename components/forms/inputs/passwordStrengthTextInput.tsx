@@ -15,7 +15,7 @@ const PasswordStrengthInput = (props: TextInputProps) => {
     }
 
     return (
-        <div className={"w-full"}>
+        <div className={"w-full min-w-fit"}>
             <TextInput {...props} />
         </div>
     )

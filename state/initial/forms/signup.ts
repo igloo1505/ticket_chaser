@@ -1,4 +1,3 @@
-
 import { CityApiType, StateByName, Steps } from "#/types/inputValidation"
 import { Location } from "@prisma/client"
 
@@ -51,11 +50,12 @@ export const initialSignupFormState: SignupFormType = {
             state: "",
         }
     },
-    activeStep: "1",
+    activeStep: "2",
     firstStep: true,
     lastStep: false,
     localCities: []
 }
+
 
 
 export type SignupFormDataType = SignupFormType['data']

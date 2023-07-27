@@ -1,6 +1,8 @@
 import { darkBackground, shadeGradient } from './variables'
 export const darkTheme = "night"
 
+
+// TO-DO: Fix this issue with the color-mix properties not displaying appropriately in safari.
 export const darkEvelations = {
     ".elevate-100": {
         "background-color": `color-mix(in srgb, ${darkBackground} ${shadeGradient[0]}%, white)`,

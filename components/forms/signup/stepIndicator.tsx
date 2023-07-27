@@ -1,7 +1,7 @@
 "use client"
 import clsx from 'clsx'
 import React, { useEffect, useRef, useState } from 'react'
-
+import {signupCardId} from "#/components/pageSpecific/login/authenticateCard"
 import { RootState } from '#/state/store';
 import { connect } from 'react-redux';
 
@@ -31,7 +31,7 @@ const StepIndicator = connector(({ steps, _activeStep, viewport }: StepIndicator
     const ref = useRef<HTMLUListElement>(null!)
     const handleLocation = () => {
         if (typeof window === "undefined") return;
-        const cardTitle = document.getElementById("signup-card-container-title")
+        const cardTitle = document.getElementById(`${signupCardId}-title`)
         if (!cardTitle || !ref.current) return
         const rect = ref.current.getBoundingClientRect()
         const t = cardTitle.getBoundingClientRect().height + rect.height + 32

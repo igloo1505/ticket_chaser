@@ -99,13 +99,14 @@ export type CityApiType = Omit<CityDataType, "latitude" | "longitude">
 
 
 
-export type Steps = "1" | "2" | "3"
-export const steps: Steps[] = ["1", "2", "3"]
+export type Steps = "1" | "2" | "3" | "4"
+export const steps: Steps[] = ["1", "2", "3", "4"]
 
 export interface SignupStepProps {
     form: SignupFormType
     step: number
     setFormData: (v: CreateUserFormData) => void
+    relative?: boolean
 }
 
 export interface CityFilterQueryParams {

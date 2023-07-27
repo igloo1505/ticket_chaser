@@ -4,7 +4,7 @@ import MultiStepTransition from '#/components/animate/multiStepTransition';
 import Autocomplete from '#/components/forms/inputs/autocomplete';
 import TextInput from '#/components/forms/inputs/textInput';
 import { CityApiType, SignupStepProps, StateByName, states } from '#/types/inputValidation';
-import React, { ChangeEvent, useState } from 'react'
+import React, { ChangeEvent, useRef, useState } from 'react'
 
 
 import {RootState} from '#/state/store';
@@ -16,7 +16,9 @@ const connector = connect((state: RootState, props: any) => ({
 }))
 
 interface Props extends SignupStepProps { retrievedCities: CityApiType[]}
-const LocationForm = connector(({ form, retrievedCities, setFormData, step }: Props) => {
+const LocationForm = connector(({ form, retrievedCities, setFormData, step, relative }: Props) => {
+
+    const containerRef = useRef<HTMLDivElement>(null!)
     const setCities = async (query: string) => {
         if (form.data.location.state !== "") {
          await getCitiesFromQuery(query, form.data.location.state)
@@ -40,7 +42,7 @@ const LocationForm = connector(({ form, retrievedCities, setFormData, step }: Pr
     }
 
     return (
-        <MultiStepTransition step={step} activeStep={parseInt(form.activeStep)}>
+        <MultiStepTransition step={step} ref={containerRef} activeStep={parseInt(form.activeStep)} relative={Boolean(relative)}>
             <div className={'w-full h-full flex flex-col justify-center items-center gap-4'}>
                 <Autocomplete
                     maxDisplay={5}

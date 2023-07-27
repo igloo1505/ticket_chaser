@@ -6,13 +6,13 @@ import Button from '#/components/ui/button'
 import CityForm from './steps/location/city'
 import clsx from 'clsx'
 import { validateEmail, validatePassword } from '#/utils/client/validate'
-
-
+import {multiStepSignupFormContainer} from "#/animations/signupForm"
 import store, { RootState } from '#/state/store';
 import { connect } from 'react-redux';
 import { SignupFormDataType, SignupFormType } from '#/state/initial/forms/signup'
 import { setSignupFormData } from '#/state/slices/form'
 import StateLocationForm from './steps/location/state'
+import PersonalDetailsForm from './steps/personal/name'
 
 const connector = connect((state: RootState, props: any) => ({
     formData: state.form.signUp,
@@ -55,8 +55,12 @@ const validateMap: { [k in Steps]: (d: SignupFormType) => ValidateReturn } = {
         let shouldContinue = true
         return { validState, shouldContinue }
     },
-
     "3": (form) => {
+        let validState = {} as Partial<IndicateState>
+        let shouldContinue = true
+        return { validState, shouldContinue }
+    },
+    "4": (form) => {
         let validState = {} as Partial<IndicateState>
         let shouldContinue = true
         return { validState, shouldContinue }
@@ -89,7 +93,6 @@ const SignupMainForm = connector(({ setLogin, formData }: Props) => {
 
     const handleValidateStep = (): boolean => {
         const { validState, shouldContinue } = validateMap[`${formData.activeStep}`](formData)
-        console.log("validState, shouldContinue: ", validState, shouldContinue)
         if (validState) {
             setIndicateState({
                 ...indicateState,
@@ -144,13 +147,14 @@ const SignupMainForm = connector(({ setLogin, formData }: Props) => {
 
     return (
         <div className={"w-full h-full flex flex-col justify-center items-center"}>
-            <div className={"w-full h-full flex flex-col justify-center items-center relative"}>
+            <div className={"w-full h-full flex flex-col justify-center items-center relative"} id={multiStepSignupFormContainer}>
                 <BasicInfoForm form={formData} setFormData={handleFormData} step={1}
                     showPasswordMismatch={indicateState.passwordMismatch ? indicateState.passwordMismatch : null}
-                    showInvalidEmail={indicateState.validEmail ? indicateState.validEmail : null}
+                    showInvalidEmail={indicateState.validEmail ? indicateState.validEmail : null} 
                 />
-                <StateLocationForm form={formData} setFormData={handleFormData} step={2} />
-                <CityForm form={formData} setFormData={handleFormData} step={3} />
+                <PersonalDetailsForm form={formData} setFormData={handleFormData} step={2}/>
+                <StateLocationForm form={formData} setFormData={handleFormData} step={3} />
+                <CityForm form={formData} setFormData={handleFormData} step={4} />
             </div>
             <div className={'card-actions pb-2 w-full h-fit flex flex-col justify-center items-center'}>
                 <div className={clsx('w-full grid gap-4 grid-cols-1', !formData.firstStep && "grid-cols-2")}>

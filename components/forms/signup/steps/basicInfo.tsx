@@ -1,16 +1,51 @@
 "use client"
 import MultiStepTransition from '#/components/animate/multiStepTransition';
 import { SignupStepProps } from '#/types/inputValidation';
-import React, { ChangeEvent, useEffect, useState } from 'react'
+import React, { ChangeEvent, useEffect, useState, useRef } from 'react'
 import TextInput from '../../inputs/textInput';
 import { twoValuesMatch } from '#/utils/client/validate';
 import FormErrorIndicator from '#/components/ui/formErrorIndicator';
 import PasswordStrengthInput from '../../inputs/passwordStrengthTextInput';
+import {changeContainerFixedSize} from "#/animations/signupForm"
 
+const errorOpenHeights = {
+     showPasswordMismatch: 42,
+     showInvalidEmail: 42,
+}
 
 interface Props extends SignupStepProps { showPasswordMismatch: string | null, showInvalidEmail: string | null }
-const BasicInfoForm = ({ form, setFormData, showPasswordMismatch, step, showInvalidEmail }: Props) => {
+
+interface ErrorState {
+     showPasswordMismatch: string | null,
+     showInvalidEmail: string | null,
+     totalErrorHeight: number
+}
+
+
+
+const getErrorState = (errors: Partial<ErrorState>) => {
+        let e = 0
+        console.log(errors)
+        Object.keys(errors).forEach(k => {
+            if(Boolean(errors[k]))
+            {e += errorOpenHeights[k]}
+        })
+        errors.totalErrorHeight = e
+        return errors
+}
+
+
+const BasicInfoForm = ({ form, relative, setFormData, showPasswordMismatch, step, showInvalidEmail }: Props) => {
     const [passwordValid, setPasswordValid] = useState<boolean>(true)
+    const [errorsShown, setErrorsShown] = useState<ErrorState>(getErrorState({showPasswordMismatch, showInvalidEmail}))
+    const containerRef = useRef<HTMLDivElement>(null!)
+    useEffect(() => {
+        const newErrorState = getErrorState({showPasswordMismatch, showInvalidEmail})
+        changeContainerFixedSize(newErrorState.totalErrorHeight - errorsShown.totalErrorHeight)
+        setErrorsShown(newErrorState)
+        }, [showPasswordMismatch, showInvalidEmail])
+
+
     const handleChange = (e: ChangeEvent) => {
         const target = e.target as HTMLInputElement
         if (target.name === "confirmPassword") {
@@ -20,7 +55,6 @@ const BasicInfoForm = ({ form, setFormData, showPasswordMismatch, step, showInva
         if (target.name === "password") {
             let validPass = twoValuesMatch(form.data.confirmPassword, target.value)
             setPasswordValid(validPass)
-
         }
         setFormData({
             ...form.data,
@@ -28,22 +62,28 @@ const BasicInfoForm = ({ form, setFormData, showPasswordMismatch, step, showInva
         })
     }
     return (
-        <MultiStepTransition step={step} activeStep={parseInt(form.activeStep)} relative>
-            <div className={'w-full flex flex-col justify-center items-center py-4'}>
+        <MultiStepTransition step={step} ref={containerRef} activeStep={parseInt(form.activeStep)} relative={Boolean(relative)}>
+            <div className={'w-full min-w-fit min-h-fit flex flex-col justify-center items-center py-4'}>
                 <TextInput onChange={handleChange} name="email" label="Email" value={form.data.email}
                     className={"mb-2"}
                 />
                     <FormErrorIndicator message={showInvalidEmail} />
                 <div className={'w-full flex flex-col justify-center items-center'}>
-                    <div className={'w-full flex flex-col justify-center items-center md:grid md:grid-cols-2 gap-2 md:gap-4'}>
+                    <div className={'w-full grid grid-cols-1 grid-rows-2 md:grid-cols-2 md:grid-rows-1 gap-2 md:gap-4'} 
+                    >
                         <PasswordStrengthInput onChange={handleChange} name="password" protect label="Password" value={form.data.password}
+                        openHeight={errorOpenHeights.showInvalidEmail}
                             indicateError={!passwordValid}
+                            inputClasses="min-w-[200px]"
                         />
                         <TextInput onChange={handleChange} name="confirmPassword" label="Confirm Password" protect value={form.data.confirmPassword}
                             indicateError={!passwordValid}
+                            inputClasses="min-w-[200px]"
                         />
                     </div>
-                    <FormErrorIndicator message={showPasswordMismatch} />
+                    <FormErrorIndicator message={showPasswordMismatch}
+                        openHeight={errorOpenHeights.showPasswordMismatch}
+                    />
                 </div>
             </div>
         </MultiStepTransition>

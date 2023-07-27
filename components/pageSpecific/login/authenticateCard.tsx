@@ -8,7 +8,7 @@ import Card from '#/components/ui/card';
 import { LoginBaseType } from '#/types/AuthTypes';
 import React, { ChangeEvent, useEffect, useState } from 'react'
 
-
+export const signupCardId = "signup-card-container"
 
 /* NOTE: Don't forget to add new grid columns in the stepIndicator component when adding new steps here, along with the 18 other places these steps are typed because you never plan anything ahead of time. */
 const indicatorSteps: StepIndicatorStep[] = [
@@ -26,6 +26,7 @@ const indicatorSteps: StepIndicatorStep[] = [
     },
 
 ]
+
 
 
 
@@ -47,8 +48,8 @@ const AuthenticateCard = () => {
 
     }
     return (
-        <Card title={authenticateType} id="signup-card-container" shadow elevate={200} container={{
-            className: "min-w-[min(400px,85vw)] max-w-[calc(100vw-2rem)] relative"
+        <Card title={authenticateType} id={signupCardId} shadow elevate={300} container={{
+            className: "min-w-[min(400px,85vw)] max-w-[calc(100vw-2rem)] relative opacity-0 initialRender"
         }}>
             {authenticateType === "Sign Up" && <StepIndicator steps={indicatorSteps} />}
             {authenticateType === "Login" ?

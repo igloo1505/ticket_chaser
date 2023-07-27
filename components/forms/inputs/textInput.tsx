@@ -14,6 +14,7 @@ export interface TextInputProps extends InputBaseProps {
     errorMessage?: string
     indicateError?: boolean
     extraInputProps?: object
+    inputClasses?: string
 }
 
 interface IdGroup {
@@ -21,7 +22,7 @@ interface IdGroup {
     input: string
 }
 
-const TextInput = ({ onChange, extraInputProps, indicateError, errorMessage, label, placeholder, value, helperText, className, protect, name }: TextInputProps) => {
+const TextInput = ({ onChange, inputClasses, extraInputProps, indicateError, errorMessage, label, placeholder, value, helperText, className, protect, name }: TextInputProps) => {
     const id = {
         input: `form-input-${name}`,
         label: `form-input-label-${name}`,
@@ -39,11 +40,11 @@ const TextInput = ({ onChange, extraInputProps, indicateError, errorMessage, lab
     const inputProps = extraInputProps || {}
 
     return (
-        <div className={clsx("w-full", className && className)}>
+        <div className={clsx("w-full min-w-fit", className && className)}>
             <label className="label" id={id.label}>
                 <span className="label-text">{label}</span>
             </label>
-            <input type={protect ? "password" : "ghost"} id={id.input} name={name} placeholder={placeholder} className={clsx("input input-bordered w-full", indicateError && "input-error")} onChange={onChange} value={value} {...inputProps} />
+            <input type={protect ? "password" : "ghost"} id={id.input} name={name} placeholder={placeholder} className={clsx("input input-bordered w-full", indicateError && "input-error", inputClasses && inputClasses)} onChange={onChange} value={value} {...inputProps} />
             {errorMessage && (<label className="label">
                 <span className={clsx("label-text-alt text-error", errorMessage ? "opacity-100" : "opacity-0")}>{errorMessage}</span>
             </label>

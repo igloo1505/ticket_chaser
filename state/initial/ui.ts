@@ -9,6 +9,7 @@ export interface InitialUIStateType {
         tos: modalValue
         privacy: modalValue
         payment: modalValue
+        idVerification: boolean
     },
     toast: ToastConfigType
     drawer: {
@@ -27,7 +28,8 @@ const initialUiState: InitialUIStateType = {
     modals: {
         tos: false,
         privacy: false,
-        payment: false
+        payment: false,
+        idVerification: false
     },
     toast: {
         variant: "info",
