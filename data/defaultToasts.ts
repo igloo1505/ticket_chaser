@@ -1,7 +1,7 @@
 import { ToastError, ToastErrorTypes } from "#/classes/ErrorHandling";
 
 
-export const toastConfigs: {[k in ToastErrorTypes]: ToastError} = {
+export const toastConfigs: { [k in ToastErrorTypes]: Omit<ToastError, "toastId"> } = {
     unauthenticated: {
         variant: "error",
         content: "You must be logged to do that.",
@@ -21,5 +21,10 @@ export const toastConfigs: {[k in ToastErrorTypes]: ToastError} = {
         variant: "warn",
         content: "That question was not found",
         title: "Not Found"
+    },
+    emailExists: {
+        variant: "warn",
+        content: "That email appears to already be in use.",
+        title: "Account exists."
     }
 }

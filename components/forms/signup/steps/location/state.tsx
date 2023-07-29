@@ -26,14 +26,15 @@ const StateLocationForm = ({ form, relative, setFormData, step }: Props) => {
 
     return (
         <MultiStepTransition step={step} ref={containerRef} activeStep={parseInt(form.activeStep)} relative={Boolean(relative)}>
-            <div className={'w-full h-full flex flex-col justify-center items-center gap-4'}>
+            <div className={'w-full h-full py-6 flex flex-col justify-center items-center gap-4'}>
                 <Autocomplete
                     maxDisplay={5}
                     inputProps={{
                         onChange:  handleChange ,
                         name: "state",
                         label: "State",
-                        value: form.data.location.state 
+                        value: form.data.location.state,
+                        minWidth: 300
                     }}
                     onAccept={(v) => {
                         store.dispatch(setRetrievedCities([]))

@@ -1,15 +1,15 @@
 "use client"
 import { setDarkmode } from '#/actions/uiActions'
 import React, { useEffect, useRef } from 'react'
-import Button from '../ui/button'
 import { BsFillMoonStarsFill, BsFillSunFill } from 'react-icons/bs'
 import store, { RootState } from '#/state/store';
 import { connect } from 'react-redux';
 import IconButton from '../ui/iconButton';
 import clsx from 'clsx'
 import NavbarButton, { NavbarButtonProps } from './navbarButton'
-import { setViewportData } from '#/state/slices/ui'
-
+import { setViewportData, toggleDrawer } from '#/state/slices/ui'
+import { navbarButtons } from './navbarButtons'
+import { Spin as Hamburger } from 'hamburger-react'
 const connector = connect((state: RootState, props: any) => ({
     ui: state.UI,
     props: props
@@ -19,47 +19,10 @@ interface NavbarProps {
     ui: RootState['UI']
 }
 
-const navbarButtons: NavbarButtonProps[] = [
-
-    {
-        href: "/login",
-        label: "Login",
-        displayAuth: "unauthenticated"
-    },
-    {
-        href: "/admin",
-        label: "Admin Login",
-        displayAuth: "development"
-    },
-]
-
-/* const Navbar = connector(({ ui }: NavbarProps) => { */
-/*     useEffect(() => { */
-/*         animateDarkmode(ui.darkMode) */
-/*     }, [ui.darkMode]) */
-/*     const toggleDark = () => { */
-/*         setDarkmode(!ui.darkMode) */
-/*     } */
-
-/*     return ( */
-/*         <div className={'flex flex-row justify-between items-center px-6 py-6'}> */
-/*             <div className={'text-2xl'}>Title or Logo Here</div> */
-/*             <div className={'flex flex-row justify-center items-center gap-4'}> */
-/*                 <IconButton onClick={toggleDark} circle className={'relative flex justify-center items-center'}> */
-/*                     <label className={clsx("h-full w-full swap swap-rotate", ui.darkMode && "swap-active")}> */
-/*                     <BsFillMoonStarsFill  className={clsx('swap-on')} /> */
-/*                     <BsFillSunFill className={clsx('swap-off')} /> */
-/*                     </label> */
-/*                 </IconButton> */
-/*                 {navbarButtons.map((b, i) => <NavbarButton {...b} key={`navbar-button-${i}`}/>)} */
-/*             </div> */
-/*         </div> */
-/*     ) */
-/* }) */
 
 
 const Navbar = connector(({ ui }: NavbarProps) => {
-const ref = useRef<HTMLDivElement>(null!)
+    const ref = useRef<HTMLDivElement>(null!)
     useEffect(() => {
         animateDarkmode(ui.darkMode)
     }, [ui.darkMode])
@@ -67,16 +30,16 @@ const ref = useRef<HTMLDivElement>(null!)
         setDarkmode(!ui.darkMode)
     }
     const monitorViewport = () => {
-        if(!ref.current) return
+        if (!ref.current) return
         store.dispatch(setViewportData({
             navbarHeight: ref.current.getBoundingClientRect().height,
             height: window.innerHeight,
             width: window.innerWidth
 
         }))
-        }
+    }
     useEffect(() => {
-       if (typeof window === "undefined") return; 
+        if (typeof window === "undefined") return;
         window.addEventListener("resize", monitorViewport)
         return () => window.removeEventListener("resize", monitorViewport)
     }, [])
@@ -86,10 +49,10 @@ const ref = useRef<HTMLDivElement>(null!)
             <div className="drawer-content flex flex-col">
                 {/* Navbar */}
                 <div className="w-full navbar">
-                    <div className="flex-none md:hidden">
-                        <label htmlFor="mainDrawer" className="btn btn-square btn-ghost">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" className="inline-block w-6 h-6 stroke-current"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
-                        </label>
+                    <div className="flex justify-center items-center md:hidden" style={{
+                        zIndex: 999999
+                    }}>
+                        <Hamburger toggled={ui.drawer.open} onToggle={() => store.dispatch(toggleDrawer())} />
                     </div>
                     <div className="flex-row w-full justify-between items-center flex-nowrap hidden md:flex py-3 px-4" ref={ref}>
                         <div className={'text-xl pl-2'}>Title or Logo Here</div>
@@ -104,15 +67,6 @@ const ref = useRef<HTMLDivElement>(null!)
                         </div>
                     </div>
                 </div>
-            </div>
-            <div className="drawer-side z-[999]">
-                <label htmlFor="mainDrawer" className="drawer-overlay"></label>
-                <ul className="menu p-4 w-fit h-full bg-base-100">
-                    <li><a>Sidebar Item 1</a></li>
-                    <li><a>Sidebar Item 2</a></li>
-
-                </ul>
-
             </div>
         </div>
     )

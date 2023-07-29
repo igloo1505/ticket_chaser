@@ -13,8 +13,9 @@ export interface TextInputProps extends InputBaseProps {
     protect?: boolean
     errorMessage?: string
     indicateError?: boolean
-    extraInputProps?: object
+    extraInputProps?: React.HTMLProps<HTMLInputElement>
     inputClasses?: string
+    minWidth?: number | string
 }
 
 interface IdGroup {
@@ -22,11 +23,11 @@ interface IdGroup {
     input: string
 }
 
-const TextInput = ({ onChange, inputClasses, extraInputProps, indicateError, errorMessage, label, placeholder, value, helperText, className, protect, name }: TextInputProps) => {
+const TextInput = ({ onChange, minWidth, inputClasses, extraInputProps, indicateError, errorMessage, label, placeholder, value, helperText, className, protect, name }: TextInputProps) => {
     const id = {
         input: `form-input-${name}`,
         label: `form-input-label-${name}`,
-}
+    }
 
     useEffect(() => {
         if (indicateError) {
@@ -38,6 +39,20 @@ const TextInput = ({ onChange, inputClasses, extraInputProps, indicateError, err
     }, [indicateError])
 
     const inputProps = extraInputProps || {}
+    if (minWidth) {
+        if (inputProps.style) {
+            inputProps.style = {
+                ...inputProps.style,
+                minWidth: typeof minWidth === "string" ? minWidth : `min(${minWidth}px, 85vw)`
+            }
+        }
+
+        if (!inputProps.style) {
+            inputProps.style = {
+                minWidth: typeof minWidth === "string" ? minWidth : `min(${minWidth}px, 85vw)`
+            }
+        }
+    }
 
     return (
         <div className={clsx("w-full min-w-fit", className && className)}>

@@ -113,3 +113,15 @@ export interface CityFilterQueryParams {
     state: StateByName
     cityInput: string
 }
+
+
+export type LocationJSONData = { [k in StateByName]: {
+    cities: CityDataType[],
+    name: StateByName,
+    id: number,
+    latitude: string,
+    longitude: string
+    country_id: number
+    state_code: USSTATE | string
+}
+}

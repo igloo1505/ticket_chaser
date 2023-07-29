@@ -1,3 +1,4 @@
+import QuickActions from '#/components/pageSpecific/admin/dashboard/quickActions';
 import React from 'react'
 
 
@@ -8,7 +9,9 @@ interface AdminDashboardPageProps {
 
 const AdminDashboardPage = (props: AdminDashboardPageProps) => {
     return (
-        <div>Admin Dashboard Page</div>
+        <div className={"w-full flex flex-col justify-center items-center py-8"}>
+            <QuickActions />
+        </div>
     )
 }
 

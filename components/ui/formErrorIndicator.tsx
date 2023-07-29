@@ -6,6 +6,7 @@ import gsap from 'gsap'
 interface FormErrorIndicatorProps {
     message: string | null
     openHeight?: number
+    onChange?: () => void
 }
 
 const FormErrorIndicator = (props: FormErrorIndicatorProps) => {
@@ -14,12 +15,12 @@ const FormErrorIndicator = (props: FormErrorIndicatorProps) => {
     const [isFirstRender, setIsFirstRender] = useState(true)
     useEffect(() => {
         if (!props.message) {
-            handleErrorIndicator(container, text, false, props.openHeight || 42)
+            handleErrorIndicator(container, text, false, props.openHeight || 42, props.onChange)
             setIsFirstRender(true)
             return
         }
         if (isFirstRender) {
-            handleErrorIndicator(container, text, Boolean(props.message), props.openHeight || 42)
+            handleErrorIndicator(container, text, Boolean(props.message), props.openHeight || 42, props.onChange)
         }
         setIsFirstRender(false)
     }, [props.message])
@@ -50,8 +51,8 @@ export default FormErrorIndicator;
 
 
 
-const handleErrorIndicator = (container: RefObject<HTMLDivElement>, text: RefObject<HTMLDivElement>, open: boolean, openHeight: number) => {
-    let tl = gsap.timeline()
+const handleErrorIndicator = (container: RefObject<HTMLDivElement>, text: RefObject<HTMLDivElement>, open: boolean, openHeight: number, onChange?: () => void) => {
+    let tl = gsap.timeline({ onComplete: onChange || undefined })
     if (!container.current || !text.current) return
     if (open) {
         tl.fromTo(container.current, {

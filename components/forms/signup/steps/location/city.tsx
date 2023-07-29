@@ -7,21 +7,21 @@ import { CityApiType, SignupStepProps, StateByName, states } from '#/types/input
 import React, { ChangeEvent, useRef, useState } from 'react'
 
 
-import {RootState} from '#/state/store';
-import {connect} from 'react-redux';
+import { RootState } from '#/state/store';
+import { connect } from 'react-redux';
 
 const connector = connect((state: RootState, props: any) => ({
     retrievedCities: state.form.signUp.localCities,
     props: props
 }))
 
-interface Props extends SignupStepProps { retrievedCities: CityApiType[]}
+interface Props extends SignupStepProps { retrievedCities: CityApiType[] }
 const LocationForm = connector(({ form, retrievedCities, setFormData, step, relative }: Props) => {
 
     const containerRef = useRef<HTMLDivElement>(null!)
     const setCities = async (query: string) => {
-        if (form.data.location.state !== "") {
-         await getCitiesFromQuery(query, form.data.location.state)
+        if (states.map((s) => s.name).indexOf(form.data.location.state) !== 0) {
+            await getCitiesFromQuery(query, form.data.location.state)
         }
     }
     const handleChange = (e: ChangeEvent) => {
@@ -43,16 +43,19 @@ const LocationForm = connector(({ form, retrievedCities, setFormData, step, rela
 
     return (
         <MultiStepTransition step={step} ref={containerRef} activeStep={parseInt(form.activeStep)} relative={Boolean(relative)}>
-            <div className={'w-full h-full flex flex-col justify-center items-center gap-4'}>
+            <div className={'w-full h-full py-6 flex flex-col justify-center items-center gap-4'}>
                 <Autocomplete
                     maxDisplay={5}
                     inputProps={{
                         onChange: handleChange,
                         name: "city",
                         label: "City",
-                        value: form.data.location.city.name
+                        value: form.data.location.city.name,
+                        minWidth: 300
                     }}
                     onAccept={(v) => {
+                        console.log(retrievedCities)
+                        console.log(v)
                         const selectedCity = retrievedCities.filter((r) => r.id === v.id)[0]
                         let _city = {} as typeof form.data.location.city
                         if (selectedCity) {

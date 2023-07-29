@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useEffect, useState } from 'react'
+import React, { ChangeEvent, KeyboardEventHandler, useEffect, useState } from 'react'
 import TextInput, { TextInputProps } from './textInput'
 import { StateByName } from '#/types/inputValidation'
 import clsx from 'clsx'
@@ -18,13 +18,13 @@ interface AutocompleteProps {
     items: AutocompleteOption[]
 }
 
-const DropdownItem = ({ item, selectedIndex, filteredIndex, filteredLength }: { item: AutocompleteOption, selectedIndex: number, filteredIndex: number, filteredLength: number }) => {
+const DropdownItem = ({ item, selectItem, selectedIndex, setSelectedIndex, filteredIndex, filteredLength }: { item: AutocompleteOption, selectedIndex: number, filteredIndex: number, setSelectedIndex: () => void, filteredLength: number, selectItem: () => void }) => {
     const [isActive, setIsActive] = useState(false)
     useEffect(() => {
         setIsActive(filteredIndex === selectedIndex)
     }, [filteredIndex, selectedIndex])
     return (
-        <div className={clsx("w-full autocomplete-dropdown-item grid grid-row gap-1 grid-cols-[24px_1fr] bg-base-100 py-2 px-2", filteredIndex === filteredLength - 1 && "rounded-br-sm rounded-bl-sm")}>
+        <div className={clsx("w-full cursor-pointer autocomplete-dropdown-item grid grid-row gap-1 grid-cols-[24px_1fr] bg-base-100 py-2 px-2", filteredIndex === filteredLength - 1 && "rounded-br-sm rounded-bl-sm")} onClick={selectItem} onMouseEnter={setSelectedIndex}>
             <div className={"w-full h-full grid items-center"}>
                 <AiOutlineArrowRight className={clsx("text-primary h-[16px] w-[16px]", isActive ? "opacity-100" : "opacity-0")} />
             </div>
@@ -39,11 +39,13 @@ const DropdownItem = ({ item, selectedIndex, filteredIndex, filteredLength }: { 
 interface DropdownProps extends Pick<AutocompleteProps, "items"> {
     open: boolean
     selectedIndex: number
+    selectByIndex: (idx: number) => void
+    setSelectedIndex: (idx: number) => void
 }
 
-const AutocompleDropdown = ({ open, items, selectedIndex }: DropdownProps) => {
+const AutocompleDropdown = ({ open, items, selectedIndex, setSelectedIndex, selectByIndex }: DropdownProps) => {
     return (
-        <div className={clsx("flex-col w-full justify-center items-center absolute bottom-0 translate-y-[calc(100%)]", open ? "flex" : "hidden")}>{items.map((j, i) => <DropdownItem item={j} key={`dropdown-item-${i}`} selectedIndex={selectedIndex} filteredIndex={i} filteredLength={items.length} />)}</div>
+        <div className={clsx("flex-col w-full justify-center items-center absolute bottom-0 translate-y-[calc(100%)]", open ? "flex" : "hidden")}>{items.map((j, i) => <DropdownItem item={j} selectItem={() => selectByIndex(i)} key={`dropdown-item-${i}`} setSelectedIndex={() => setSelectedIndex(i)} selectedIndex={selectedIndex} filteredIndex={i} filteredLength={items.length} />)}</div>
     )
 
 }
@@ -128,7 +130,7 @@ const Autocomplete = ({ inputProps, maxDisplay, onAccept, items }: AutocompleteP
         }
         const shouldSelect = autoSelect(target.value)
         setOpen(!shouldSelect)
-        if(!shouldSelect) setFilteredItems([])
+        if (!shouldSelect) setFilteredItems([])
         if (!shouldSelect) {
             const _f = filterItems(target.value)
             if (_f) {
@@ -155,7 +157,7 @@ const Autocomplete = ({ inputProps, maxDisplay, onAccept, items }: AutocompleteP
         setSelectedIndex(newIndex)
     }
 
-    const handleKeyDown = (e: KeyboardEvent) => {
+    const handleKeyDown: KeyboardEventHandler<HTMLInputElement> = (e) => {
         if (e.code === "Enter" && selectedIndex >= 0 && selectedIndex <= filteredItems.length - 1) {
             e.preventDefault()
             e.stopPropagation()
@@ -178,7 +180,7 @@ const Autocomplete = ({ inputProps, maxDisplay, onAccept, items }: AutocompleteP
     return (
         <div className={"relative"}>
             <TextInput {...inputProps} onChange={onInputChange} extraInputProps={{ onKeyDown: handleKeyDown }} />
-            <AutocompleDropdown items={filteredItems} open={open} selectedIndex={selectedIndex} />
+            <AutocompleDropdown items={filteredItems} setSelectedIndex={setSelectedIndex} open={open} selectedIndex={selectedIndex} selectByIndex={selectByIndex} />
         </div>
     )
 }

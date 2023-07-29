@@ -2,7 +2,7 @@ import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import initialState from "../initial/initialState";
 import { ToastConfigType } from "#/types/uiTypes";
 import initialUiState, { InitialUIStateType } from "../initial/ui";
-
+import { v4 as uuid } from 'uuid';
 
 
 const slice = createSlice({
@@ -17,11 +17,18 @@ const slice = createSlice({
                 state.drawer.open = action.payload
             }
         },
-        showToast(state, action: PayloadAction<ToastConfigType>) {
-            state.toast = action.payload
+        toggleDrawer(state) {
+            state.drawer.open = !state.drawer.open
         },
-        clearToast(state) {
-            state.toast = initialUiState.toast
+        showToast(state, action: PayloadAction<ToastConfigType>) {
+            state.toasts.push({
+                ...action.payload,
+                toastId: uuid(),
+                isOpen: true
+            })
+        },
+        clearToast(state, action: PayloadAction<string>) {
+            state.toasts = state.toasts.filter((t) => t.toastId !== action.payload)
         },
         showModal(state, action: PayloadAction<keyof InitialUIStateType['modals']>) {
             state.modals[action.payload] = true
@@ -43,6 +50,6 @@ const slice = createSlice({
 })
 
 
-export const { showToast, setDrawerOpen, clearToast, showModal, hideModal, hideAllModals, setDarkMode, setViewportData } = slice.actions
+export const { showToast, setDrawerOpen, toggleDrawer, clearToast, showModal, hideModal, hideAllModals, setDarkMode, setViewportData } = slice.actions
 export default slice.reducer
 

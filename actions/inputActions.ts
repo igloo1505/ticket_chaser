@@ -10,6 +10,9 @@ export const getCitiesFromQuery = async (query: string, state: StateByName) => {
             state: state
         }
     })
+    if (!res) {
+        return []
+    }
     if (res.data.success && res.data.cities) {
         store.dispatch(setRetrievedCities(res.data.cities))
         return res.data.cities as CityApiType[]

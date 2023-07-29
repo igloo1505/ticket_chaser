@@ -11,7 +11,7 @@ export interface InitialUIStateType {
         payment: modalValue
         idVerification: boolean
     },
-    toast: ToastConfigType
+    toasts: ToastConfigType[]
     drawer: {
         open: boolean
     },
@@ -31,13 +31,7 @@ const initialUiState: InitialUIStateType = {
         payment: false,
         idVerification: false
     },
-    toast: {
-        variant: "info",
-        isOpen: false,
-        content: "",
-        title: "",
-        timeout: 0
-    },
+    toasts: [],
     drawer: {
         open: false
     },

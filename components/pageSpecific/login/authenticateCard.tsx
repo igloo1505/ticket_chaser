@@ -16,15 +16,14 @@ const indicatorSteps: StepIndicatorStep[] = [
         label: "Login",
         activeRange: [1]
     },
+   {
+        label: "Personal",
+        activeRange: [2]
+    },
     {
         label: "Location",
-        activeRange: [2, 3]
+        activeRange: [3, 4]
     },
-    {
-        label: "Interests",
-        activeRange: [4, 5]
-    },
-
 ]
 
 
@@ -49,7 +48,7 @@ const AuthenticateCard = () => {
     }
     return (
         <Card title={authenticateType} id={signupCardId} shadow elevate={300} container={{
-            className: "min-w-[min(400px,85vw)] max-w-[calc(100vw-2rem)] relative opacity-0 initialRender"
+            className: "max-w-[calc(100vw-2rem)] relative opacity-0 initialRender"
         }}>
             {authenticateType === "Sign Up" && <StepIndicator steps={indicatorSteps} />}
             {authenticateType === "Login" ?

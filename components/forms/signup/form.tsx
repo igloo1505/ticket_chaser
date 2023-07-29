@@ -6,13 +6,14 @@ import Button from '#/components/ui/button'
 import CityForm from './steps/location/city'
 import clsx from 'clsx'
 import { validateEmail, validatePassword } from '#/utils/client/validate'
-import {multiStepSignupFormContainer} from "#/animations/signupForm"
+import { multiStepSignupFormContainer } from "#/animations/signupForm"
 import store, { RootState } from '#/state/store';
 import { connect } from 'react-redux';
 import { SignupFormDataType, SignupFormType } from '#/state/initial/forms/signup'
 import { setSignupFormData } from '#/state/slices/form'
 import StateLocationForm from './steps/location/state'
 import PersonalDetailsForm from './steps/personal/name'
+import { registerUser } from "#/actions/authActions"
 
 const connector = connect((state: RootState, props: any) => ({
     formData: state.form.signUp,
@@ -87,8 +88,9 @@ const SignupMainForm = connector(({ setLogin, formData }: Props) => {
         store.dispatch(setSignupFormData(d))
     }
 
-    const handleSignup = () => {
-
+    const handleSignup = async () => {
+        // let data = formData.data /* as Create */
+        const success = await registerUser(formData.data)
     }
 
     const handleValidateStep = (): boolean => {
@@ -150,9 +152,9 @@ const SignupMainForm = connector(({ setLogin, formData }: Props) => {
             <div className={"w-full h-full flex flex-col justify-center items-center relative"} id={multiStepSignupFormContainer}>
                 <BasicInfoForm form={formData} setFormData={handleFormData} step={1}
                     showPasswordMismatch={indicateState.passwordMismatch ? indicateState.passwordMismatch : null}
-                    showInvalidEmail={indicateState.validEmail ? indicateState.validEmail : null} 
+                    showInvalidEmail={indicateState.validEmail ? indicateState.validEmail : null}
                 />
-                <PersonalDetailsForm form={formData} setFormData={handleFormData} step={2}/>
+                <PersonalDetailsForm form={formData} setFormData={handleFormData} step={2} />
                 <StateLocationForm form={formData} setFormData={handleFormData} step={3} />
                 <CityForm form={formData} setFormData={handleFormData} step={4} />
             </div>

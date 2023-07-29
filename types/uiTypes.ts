@@ -7,9 +7,10 @@ export interface ToastConfigType {
     timeout?: number | null
     isOpen?: boolean
     title?: string
+    toastId: string
 }
 
-export interface ContainerProps<T> extends React.HTMLProps<T> {}
+export interface ContainerProps<T> extends React.HTMLProps<T> { }
 
 export interface InputBaseProps {
     onChange: (e: ChangeEvent) => void
@@ -20,7 +21,7 @@ export interface InputBaseProps {
 
 export type Elevation = "100" | "200" | "300" | "400" | "500" | "600" | "700" | "800" | "900" | 100 | 200 | 300 | 400 | 500 | 600 | 700 | 800 | 900 | null | undefined
 
-export const elevationMap: Partial<{[k in "100" | "200" | "300" | "400" | "500" | "600" | "700" | "800" | "900"]: string}> = {
+export const elevationMap: Partial<{ [k in "100" | "200" | "300" | "400" | "500" | "600" | "700" | "800" | "900"]: string }> = {
     100: "elevate-100",
     200: "elevate-200",
     300: "elevate-300",

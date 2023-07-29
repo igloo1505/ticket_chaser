@@ -4,7 +4,7 @@ import { ToastConfigType } from "#/types/uiTypes"
 import { getCorsHeaders } from "#/utils/server/cors"
 import { NextRequest, NextResponse } from "next/server"
 
-export type ToastErrorTypes = "unauthenticated" | "tokenExpired" | "mustBeVerified" | "faqNotFound"
+export type ToastErrorTypes = "unauthenticated" | "tokenExpired" | "mustBeVerified" | "faqNotFound" | "emailExists"
 
 
 
@@ -24,7 +24,7 @@ export interface InternalError {
     toastErrorType?: ToastErrorTypes
     toastRestricted?: AccessType[]
     statusCode?: number
-    currentRole: AccessType
+    currentRole?: AccessType
 }
 
 interface ReturnedConsoleError extends ConsoleError {
@@ -35,12 +35,13 @@ interface ReturnedConsoleError extends ConsoleError {
 export class AppError {
     consoleError?: ReturnedConsoleError
     toastErrorType?: ToastErrorTypes
-    toastError?: ToastError
+    toastError?: Partial<ToastError>
     toastRestricted?: AccessType[]
     statusCode: number = 500
-    showError: boolean = false
     currentRole: AccessType = false
-    constructor(public props: InternalError) {
+    constructor(props: InternalError) {
+        /// @ts-ignore
+        Object.keys(props).forEach((k) => this[k] = props[k])
         this.handleRestriction()
     }
     handleRestriction() {
@@ -60,7 +61,6 @@ export class AppError {
         return {
             ...(this.consoleError && { consoleError: this.consoleError }),
             ...(this.toastError && { toastError: this.toastError }),
-            showError: this.showError
         }
 
     }

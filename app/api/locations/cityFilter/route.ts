@@ -4,20 +4,11 @@ import { createEdgeRouter } from "next-connect";
 import { prisma } from "#/db/db";
 import { AppError } from "#/classes/ErrorHandling";
 import { getCorsHeaders, optionsMethodResponse } from "#/utils/server/cors";
-import { CityDataType, CityFilterQueryParams, StateByName } from "#/types/inputValidation";
-import cData from '#/data/server/USOnly.json'
+import { CityDataType, CityFilterQueryParams, LocationJSONData, StateByName } from "#/types/inputValidation";
 import { USSTATE } from "@prisma/client";
+import cData from '#/data/server/USOnly.json'
 
-const cityData = cData as { [k in StateByName]: {
-    cities: CityDataType[],
-    name: StateByName,
-    id: number,
-    latitude: string,
-    longitude: string
-    country_id: number
-    state_code: USSTATE | string
-}
-}
+const cityData = cData as LocationJSONData
 
 
 interface RequestContext {
@@ -37,7 +28,7 @@ router
             const filtered = cityData[query.state].cities.filter((c) => reg.test(c.name))
             return new NextResponse(JSON.stringify({
                 cities: filtered.map((c) => ({
-                name: c.name,
+                    name: c.name,
                     id: c.id
                 })),
                 success: true

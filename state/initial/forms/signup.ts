@@ -13,13 +13,19 @@ export interface CreateUserReqBody {
     email: string
     password: string
     name: LegalName
-    location: LocationFormData
+    location: {
+        city: {
+            id?: number | null
+            name: string
+        },
+        street?: string
+        state: StateByName
+    }
 }
 
-export interface LocationFormData extends Omit<Location, "id" | "city" | "arena" | "lat" | "long" | "state"> {state: StateByName | "", city: {name: string, id?: number | null}}
 
 export interface CreateUserFormData extends CreateUserReqBody {
-    confirmPassword: ""
+    confirmPassword: string
 }
 
 export interface SignupFormType {
@@ -42,20 +48,30 @@ export const initialSignupFormState: SignupFormType = {
         },
         location: {
             street: "",
-            zip: 90210,
             city: {
                 name: "",
                 id: null
             },
-            state: "",
+            state: "" as StateByName
         }
     },
-    activeStep: "2",
+    activeStep: "1",
     firstStep: true,
     lastStep: false,
     localCities: []
 }
 
+
+export interface CreateUserRequestType extends Omit<SignupFormType['data'], "confirmPassword"> {
+    location: {
+        city: {
+            id?: number | null
+            name: string
+        },
+        street?: string | undefined
+        state: StateByName
+    }
+}
 
 
 export type SignupFormDataType = SignupFormType['data']
