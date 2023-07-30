@@ -9,6 +9,17 @@ export const navbarButtons: NavbarButtonProps[] = [
     {
         href: "/admin",
         label: "Admin Login",
-        displayAuth: "development"
+        displayAuth: "development",
+        displayFunc: (d) => {
+            return !d.authenticated && process.env.NODE_ENV === "development"
+        }
+    },
+    {
+        href: "/admin/legit",
+        label: "Admin",
+        displayAuth: "development",
+        displayFunc: (d) => {
+            return d.authenticated && process.env.NODE_ENV === "development"
+        }
     },
 ]

@@ -32,11 +32,6 @@ router
                 const res = error.genResponse(null, req)
                 return res
             }
-            // let locationData = {
-            //     state: user.location.state,
-            //     // city: 
-            // }
-            // if(!locationData.city.id)
             const newUserData: Prisma.UserCreateWithoutPaymentAccountInput = {
                 email: user.email,
                 password: encryptedPassword,
@@ -53,16 +48,20 @@ router
                             }
                         },
                     }
-                }
+                },
             }
             const newUser = await prisma.user.create({
                 data: newUserData,
                 include: {
-                    personalDetails: true,
+                    personalDetails: {
+                        include: {
+                            location: true,
+                            name: true
+                        }
+                    },
                 }
-
             })
-            return new NextResponse(JSON.stringify({ user: newUser, success: true }));
+            return new NextResponse(JSON.stringify({ user: { ...newUser, password: undefined }, success: true }));
         } catch (err) {
             console.error(err)
             /// @ts-ignore

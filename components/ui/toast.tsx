@@ -6,6 +6,7 @@ import clsx from 'clsx';
 import { BsFillXCircleFill } from 'react-icons/bs'
 import { clearToast } from '#/state/slices/ui';
 import gsap from 'gsap'
+import { useRouter } from 'next/navigation';
 
 
 interface ToastProps {
@@ -14,15 +15,22 @@ interface ToastProps {
 
 const Toast = ({ toast }: ToastProps) => {
     const ref = useRef<HTMLDivElement>(null!)
+    const router = useRouter()
     useEffect(() => {
         enter(ref)
     }, [])
     const closeToast = () => {
         store.dispatch(clearToast(toast.toastId))
     }
+    const handleClick = () => {
+        if (toast.clickRedirect) {
+            router.push(toast.clickRedirect)
+        }
+    }
     setTimeout(closeToast, toast.timeout || 5000)
     return (
-        <div className={clsx("z-[99999] opacity-0 w-fit py-4 px-4 rounded-md grid grid-cols-[1fr_30px] place-items-center", toast.variant === "error" && "bg-error text-error-content", toast.variant === "warn" && "bg-warning text-warning-content")}
+        <div className={clsx("z-[99999] opacity-0 w-fit py-4 px-4 rounded-md grid grid-cols-[1fr_30px] place-items-center", toast.variant === "error" && "bg-error text-error-content", toast.variant === "warn" && "bg-warning text-warning-content", toast.clickRedirect && "cursor-pointer")}
+            onClick={handleClick}
             style={{
                 transition: "transform 0.3s ease-in-out",
                 transform: "translateX(200%)"

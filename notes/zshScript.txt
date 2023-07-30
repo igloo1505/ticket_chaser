@@ -1,5 +1,0 @@
-export LEGITTIXROOT="~/Desktop/ticket_chaser"
-
-alias setSource="source ~/.zshrc"
-
-alias pushNotes="cd $LEGITTIXROOT && git add $./notes && git commit -m \"Updated notes. \" && git push"

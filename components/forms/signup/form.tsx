@@ -5,7 +5,7 @@ import BasicInfoForm from './steps/basicInfo'
 import Button from '#/components/ui/button'
 import CityForm from './steps/location/city'
 import clsx from 'clsx'
-import { validateEmail, validatePassword } from '#/utils/client/validate'
+import { validateEmail, validateFormInput, validatePassword } from '#/utils/client/validate'
 import { multiStepSignupFormContainer } from "#/animations/signupForm"
 import store, { RootState } from '#/state/store';
 import { connect } from 'react-redux';
@@ -14,6 +14,7 @@ import { setSignupFormData } from '#/state/slices/form'
 import StateLocationForm from './steps/location/state'
 import PersonalDetailsForm from './steps/personal/name'
 import { registerUser } from "#/actions/authActions"
+import { useRouter } from 'next/navigation'
 
 const connector = connect((state: RootState, props: any) => ({
     formData: state.form.signUp,
@@ -83,14 +84,18 @@ interface Props {
 
 const SignupMainForm = connector(({ setLogin, formData }: Props) => {
     const [indicateState, setIndicateState] = useState<IndicateState>(initialValidateState)
+    const router = useRouter()
 
     const setFormData = (d: SignupFormType) => {
         store.dispatch(setSignupFormData(d))
     }
 
     const handleSignup = async () => {
-        // let data = formData.data /* as Create */
+        const isValidForm = validateFormInput(formData.data)
         const success = await registerUser(formData.data)
+        if (success) {
+            router.push("/")
+        }
     }
 
     const handleValidateStep = (): boolean => {
@@ -148,30 +153,31 @@ const SignupMainForm = connector(({ setLogin, formData }: Props) => {
     }
 
     return (
-        <div className={"w-full h-full flex flex-col justify-center items-center"}>
-            <div className={"w-full h-full flex flex-col justify-center items-center relative"} id={multiStepSignupFormContainer}>
-                <BasicInfoForm form={formData} setFormData={handleFormData} step={1}
-                    showPasswordMismatch={indicateState.passwordMismatch ? indicateState.passwordMismatch : null}
-                    showInvalidEmail={indicateState.validEmail ? indicateState.validEmail : null}
-                />
-                <PersonalDetailsForm form={formData} setFormData={handleFormData} step={2} />
-                <StateLocationForm form={formData} setFormData={handleFormData} step={3} />
-                <CityForm form={formData} setFormData={handleFormData} step={4} />
-            </div>
-            <div className={'card-actions pb-2 w-full h-fit flex flex-col justify-center items-center'}>
-                <div className={clsx('w-full grid gap-4 grid-cols-1', !formData.firstStep && "grid-cols-2")}>
-                    {!formData.firstStep && <Button label="Back" onClick={prevStep} className={'w-full'} />}
-                    {formData.lastStep ?
-                        <Button label="Submit" onClick={handleSignup} className={'w-full'} />
+        <div className= { "w-full h-full flex flex-col justify-center items-center"} >
+        <div className={ "w-full h-full flex flex-col justify-center items-center relative" } id = { multiStepSignupFormContainer } >
+            <BasicInfoForm form={ formData } setFormData = { handleFormData } step = { 1}
+    showPasswordMismatch = { indicateState.passwordMismatch ? indicateState.passwordMismatch : null }
+    showInvalidEmail = { indicateState.validEmail ? indicateState.validEmail : null }
+        />
+        <PersonalDetailsForm form={ formData } setFormData = { handleFormData } step = { 2} />
+            <StateLocationForm form={ formData } setFormData = { handleFormData } step = { 3} />
+                <CityForm form={ formData } setFormData = { handleFormData } step = { 4} />
+                    <div className = { 'card-actions pb-2 w-full h-fit flex flex-col justify-center items-center' } >
+                        </div>
+                        < div className = { clsx('w-full grid gap-4 grid-cols-1', !formData.firstStep && "grid-cols-2") }>
+                            {!formData.firstStep && <Button label="Back" onClick = { prevStep } className = { 'w-full'} />}
+{
+    formData.lastStep ?
+    <Button label="Submit" onClick = { handleSignup } className = { 'w-full'} />
                         :
-                        <Button label="Continue" onClick={nextStep} className={'w-full'} />
+    <Button label="Continue" onClick = { nextStep } className = { 'w-full'} />
                     }
-                </div>
-                <div className={'w-full flex justify-center items-center'}>
-                    <Button label="I already have an account" onClick={setLogin} className={'w-full'} />
-                </div>
+</div>
+    <div className = { 'w-full flex justify-center items-center'} >
+        <Button label="I already have an account" onClick = { setLogin } className = { 'w-full'} />
             </div>
-        </div>
+            </div>
+                </div>
     )
 })
 

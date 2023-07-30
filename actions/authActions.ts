@@ -1,14 +1,15 @@
 import { LoginBaseType } from "#/types/AuthTypes";
 import { CreateUserRequestType, SignupFormType } from "#/state/initial/forms/signup"
 import handleAxios from "#/hooks/useAxios";
+import store from "#/state/store";
+import { authSuccess } from "#/state/slices/auth";
 
-const login = async (data: LoginBaseType) => {
-    // let res = await axios
-}
+
 
 export const loginUser = async (data: LoginBaseType) => {
-    // TODO: Resume by handling this
-    console.log("data: ", data)
+    const res = await handleAxios("post", "/api/user/authenticate", { user: data })
+    store.dispatch(authSuccess(res?.data.user))
+    return res?.data.success || false
 }
 
 export const loginAdmin = async (data: LoginBaseType) => {

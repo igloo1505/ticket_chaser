@@ -24,7 +24,7 @@ export async function middleware(req: NextRequest) {
             return res
         }
     }
-    let valid = await validate(req)
+    let valid = await validate(req.cookies)
     for (var i = 0; i < protectedRoutes.length; i++) {
         if (req.nextUrl.pathname.startsWith(protectedRoutes[i].path)) {
             if (!valid) {
@@ -32,12 +32,12 @@ export async function middleware(req: NextRequest) {
                 let res = clearAuthTokens(response)
                 return res
             }
-            if(protectedRoles.indexOf(protectedRoutes[i].role) >= 0){
-                let validAdmin = await validateRoleToken(req, protectedRoutes[i].role)
-                if(!validAdmin){
-                let response = NextResponse.redirect(new URL('/admin', req.url))
-                let res = clearAuthTokens(response)
-                return res
+            if (protectedRoles.indexOf(protectedRoutes[i].role) >= 0) {
+                let validAdmin = await validateRoleToken(req.cookies, protectedRoutes[i].role)
+                if (!validAdmin) {
+                    let response = NextResponse.redirect(new URL('/admin', req.url))
+                    let res = clearAuthTokens(response)
+                    return res
                 }
             }
         }

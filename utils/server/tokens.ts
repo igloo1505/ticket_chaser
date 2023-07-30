@@ -4,23 +4,27 @@ import { NextRequest, NextResponse } from 'next/server'
 export const issuer = 'pPlatform:issuer'
 export const audience = 'pPlatform:audience'
 export const alg = 'HS256'
-import {protectedRoleType} from "#/types/AuthTypes"
+import { protectedRoleType } from "#/types/AuthTypes"
+import { ReadonlyRequestCookies } from 'next/dist/server/web/spec-extension/adapters/request-cookies'
+import { RequestCookies, ResponseCookies } from 'next/dist/compiled/@edge-runtime/cookies'
 const secret = new TextEncoder().encode(process.env.JWT_SECRET!)
 
-const tokenMap: {
+type CookieJarType = RequestCookies | ReadonlyRequestCookies
+
+export const tokenMap: {
     referer: string,
     userId: string,
     auth: string,
     rememberMe: string,
-    access: {[k in protectedRoleType]: string}
+    access: { [k in protectedRoleType]: string }
 } = {
     referer: "referer",
     userId: "user",
     auth: "auth",
     rememberMe: "rememberMe",
     access: {
-    ADMIN: "adminAccess",
-    EMPLOYEE: "employeeAccess"
+        ADMIN: "adminAccess",
+        EMPLOYEE: "employeeAccess"
     }
 }
 
@@ -56,22 +60,23 @@ export const clearAuthTokens = (res: NextResponse) => {
     return res
 }
 
-export const assignRoleAccessToken = async (res: NextResponse, role: protectedRoleType, rememberMe?: boolean) => {
+export const assignRoleAccessToken = async (cookies: CookieJarType | ResponseCookies, role: protectedRoleType, rememberMe?: boolean): Promise<CookieJarType | ResponseCookies> => {
     const envvar = process.env[`${role}_VALIDATION`]
     if (!envvar) {
         console.error("No admin access token found in the environment")
-        return
+        return cookies
     }
     const token = await getAccessToken(tokenMap.access[role], envvar, Boolean(rememberMe))
-    res.cookies.set(tokenMap.access[role], token)
+    cookies.set(tokenMap.access[role], token)
+    return cookies
 }
 
-export const assignUserToken = async (req: NextRequest, res: NextResponse, userId: number | string) => {
-    const rememberMe = req.cookies.get(tokenMap.rememberMe)?.value || false
-    const token = await getAccessToken(tokenMap.userId, userId, rememberMe === "true")
-    res.cookies.set(tokenMap.auth, token)
-    res.cookies.set(tokenMap.userId, `${userId}`)
-    return res
+export const assignUserToken = async (cookies: CookieJarType | ResponseCookies, userId: number | string, rememberMe?: boolean) => {
+    const remember = cookies.get(tokenMap.rememberMe)?.value || rememberMe || false
+    const token = await getAccessToken(tokenMap.userId, userId, Boolean(remember || remember === "true"))
+    cookies.set(tokenMap.auth, token)
+    cookies.set(tokenMap.userId, `${userId}`)
+    return cookies
 }
 
 
@@ -96,13 +101,13 @@ export const decryptToken = async (authToken: string) => {
     }
 }
 
-export const validateRoleToken = async (req: NextRequest, role: protectedRoleType) => {
+export const validateRoleToken = async (cookies: CookieJarType, role: protectedRoleType) => {
     let tokenKey = tokenMap.access[role]
-    if(!tokenKey) {
+    if (!tokenKey) {
         console.log("An error occurred while validating access tokens.")
-        return 
+        return
     }
-    let adminToken = req.cookies.get(tokenKey)?.value
+    let adminToken = cookies.get(tokenKey)?.value
     if (!adminToken) {
         return false
     }
@@ -112,12 +117,13 @@ export const validateRoleToken = async (req: NextRequest, role: protectedRoleTyp
             return false
         }
     }
+    await assignRoleAccessToken(cookies, role)
     return true
 }
 
-export const validate = async (req: NextRequest): Promise<false | string> => {
-    let authToken = req.cookies.get(tokenMap.auth)?.value
-    let userToken = req.cookies.get(tokenMap.userId)?.value
+export const validate = async (cookies: CookieJarType): Promise<false | string> => {
+    let authToken = cookies.get(tokenMap.auth)?.value
+    let userToken = cookies.get(tokenMap.userId)?.value
     if (!authToken || !userToken) {
         return false
     }
@@ -125,17 +131,22 @@ export const validate = async (req: NextRequest): Promise<false | string> => {
     if (!authId || !authId[tokenMap.userId]) {
         return false
     }
-    return authId[tokenMap.userId] === userToken ? userToken : false
+    let isValid = authId[tokenMap.userId] === userToken ? userToken : false
+    if (isValid) {
+        await assignUserToken(cookies, userToken, Boolean(cookies.get(tokenMap.rememberMe)?.value))
+    }
+    return isValid
 }
 
 
 export const validateAndRefresh = async (req: NextRequest, res: NextResponse): Promise<{ userId: string | null | undefined, res: NextResponse, valid: boolean }> => {
-    const validId = await validate(req)
+    const validId = await validate(req.cookies)
     if (validId) {
-        let r = await assignUserToken(req, res, validId)
+        let r = await assignUserToken(res.cookies, validId)
+        // WARNING: Same issue as in authenticate route. Will likely work, but need to double check the docs when on wifi again.
         return {
             userId: validId,
-            res: r,
+            res: res,
             valid: true
         }
     }

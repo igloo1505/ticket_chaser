@@ -10,6 +10,7 @@ import clsx from 'clsx';
 const connector = connect((state: RootState, props: any) => ({
     authed: state.auth.authenticated,
     user: state.auth.user,
+    authState: state.auth,
     props: props
 }))
 
@@ -20,17 +21,22 @@ export interface NavbarButtonProps {
     label: string
     roles?: ROLE[]
     displayAuth: "authenticated" | "any" | "unauthenticated" | "development"
+    displayFunc?: (data: RootState['auth']) => boolean
 }
 
 interface Props extends NavbarButtonProps {
     authed: RootState['auth']['authenticated']
     user: RootState['auth']['user']
+    authState: RootState['auth']
 }
 
 const NavbarButton = connector((props: Props) => {
     const [display, setDisplay] = useState<boolean>(false)
     const setDisplayState = () => {
-        if(props.displayAuth === "development") return true
+        if (props.displayFunc) {
+            return props.displayFunc(props.authState)
+        }
+        if (props.displayAuth === "development") return process.env.NODE_ENV === "development"
         if (props.roles && Boolean(!props.user || props.roles.indexOf(props.user.role) === -1)) {
             return false
         }

@@ -2,4 +2,4 @@
 
 While you're crusing around with the app, take note of anything that doesn't behave the way it's supposed to. Ideally, create a note with a 'how to reproduce' line so I can replicate it. That's not always possible and sometimes why things happen isn't super obvious, but if you can explain how to reproduce the bug that's ideal.
 
-- [ ] SignupForm:city is selecting an index that isn't in line with the UI index.
+- [x] SignupForm:city is selecting an index that isn't in line with the UI index.

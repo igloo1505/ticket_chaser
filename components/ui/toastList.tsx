@@ -2,9 +2,10 @@ import { ToastConfigType } from "#/types/uiTypes"
 import Toast from "./toast"
 import store, { RootState } from '#/state/store';
 import { connect } from 'react-redux';
-import { setDevelopmentState } from "#/actions/devActions";
+// import { setDevelopmentState } from "#/actions/devActions";
 
-setDevelopmentState()
+// setDevelopmentState()
+
 const connector = connect((state: RootState, props: any) => ({
     toasts: state.UI.toasts,
     props: props

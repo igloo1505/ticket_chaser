@@ -1,10 +1,9 @@
-import { toastConfigs } from "#/data/defaultToasts"
-import { AccessType } from "#/types/AuthTypes"
+import { defaultToastConfigs } from "#/data/defaultToasts"
+import { AccessType, ToastErrorTypes } from "#/types/AuthTypes"
 import { ToastConfigType } from "#/types/uiTypes"
 import { getCorsHeaders } from "#/utils/server/cors"
 import { NextRequest, NextResponse } from "next/server"
 
-export type ToastErrorTypes = "unauthenticated" | "tokenExpired" | "mustBeVerified" | "faqNotFound" | "emailExists"
 
 
 
@@ -53,7 +52,7 @@ export class AppError {
 
         if (this.toastErrorType) {
             if (Boolean(this.toastRestricted && this.toastRestricted.indexOf(this.currentRole) >= 0) || !this.toastRestricted) {
-                this.toastError = toastConfigs[this.toastErrorType]
+                this.toastError = defaultToastConfigs[this.toastErrorType]
             }
         }
     }

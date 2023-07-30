@@ -17,6 +17,7 @@ module.exports = {
             ...theme('colors'),
             auto: 'auto',
         }),
+        navbarHeight: "64px",
         animation: {
             none: 'none',
             spin: 'spin 1s linear infinite',
@@ -534,6 +535,7 @@ module.exports = {
             min: 'min-content',
             max: 'max-content',
             fit: 'fit-content',
+            screenNav: `calc(100vh-${theme.navbarHeight})`
         }),
         hueRotate: {
             0: '0deg',

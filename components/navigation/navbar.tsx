@@ -10,6 +10,7 @@ import NavbarButton, { NavbarButtonProps } from './navbarButton'
 import { setViewportData, toggleDrawer } from '#/state/slices/ui'
 import { navbarButtons } from './navbarButtons'
 import { Spin as Hamburger } from 'hamburger-react'
+import NavbarTitle from './navbarTitle';
 const connector = connect((state: RootState, props: any) => ({
     ui: state.UI,
     props: props
@@ -55,7 +56,7 @@ const Navbar = connector(({ ui }: NavbarProps) => {
                         <Hamburger toggled={ui.drawer.open} onToggle={() => store.dispatch(toggleDrawer())} />
                     </div>
                     <div className="flex-row w-full justify-between items-center flex-nowrap hidden md:flex py-3 px-4" ref={ref}>
-                        <div className={'text-xl pl-2'}>Title or Logo Here</div>
+                        <NavbarTitle />
                         <div className={'flex flex-row justify-center items-center gap-4'}>
                             <IconButton onClick={toggleDark} circle className={'relative flex justify-center items-center'}>
                                 <label className={clsx("h-full w-full swap swap-rotate", ui.darkMode && "swap-active")}>

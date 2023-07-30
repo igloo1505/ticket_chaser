@@ -1,23 +1,44 @@
+"use client"
 import { setDevelopmentState } from "#/actions/devActions"
 import Button from "#/components/ui/button"
+import { useRouter } from 'next/navigation'
 
 
 interface QuickActionButtonProps {
     label: string
-    action: () => void
+    action: (router: ReturnType<typeof useRouter>) => void
+    desc?: string
 }
 
 const actions: QuickActionButtonProps[] = [
     {
         label: "Set Development State",
-        action: () => setDevelopmentState()
-    }
+        action: () => setDevelopmentState(),
+        desc: "Set some random values for forms, toasts, notifications and whatnot just to save some time."
+    },
+    {
+        label: "FAQ Stuff",
+        action: (r) => r.push("/admin/legit/faq"),
+        desc: "Set some random values for forms, toasts, notifications and whatnot just to save some time."
+    },
 ]
 
-const QuickActions = () => {
+interface QAButtonProps {
+    item: QuickActionButtonProps
+    router: ReturnType<typeof useRouter>
+}
+
+const QAButton = ({ item, router }: QAButtonProps) => {
     return (
-        <div>
-            {actions.map((a, i) => <Button key={`quick-action-admin-${i}`} label={a.label} onClick={a.action} />)}
+        <Button label={item.label} onClick={() => item.action(router)} />
+    )
+}
+
+const QuickActions = () => {
+    const router = useRouter()
+    return (
+        <div className={"w-full flex flex-row justify-center items-center gap-4"}>
+            {actions.map((a, i) => <QAButton router={router} item={a} key={`quick-action-admin-${i}`} />)}
         </div>
     )
 }

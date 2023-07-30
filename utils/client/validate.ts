@@ -1,3 +1,6 @@
+import { showDefaultToast } from "#/state/slices/ui"
+import store, { RootState } from "#/state/store"
+
 const minPassLength = 8
 export const twoValuesMatch = (val1: string, val2: string, validateMin: number = 3) => {
     if (val1.length < validateMin || val2.length < validateMin) {
@@ -33,9 +36,17 @@ export const validateEmail = (val: string) => {
         "net"
     ]
     const invalidMessage = "Please enter a valid email."
-    if(val.indexOf("@") === -1 || val.indexOf(".") === -1) return invalidMessage
+    if (val.indexOf("@") === -1 || val.indexOf(".") === -1) return invalidMessage
     let _dom = val.split(".")
     let dom = _dom[_dom.length - 1]
-    if(validDomains.indexOf(dom) === -1) return invalidMessage
+    if (validDomains.indexOf(dom) === -1) return invalidMessage
     return null
+}
+
+export const validateFormInput = (data: RootState['form']['signUp']['data']) => {
+    if (data.password !== data.confirmPassword) {
+        store.dispatch(showDefaultToast("passwordsDontMatch"))
+        return false
+    }
+    return true
 }

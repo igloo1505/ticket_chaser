@@ -1,7 +1,8 @@
-import { ToastError, ToastErrorTypes } from "#/classes/ErrorHandling";
+import { ToastError } from "#/classes/ErrorHandling";
+import { ToastErrorTypes } from "#/types/AuthTypes";
 
 
-export const toastConfigs: { [k in ToastErrorTypes]: Omit<ToastError, "toastId"> } = {
+export const defaultToastConfigs: { [k in ToastErrorTypes]: Omit<ToastError, "toastId"> } = {
     unauthenticated: {
         variant: "error",
         content: "You must be logged to do that.",
@@ -25,6 +26,22 @@ export const toastConfigs: { [k in ToastErrorTypes]: Omit<ToastError, "toastId">
     emailExists: {
         variant: "warn",
         content: "That email appears to already be in use.",
-        title: "Account exists."
+        title: "Account exists"
+    },
+    userNotFound: {
+        variant: "warn",
+        content: "A user with those credentials was not found.",
+        title: "User not found"
+    },
+    credentialsInvalid: {
+        variant: "warn",
+        content: "Those credentials appear to be invalid. Click if you'd like to reset your password.",
+        title: "Invalid Credentials",
+        clickRedirect: "/resetPassword"
+    },
+    passwordsDontMatch: {
+        variant: "info",
+        content: "Please confirm your password. They don't match.",
+        title: "Password Mismatch",
     }
 }

@@ -8,6 +8,7 @@ export interface ToastConfigType {
     isOpen?: boolean
     title?: string
     toastId: string
+    clickRedirect?: string
 }
 
 export interface ContainerProps<T> extends React.HTMLProps<T> { }

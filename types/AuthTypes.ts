@@ -1,15 +1,17 @@
-import type { ROLE } from "@prisma/client"
+import type { LegalName, Location, ROLE, User } from "@prisma/client"
+
+export type ToastErrorTypes = "unauthenticated" | "tokenExpired" | "mustBeVerified" | "faqNotFound" | "emailExists" | "userNotFound" | "credentialsInvalid" | "passwordsDontMatch"
+
 
 export type AccessType = ROLE | "AUTHENTICATED" | "DEVELOPMENT" | "UNKNOWN" | false
 
 
-export interface RetrievedUserData {
-    id: string | number
-    username: string
-    password: string
-    email: string
-    age: string | number
-    role: ROLE
+export interface RetrievedUserData extends Omit<User, "password"> {
+    password: undefined,
+    personalDetails: {
+        location: Location,
+        name: LegalName
+    }
 }
 
 
