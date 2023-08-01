@@ -11,7 +11,6 @@ import Overlay from '../utility/overlay';
 
 
 const connector = connect((state: RootState, props: any) => {
-    console.log("state: ", state)
     return {
         open: state.UI.drawer.open,
         props: props

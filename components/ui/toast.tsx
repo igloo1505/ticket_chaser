@@ -29,7 +29,7 @@ const Toast = ({ toast }: ToastProps) => {
     }
     setTimeout(closeToast, toast.timeout || 5000)
     return (
-        <div className={clsx("z-[99999] opacity-0 w-fit py-4 px-4 rounded-md grid grid-cols-[1fr_30px] place-items-center", toast.variant === "error" && "bg-error text-error-content", toast.variant === "warn" && "bg-warning text-warning-content", toast.clickRedirect && "cursor-pointer")}
+        <div className={clsx("z-[99999] opacity-0 w-fit py-4 px-4 rounded-md grid grid-cols-[1fr_30px] place-items-center", toast.variant === "error" && "bg-error text-error-content", toast.variant === "warn" && "bg-warning text-warning-content", toast.variant === "success" && "bg-success text-success-content", toast.clickRedirect && "cursor-pointer")}
             onClick={handleClick}
             style={{
                 transition: "transform 0.3s ease-in-out",

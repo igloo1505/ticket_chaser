@@ -4,9 +4,10 @@ import React from 'react'
 import RichTextEditor from './richTextEditor';
 import store, { RootState } from '#/state/store';
 import { connect } from 'react-redux';
-import { setFaqData } from '#/state/slices/admin';
+import { setFaqData, setFaqFormFromItem } from '#/state/slices/admin';
 import FaqEditFormCard from './FaqEditFormCard';
 import FaqCard from '#/components/information/faqCard';
+import { Faq } from '@prisma/client';
 
 
 type FormDataType = RootState['admin']['editing']['faq']
@@ -32,7 +33,10 @@ const SplitRight = connector(({ faq }: { faq: RootState['admin']['editing']['faq
 })
 
 
-const EditFaqWrapper = () => {
+const EditFaqWrapper = ({ item }: { item?: Faq }) => {
+    if (item) {
+        store.dispatch(setFaqFormFromItem(item))
+    }
     return (
         <SplitPageWrapper left={<SplitLeft />} right={<SplitRight />} />
     )

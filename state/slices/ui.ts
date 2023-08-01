@@ -24,7 +24,7 @@ const slice = createSlice({
         toggleDrawer(state) {
             state.drawer.open = !state.drawer.open
         },
-        showToast(state, action: PayloadAction<ToastConfigType>) {
+        showToast(state, action: PayloadAction<Omit<ToastConfigType, "toastId">>) {
             state.toasts.push({
                 ...action.payload,
                 toastId: uuid(),
