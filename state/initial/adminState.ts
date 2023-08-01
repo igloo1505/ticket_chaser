@@ -1,9 +1,14 @@
 import { Faq } from "@prisma/client"
 
+const getLink = (label: string, href: string) => `<a href="${href}" rel="noopener noreferrer">${label}</a>`
+
+const defaultEditFaqBody = `<p>Highlight or hover to add rich text. All links are relative to the root, so ${getLink("\"/\"", "/")} is home, ${getLink("\"/login\"", "/login")} is the login page... etc.</p>`
+
 
 export interface FaqFormData extends Pick<Faq, "body" | "title" | "subtitle"> {
     id?: number
 }
+
 
 interface AdminStateType {
     editing: {
@@ -16,7 +21,7 @@ const initialAdminState: AdminStateType = {
         faq: {
             title: "",
             subtitle: "",
-            body: "<p><br></p>"
+            body: defaultEditFaqBody
         }
     }
 }

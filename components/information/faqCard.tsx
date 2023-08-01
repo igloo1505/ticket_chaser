@@ -1,8 +1,11 @@
 import { FaqFormData } from '#/state/initial/adminState'
+import { setRichTextChildClasses } from '#/utils/ui'
 import { Faq } from '@prisma/client'
 import clsx from 'clsx'
-import React, { useState } from 'react'
+import { gsap } from 'gsap'
+import React, { useEffect, useRef, useState } from 'react'
 import { IoIosArrowForward } from 'react-icons/io'
+import RichTextDisplay from '../ui/RichTextDisplay'
 
 
 interface FaqCardProps {
@@ -13,21 +16,28 @@ interface FaqCardProps {
 
 const FaqCard = ({ faq, forceOpen, initialOpen }: FaqCardProps) => {
     const [open, setOpen] = useState(initialOpen)
+    const body = useRef<HTMLDivElement>(null!)
+    const id = faq.title.replace(" ", "")
+    useEffect(() => {
+        setRichTextChildClasses(body)
+        console.log("!faq.subtitle: ", !faq.subtitle)
+        console.log("faq.subtitle === '': ", faq.subtitle === '')
+    }, [faq])
     return (
-        <div className={"card w-full overflow-y-hidden"}>
-            <div className={"card-title bg-primary text-primary-content pl-6 py-4 grid grid-cols-[1fr_40px] z-[99] cursor-pointer"}
+        <div className={clsx("collapse collapse-plus w-full overflow-y-hidden", open && "collapse-open")}
+        >
+            <div className={"collapse-title bg-primary text-primary-content grid grid-cols-[1fr_40px] z-[99] cursor-pointer"}
                 onClick={() => !forceOpen && setOpen(!open)}
             >
                 <div>
                     {faq.title}
                 </div>
-                <div><IoIosArrowForward className={clsx("cursor-pointer transition-all duration-300", open ? "-rotate-90" : "rotate-90")}
-
-                /></div>
             </div>
-            <div className={clsx("card-body transition-all duration-300  border border-primary rounded-br-2xl rounded-bl-2xl", !open && "translate-y-[-100%]")}>
-                <div className={"font-md"}>{faq.subtitle}</div>
-                <div className={"py-4"} dangerouslySetInnerHTML={{ __html: faq.body }} />
+            <div className={"collapse-arrow text-primary-content"} />
+            <div className={clsx("collapse-content transition-all duration-300  border border-primary border-opacity-50 rounded-br-2xl rounded-bl-2xl")}
+            >
+                {faq.subtitle && faq.subtitle !== "" && <div className={"font-md font-semibold pt-4"}>{faq.subtitle}</div>}
+                <RichTextDisplay __html={faq.body} className={!faq.subtitle || faq.subtitle === "" ? "py-4" : "pb-4 pt-2"} />
             </div>
         </div>
     )
