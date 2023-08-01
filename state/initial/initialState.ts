@@ -2,6 +2,7 @@ import initialSettingsState from "./appSettings";
 import authState from "./auth";
 import initialUiState from "./ui";
 import networkState from "./network";
+import adminState from "./adminState";
 import { initialFormState } from "./forms/formState";
 
 const initialState = {
@@ -9,7 +10,8 @@ const initialState = {
     UI: initialUiState,
     settings: initialSettingsState,
     network: networkState,
-    forms: initialFormState
+    forms: initialFormState,
+    admin: adminState
 }
 
 

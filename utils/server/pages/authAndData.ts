@@ -1,7 +1,8 @@
-import { RetrievedUserData, protectedRoleType, protectedRoles } from "#/types/AuthTypes"
+"use server"
+import { protectedRoleType, protectedRoles } from "#/types/AuthTypes"
 import { User } from "@prisma/client"
 import { cookies } from 'next/headers'
-import { decryptToken, tokenMap, validate, validateRoleToken } from "../tokens"
+import { validate, validateRoleToken } from "../tokens"
 import { prisma } from "#/db/db"
 
 interface ValidateSuccess {
@@ -21,7 +22,6 @@ export const validateOrRedirect = async (protect?: protectedRoleType[]): Promise
     }
     const cookieJar = cookies()
     const isValid = await validate(cookieJar)
-    console.log("auth: ", isValid)
     if (!isValid) return _f
     const user = await prisma.user.findFirst({
         where: {

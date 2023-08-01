@@ -1,17 +1,14 @@
-import AuthObserver from '#/components/utility/authObserver'
-import { validateOrRedirect } from '#/utils/server/pages/authAndData'
-import { redirect } from 'next/dist/server/api-utils'
-import Image from 'next/image'
+"use server"
+
 
 const Home = async () => {
-    const { user } = await validateOrRedirect()
+    /* const { user } = await validateOrRedirect(); */
+    /* <AuthObserver user={user} /> */
     return (
         <div>
-            <AuthObserver user={user} />
-            Home page here...
+            Home page here
         </div>
     )
-}
+};
 
-
-export default Home
+export default Home;

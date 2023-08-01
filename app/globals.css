@@ -2,17 +2,20 @@
 @tailwind components;
 @tailwind utilities;
 
-
-
 body {
-    overflow-x: hidden;
+  overflow-x: hidden;
 }
 
 .card-body {
-    padding-bottom: 1rem;
-    padding-top: 1rem
+  padding-bottom: 1rem;
+  padding-top: 1rem;
 }
 
 .drawer-side > *:not(.drawer-overlay) {
-    transition: transform 0.2s ease-in-out;
+  transition: transform 0.2s ease-in-out;
+}
+
+.underNavCenter {
+  height: 100%;
+  min-height: inherit;
 }

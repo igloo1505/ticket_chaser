@@ -7,6 +7,7 @@ import { CreateUserRequestType } from "#/state/initial/forms/signup"
 import { encryptPassword } from "#/utils/server/encryption"
 import { getLocationValues } from "#/utils/server/location";
 import { AppError } from "#/classes/ErrorHandling";
+import { assignUserToken } from "#/utils/server/tokens";
 
 
 interface RequestContext {
@@ -23,7 +24,7 @@ router
     .post(async (req, ctx) => {
         try {
             const { user }: { user: CreateUserRequestType } = await req.json()
-            console.log("user: ", user)
+            console.log("userData: ", user)
             const encryptedPassword = await encryptPassword(user.password)
             const locationData = getLocationValues(user.location.state, user.location.city.name, user.location.city.id)
             console.log(locationData)
@@ -61,7 +62,9 @@ router
                     },
                 }
             })
-            return new NextResponse(JSON.stringify({ user: { ...newUser, password: undefined }, success: true }));
+            let res = new NextResponse(JSON.stringify({ user: { ...newUser, password: undefined }, success: true }));
+            await assignUserToken(res.cookies, newUser.id)
+            return res
         } catch (err) {
             console.error(err)
             /// @ts-ignore

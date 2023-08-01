@@ -5,7 +5,7 @@ import React from 'react'
 
 
 const indicatorSteps: StepIndicatorStep[] = [
-   {
+    {
         label: "Login",
         activeRange: [1]
     },
@@ -22,9 +22,9 @@ interface LoginPageProps {
 const LoginPage = (props: LoginPageProps) => {
 
     return (
-        <div className={'w-full h-full flex flex-col justify-center items-center'}>
+        <div className={'w-full h-full underNavCenter flex flex-col justify-center items-center'}>
             <ReduxProvider>
-            <AuthenticateCard />
+                <AuthenticateCard />
             </ReduxProvider>
         </div>
     )

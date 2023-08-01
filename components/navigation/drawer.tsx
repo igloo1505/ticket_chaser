@@ -1,3 +1,4 @@
+"use client"
 import React from 'react'
 import Link from 'next/link'
 import store, { RootState } from '#/state/store';
@@ -7,10 +8,15 @@ import { navbarButtons } from './navbarButtons';
 import { NavbarButtonProps } from './navbarButton';
 import Overlay from '../utility/overlay';
 
-const connector = connect((state: RootState, props: any) => ({
-    open: state.UI.drawer.open,
-    props: props
-}))
+
+
+const connector = connect((state: RootState, props: any) => {
+    console.log("state: ", state)
+    return {
+        open: state.UI.drawer.open,
+        props: props
+    }
+})
 
 
 interface DrawerProps {

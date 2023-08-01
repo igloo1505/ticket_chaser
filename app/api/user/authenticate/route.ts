@@ -16,11 +16,10 @@ interface RequestContext {
     // }
 }
 
-const router = createEdgeRouter<NextRequest, RequestContext>();
+const Router = createEdgeRouter<NextRequest, RequestContext>();
 
 
-router
-
+Router
     .post(async (req, ctx) => {
         try {
             const { user: userRequest }: { user: LoginBaseType } = await req.json()
@@ -37,7 +36,7 @@ router
                 })
                 return err.genResponse(null, req)
             }
-            const passMatch = comparePassword(user.password, userRequest.password)
+            const passMatch = await comparePassword(user.password, userRequest.password)
             if (!passMatch) {
                 const err = new AppError({
                     toastErrorType: "credentialsInvalid",
@@ -47,9 +46,10 @@ router
             }
             let res = new NextResponse(JSON.stringify({ user: { ...user, password: undefined }, success: true }), getCorsHeaders(req, 200))
             // WARNING: This might not work with this approach. Look at the docs when back on wifi.
-            await assignUserToken(res.cookies, user.id, userRequest.rememberMe)
+
+            let cookies = await assignUserToken(res.cookies, user.id, userRequest.rememberMe)
             if (protectedRoles.indexOf(user.role as protectedRoleType) !== -1) {
-                await assignRoleAccessToken(res.cookies, user.role as protectedRoleType, userRequest.rememberMe)
+                cookies = await assignRoleAccessToken(cookies, user.role as protectedRoleType, userRequest.rememberMe)
             }
             return res
         } catch (err) {
@@ -60,7 +60,8 @@ router
 
 
 export async function POST(request: NextRequest, ctx: RequestContext) {
-    return router.run(request, ctx);
+    return Router.run(request, ctx);
 }
 
 export const OPTIONS = optionsMethodResponse
+export const router = Router

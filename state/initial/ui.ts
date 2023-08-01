@@ -1,4 +1,6 @@
 import { ToastConfigType } from "#/types/uiTypes"
+import { Faq } from "@prisma/client"
+import { FaqFormData } from "./adminState"
 
 type modalValue = boolean | number
 
@@ -10,6 +12,7 @@ export interface InitialUIStateType {
         privacy: modalValue
         payment: modalValue
         idVerification: boolean
+        faq: Faq | FaqFormData | false
     },
     toasts: ToastConfigType[]
     drawer: {
@@ -29,7 +32,8 @@ const initialUiState: InitialUIStateType = {
         tos: false,
         privacy: false,
         payment: false,
-        idVerification: false
+        idVerification: false,
+        faq: false
     },
     toasts: [],
     drawer: {

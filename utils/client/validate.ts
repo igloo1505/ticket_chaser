@@ -1,6 +1,7 @@
 import { showDefaultToast } from "#/state/slices/ui"
 import store, { RootState } from "#/state/store"
 
+
 const minPassLength = 8
 export const twoValuesMatch = (val1: string, val2: string, validateMin: number = 3) => {
     if (val1.length < validateMin || val2.length < validateMin) {
@@ -50,3 +51,4 @@ export const validateFormInput = (data: RootState['form']['signUp']['data']) => 
     }
     return true
 }
+

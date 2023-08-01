@@ -1,5 +1,5 @@
 "use client"
-import { setDarkmode } from '#/actions/uiActions'
+import { setDarkmode, setViewportData } from '#/actions/uiActions'
 import React, { useEffect, useRef } from 'react'
 import { BsFillMoonStarsFill, BsFillSunFill } from 'react-icons/bs'
 import store, { RootState } from '#/state/store';
@@ -7,10 +7,11 @@ import { connect } from 'react-redux';
 import IconButton from '../ui/iconButton';
 import clsx from 'clsx'
 import NavbarButton, { NavbarButtonProps } from './navbarButton'
-import { setViewportData, toggleDrawer } from '#/state/slices/ui'
+import { toggleDrawer } from '#/state/slices/ui'
 import { navbarButtons } from './navbarButtons'
 import { Spin as Hamburger } from 'hamburger-react'
 import NavbarTitle from './navbarTitle';
+
 const connector = connect((state: RootState, props: any) => ({
     ui: state.UI,
     props: props
@@ -25,19 +26,19 @@ interface NavbarProps {
 const Navbar = connector(({ ui }: NavbarProps) => {
     const ref = useRef<HTMLDivElement>(null!)
     useEffect(() => {
-        animateDarkmode(ui.darkMode)
-    }, [ui.darkMode])
+        animateDarkmode(ui?.darkMode || true)
+    }, [ui])
     const toggleDark = () => {
         setDarkmode(!ui.darkMode)
     }
     const monitorViewport = () => {
         if (!ref.current) return
-        store.dispatch(setViewportData({
+        setViewportData({
             navbarHeight: ref.current.getBoundingClientRect().height,
             height: window.innerHeight,
             width: window.innerWidth
 
-        }))
+        })
     }
     useEffect(() => {
         if (typeof window === "undefined") return;
@@ -53,13 +54,13 @@ const Navbar = connector(({ ui }: NavbarProps) => {
                     <div className="flex justify-center items-center md:hidden" style={{
                         zIndex: 999999
                     }}>
-                        <Hamburger toggled={ui.drawer.open} onToggle={() => store.dispatch(toggleDrawer())} />
+                        <Hamburger toggled={ui?.drawer?.open || false} onToggle={() => store.dispatch(toggleDrawer())} />
                     </div>
                     <div className="flex-row w-full justify-between items-center flex-nowrap hidden md:flex py-3 px-4" ref={ref}>
                         <NavbarTitle />
                         <div className={'flex flex-row justify-center items-center gap-4'}>
                             <IconButton onClick={toggleDark} circle className={'relative flex justify-center items-center'}>
-                                <label className={clsx("h-full w-full swap swap-rotate", ui.darkMode && "swap-active")}>
+                                <label className={clsx("h-full w-full swap swap-rotate", ui?.darkMode && "swap-active")}>
                                     <BsFillMoonStarsFill className={clsx('swap-on')} />
                                     <BsFillSunFill className={clsx('swap-off')} />
                                 </label>

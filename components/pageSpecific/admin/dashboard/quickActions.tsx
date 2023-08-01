@@ -1,4 +1,5 @@
 "use client"
+import { logout } from "#/actions/authActions"
 import { setDevelopmentState } from "#/actions/devActions"
 import Button from "#/components/ui/button"
 import { useRouter } from 'next/navigation'
@@ -29,16 +30,25 @@ interface QAButtonProps {
 }
 
 const QAButton = ({ item, router }: QAButtonProps) => {
+    /* router.push("/admin/legit/faq") */
     return (
-        <Button label={item.label} onClick={() => item.action(router)} />
+        <Button label={item.label} variants={["btn-lg", "btn-info"]} onClick={() => item.action(router)} />
     )
 }
 
 const QuickActions = () => {
     const router = useRouter()
     return (
-        <div className={"w-full flex flex-row justify-center items-center gap-4"}>
-            {actions.map((a, i) => <QAButton router={router} item={a} key={`quick-action-admin-${i}`} />)}
+        <div className={"flex flex-col gap-4 justify-center items-center w-full max-w-[min(calc(100vw-4rem),768px)]"}>
+            <div className={"w-full gap-4"} style={{
+                display: "grid",
+                gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))"
+            }}>
+                {actions.map((a, i) => <QAButton router={router} item={a} key={`quick-action-admin-${i}`} />)}
+            </div>
+            <div className={"w-full"}>
+                <Button variants={["btn-lg", "btn-error"]} label="Logout" onClick={logout} className={"w-full"} />
+            </div>
         </div>
     )
 }

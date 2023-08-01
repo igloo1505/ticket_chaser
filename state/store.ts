@@ -3,6 +3,7 @@ import AuthReducer from "./slices/auth";
 import UIReducer from "./slices/ui";
 import NetworkReducer from "./slices/network";
 import FormReducer from "./slices/form";
+import AdminReducer from "./slices/admin";
 import initialState from "./initial/initialState";
 import storage from './local/storage'
 import { persistReducer, persistStore } from "redux-persist"
@@ -14,6 +15,7 @@ const rootReducer = {
     UI: UIReducer,
     network: NetworkReducer,
     form: FormReducer,
+    admin: AdminReducer,
 }
 
 

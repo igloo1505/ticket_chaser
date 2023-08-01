@@ -1,9 +1,11 @@
 "use client"
+import { loginUser } from '#/actions/authActions';
 import Checkbox from '#/components/forms/inputs/checkbox';
 import LoginForm from '#/components/forms/login/form';
 import Button from '#/components/ui/button';
 import Card from '#/components/ui/card';
 import { LoginBaseType } from '#/types/AuthTypes';
+import { useRouter } from 'next/navigation';
 import React, { ChangeEvent, useState } from 'react'
 
 
@@ -13,6 +15,7 @@ interface AdminLoginCardProps {
 }
 
 const AdminLoginCard = (props: AdminLoginCardProps) => {
+    const router = useRouter()
     const [formData, setFormData] = useState<LoginBaseType>({
         email: "",
         password: "",
@@ -26,8 +29,11 @@ const AdminLoginCard = (props: AdminLoginCardProps) => {
         })
     }
 
-    const handleLogin = () => {
-
+    const handleLogin = async () => {
+        const success = await loginUser(formData, ["ADMIN"])
+        if (success) {
+            router.replace("/admin/legit")
+        }
     }
     return (
         <Card title="Admin Login" shadow elevate={"200"} container={{

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites name="jest tests" tests="1" failures="1" errors="0" time="0.743">
+  <testsuite name="undefined" errors="0" failures="1" skipped="0" timestamp="2023-07-31T21:40:07" time="0.639" tests="1">
+    <testcase classname=" Rewrites from some-path to other-path" name=" Rewrites from some-path to other-path" time="0.026">
+      <failure>Error: expect(received).toBeDefined()
+
+Received: undefined
+    at Object.toBeDefined (/Users/bigsexy/Desktop/currentProjects/paidWork/ticket_chaser/__tests__/api/user2.test.ts:36:20)
+    at processTicksAndRejections (node:internal/process/task_queues:95:5)</failure>
+    </testcase>
+  </testsuite>
+</testsuites>

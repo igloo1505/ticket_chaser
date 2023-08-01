@@ -64,7 +64,7 @@ export class AppError {
 
     }
     genResponse(responseBody: any = {}, req: NextRequest): NextResponse {
-        let _res = new NextResponse(JSON.stringify({ ...responseBody, error: this.errorBody() }), getCorsHeaders(req, this.statusCode))
+        let _res = new NextResponse(JSON.stringify({ ...responseBody, error: this.errorBody(), success: false }), getCorsHeaders(req, this.statusCode))
         return _res
     }
 }

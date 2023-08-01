@@ -1,0 +1,14 @@
+{
+    "presets": [
+        "next/babel"
+    ],
+    "retainLines": true,
+    "sourceMap": "inline",
+    "env": {
+        "test": {
+            "plugins": [
+                "@babel/plugin-transform-modules-commonjs"
+            ]
+        }
+    }
+}

@@ -15,11 +15,15 @@ const slice = createSlice({
         authFail(state) {
             state.user = initialState.auth.user
             state.authenticated = false
-        }
+        },
+        logoutUser(state) {
+            state.user = initialState.auth.user
+            state.authenticated = false
+        },
     }
 })
 
 
-export const { authSuccess } = slice.actions
+export const { authSuccess, logoutUser } = slice.actions
 export default slice.reducer
 

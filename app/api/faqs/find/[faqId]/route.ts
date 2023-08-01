@@ -19,7 +19,7 @@ router
 
     .get(async (req, ctx) => {
         try {
-            if(!ctx.params.faqId){
+            if (!ctx.params.faqId) {
                 let err = new AppError({
                     consoleError: {
                         msg: "No id found in query.",
@@ -34,11 +34,11 @@ router
 
             const faq = await prisma.faq.findFirst({
                 where: {
-                    id: ctx.params.faqId
+                    id: parseInt(ctx.params.faqId)
                 }
             })
 
-            if(!faq){
+            if (!faq) {
                 let notFoundError = new AppError({
                     toastErrorType: "faqNotFound",
                     statusCode: 500,

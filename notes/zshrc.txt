@@ -42,6 +42,10 @@ weather() {
     curl https://wttr.in/Chicago\?${1}
 }
 
+
+export BAT_THEME="Dracula"
+
+
 # NOTE: This should really only be used once. Once you have these tools there's no reason to run it again, and you can delete it if you want.
 
 forgetText="# Aliases

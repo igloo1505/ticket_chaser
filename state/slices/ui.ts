@@ -5,6 +5,8 @@ import initialUiState, { InitialUIStateType } from "../initial/ui";
 import { v4 as uuid } from 'uuid';
 import { ToastErrorTypes } from "#/types/AuthTypes";
 import { defaultToastConfigs } from "#/data/defaultToasts";
+import { handleUnderNavbarWrapper } from "#/actions/uiActions";
+import { RootState } from "../store";
 
 
 const slice = createSlice({
@@ -39,7 +41,7 @@ const slice = createSlice({
                 toastId: uuid()
             })
         },
-        showModal(state, action: PayloadAction<keyof InitialUIStateType['modals']>) {
+        showModal(state, action: PayloadAction<keyof Pick<typeof initialUiState.modals, "tos" | "privacy" | "payment">>) {
             state.modals[action.payload] = true
         },
         hideModal(state, action: PayloadAction<keyof InitialUIStateType['modals']>) {
@@ -51,13 +53,13 @@ const slice = createSlice({
         setDarkMode(state, action: PayloadAction<boolean>) {
             state.darkMode = action.payload
         },
-        setViewportData(state, action: PayloadAction<InitialUIStateType['viewport']>) {
+        setViewportDataState(state, action: PayloadAction<InitialUIStateType['viewport']>) {
             state.viewport = action.payload
         },
     }
 })
 
 
-export const { showToast, setDrawerOpen, toggleDrawer, clearToast, showModal, hideModal, hideAllModals, setDarkMode, setViewportData, showDefaultToast } = slice.actions
+export const { showToast, setDrawerOpen, toggleDrawer, clearToast, showModal, hideModal, hideAllModals, setDarkMode, setViewportDataState, showDefaultToast } = slice.actions
 export default slice.reducer
 

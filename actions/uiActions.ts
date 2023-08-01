@@ -1,5 +1,6 @@
 import { InterestType, MappedInterestType, initialInterests } from "#/data/interests"
-import { setDarkMode } from "#/state/slices/ui"
+import { InitialUIStateType } from "#/state/initial/ui"
+import { setDarkMode, setViewportDataState } from "#/state/slices/ui"
 import store from "#/state/store"
 import { CATEGORY } from "@prisma/client"
 
@@ -33,14 +34,32 @@ export const animateCSS = (id: string, animation: Animation, prefix = 'animate__
     });
 
 export const getInitialInterestList = (): MappedInterestType => {
-    let interests =  initialInterests
+    let interests = initialInterests
     let o = {} as MappedInterestType
-    for(var i = 0; i < interests.length; i ++){
+    for (var i = 0; i < interests.length; i++) {
         let j = interests[i]
-        if(!o[j.category]){
+        if (!o[j.category]) {
             o[j.category] = []
         }
         o[j.category].push(j)
     }
     return o
+}
+
+export const handleUnderNavbarWrapper = (height: number) => {
+    if (typeof window === "undefined") return;
+    let ems = document.getElementsByClassName("underNavbarWrapper")
+    for (var i = 0; i < ems.length; i++) {
+        /// @ts-ignore
+        if (ems[i]?.style) {
+            /// @ts-ignore
+            ems[i].style.minHeight = `calc(100vh-${height}px)`
+        }
+    }
+
+}
+
+export const setViewportData = (data: InitialUIStateType['viewport']) => {
+    handleUnderNavbarWrapper(data.navbarHeight)
+    setViewportDataState(data)
 }

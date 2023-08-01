@@ -153,31 +153,31 @@ const SignupMainForm = connector(({ setLogin, formData }: Props) => {
     }
 
     return (
-        <div className= { "w-full h-full flex flex-col justify-center items-center"} >
-        <div className={ "w-full h-full flex flex-col justify-center items-center relative" } id = { multiStepSignupFormContainer } >
-            <BasicInfoForm form={ formData } setFormData = { handleFormData } step = { 1}
-    showPasswordMismatch = { indicateState.passwordMismatch ? indicateState.passwordMismatch : null }
-    showInvalidEmail = { indicateState.validEmail ? indicateState.validEmail : null }
-        />
-        <PersonalDetailsForm form={ formData } setFormData = { handleFormData } step = { 2} />
-            <StateLocationForm form={ formData } setFormData = { handleFormData } step = { 3} />
-                <CityForm form={ formData } setFormData = { handleFormData } step = { 4} />
-                    <div className = { 'card-actions pb-2 w-full h-fit flex flex-col justify-center items-center' } >
-                        </div>
-                        < div className = { clsx('w-full grid gap-4 grid-cols-1', !formData.firstStep && "grid-cols-2") }>
-                            {!formData.firstStep && <Button label="Back" onClick = { prevStep } className = { 'w-full'} />}
-{
-    formData.lastStep ?
-    <Button label="Submit" onClick = { handleSignup } className = { 'w-full'} />
-                        :
-    <Button label="Continue" onClick = { nextStep } className = { 'w-full'} />
-                    }
-</div>
-    <div className = { 'w-full flex justify-center items-center'} >
-        <Button label="I already have an account" onClick = { setLogin } className = { 'w-full'} />
-            </div>
-            </div>
+        <div className={"w-full h-full flex flex-col justify-center items-center"} >
+            <div className={"w-full h-full flex flex-col justify-center items-center relative"} id={multiStepSignupFormContainer} >
+                <BasicInfoForm form={formData} setFormData={handleFormData} step={1}
+                    showPasswordMismatch={indicateState.passwordMismatch ? indicateState.passwordMismatch : null}
+                    showInvalidEmail={indicateState.validEmail ? indicateState.validEmail : null}
+                />
+                <PersonalDetailsForm form={formData} setFormData={handleFormData} step={2} />
+                <StateLocationForm form={formData} setFormData={handleFormData} step={3} />
+                <CityForm form={formData} setFormData={handleFormData} step={4} />
+                <div className={'card-actions pb-2 w-full h-fit flex flex-col justify-center items-center'} >
                 </div>
+                < div className={clsx('w-full grid gap-4 grid-cols-1', !formData.firstStep && "grid-cols-2")}>
+                    {!formData.firstStep && <Button label="Back" onClick={prevStep} className={'w-full'} />}
+                    {
+                        formData.lastStep ?
+                            <Button label="Submit" onClick={handleSignup} className={'w-full'} />
+                            :
+                            <Button label="Continue" onClick={nextStep} className={'w-full'} />
+                    }
+                </div>
+                <div className={'w-full flex justify-center items-center'} >
+                    <Button label="I already have an account" onClick={setLogin} className={'w-full'} />
+                    </div>
+            </div>
+        </div>
     )
 })
 

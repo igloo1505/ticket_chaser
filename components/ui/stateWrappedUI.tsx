@@ -4,6 +4,7 @@ import Navbar from '../navigation/navbar';
 import ReduxProvider from '../utility/reduxProvider';
 import ToastList from './toastList';
 import Drawer from '../navigation/drawer';
+import CombinedModals from './modals/CombinedModals';
 
 
 const StateWrappedUI = () => {
@@ -12,6 +13,7 @@ const StateWrappedUI = () => {
             <Navbar />
             <Drawer />
             <ToastList />
+            <CombinedModals />
         </ReduxProvider>
     )
 }

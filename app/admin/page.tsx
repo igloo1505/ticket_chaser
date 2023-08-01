@@ -10,9 +10,7 @@ interface AdminUnauthenticatedPageProps {
 
 const AdminUnauthenticatedPage = (props: AdminUnauthenticatedPageProps) => {
     return (
-        <UnderNavbarWrapper>
-            <AdminLoginPageWrapper />
-        </UnderNavbarWrapper>
+        <AdminLoginPageWrapper />
     )
 }
 
