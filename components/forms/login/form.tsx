@@ -11,15 +11,15 @@ export interface LoginFormProps {
     children?: React.ReactNode
 }
 
-const LoginForm = ({handleChange, formData, children}: LoginFormProps) => {
+const LoginForm = ({ handleChange, formData, children }: LoginFormProps) => {
     return (
         <div className={'flex flex-col justify-center items-center w-full'}>
-        <div className={'w-full flex flex-col justify-center items-center gap-4'}>
-            <TextInput onChange={handleChange} name="email" label="Email" value={formData.email}
-            />
-            <TextInput onChange={handleChange} name="password" protect label="Password" value={formData.password}
-            />
-        </div>
+            <div className={'w-full flex flex-col justify-center items-center gap-4'}>
+                <TextInput onChange={handleChange} name="email" label="Email" value={formData.email}
+                />
+                <TextInput onChange={handleChange} name="password" protect label="Password" value={formData.password}
+                />
+            </div>
             {children && children}
         </div>
     )

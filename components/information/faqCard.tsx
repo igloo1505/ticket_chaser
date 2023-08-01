@@ -33,10 +33,9 @@ const FaqCard = ({ faq, forceOpen, initialOpen }: FaqCardProps) => {
                     {faq.title}
                 </div>
             </div>
-            <div className={"collapse-arrow text-primary-content"} />
             <div className={clsx("collapse-content transition-all duration-300  border border-primary border-opacity-50 rounded-br-2xl rounded-bl-2xl")}
             >
-                {faq.subtitle && faq.subtitle !== "" && <div className={"font-md font-semibold pt-4"}>{faq.subtitle}</div>}
+                {faq.subtitle && faq.subtitle !== "" && <div className={"font-md font-bold pt-4"}>{faq.subtitle}</div>}
                 <RichTextDisplay __html={faq.body} className={!faq.subtitle || faq.subtitle === "" ? "py-4" : "pb-4 pt-2"} />
             </div>
         </div>

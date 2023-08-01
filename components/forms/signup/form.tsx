@@ -92,9 +92,11 @@ const SignupMainForm = connector(({ setLogin, formData }: Props) => {
 
     const handleSignup = async () => {
         const isValidForm = validateFormInput(formData.data)
-        const success = await registerUser(formData.data)
-        if (success) {
-            router.push("/")
+        if (isValidForm) {
+            const success = await registerUser(formData.data)
+            if (success) {
+                router.push("/")
+            }
         }
     }
 
@@ -162,8 +164,8 @@ const SignupMainForm = connector(({ setLogin, formData }: Props) => {
                 <PersonalDetailsForm form={formData} setFormData={handleFormData} step={2} />
                 <StateLocationForm form={formData} setFormData={handleFormData} step={3} />
                 <CityForm form={formData} setFormData={handleFormData} step={4} />
-                <div className={'card-actions pb-2 w-full h-fit flex flex-col justify-center items-center'} >
-                </div>
+            </div>
+            <div className={'card-actions pb-2 w-full h-fit flex flex-col justify-center items-center'} >
                 < div className={clsx('w-full grid gap-4 grid-cols-1', !formData.firstStep && "grid-cols-2")}>
                     {!formData.firstStep && <Button label="Back" onClick={prevStep} className={'w-full'} />}
                     {
@@ -175,7 +177,7 @@ const SignupMainForm = connector(({ setLogin, formData }: Props) => {
                 </div>
                 <div className={'w-full flex justify-center items-center'} >
                     <Button label="I already have an account" onClick={setLogin} className={'w-full'} />
-                    </div>
+                </div>
             </div>
         </div>
     )

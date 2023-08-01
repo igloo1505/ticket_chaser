@@ -25,7 +25,9 @@ export const setRichTextChildClasses = (parent: React.RefObject<HTMLDivElement>)
 
 // TODO: Remove this entirely if you turn out not to use it. Going with just using my own scss for now.
 export const updateRichTextString = (s: string) => {
-    const val = s.replace('target="_blank"', "")
-    // let val = s.replace("<a ", "<a class='link' ")
+    let val = s.replace('target="_blank"', "")
+    val = val.replace("<h1", "<h1 class='text-lg block'")
+    val = val.replace("<h2", "<h1 class='font-semibold block'")
+    val = val.replace("<blockquote", "<blockquote class='richTextItalic'")
     return val
 }
