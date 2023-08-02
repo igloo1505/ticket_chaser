@@ -13,9 +13,7 @@ interface LandingCardSectionProps {
 const LandingCardSection = (props: LandingCardSectionProps) => {
     return (
         <div className={"w-full h-full flex justify-center items-center"}>
-            <div className={"h-fit  hidden xl:grid grid-cols-3 gap-4"} style={{
-                /* paddingTop: `${NAVHEIGHT}px` */
-            }}>
+            <div className={"h-fit  hidden xl:grid grid-cols-3 gap-4"}>
                 {landingPageData.featured.map((j, i) => <EventCard item={j} key={`featured-event-${i}`} />)}
             </div>
             <div className={"w-96 py-8 md:w-[48rem] xl:hidden carousel"}>
