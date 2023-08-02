@@ -172,6 +172,9 @@ model Event {
     amenities    ArenaAmenities @relation(fields: [amenitiesId], references: [id])
     amenitiesId  Int
     tags         Tag[]
+    date         DateTime
+    title String
+    description String
 }
 
 model TicketGroup {

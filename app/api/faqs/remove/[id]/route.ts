@@ -4,25 +4,21 @@ import { createEdgeRouter } from "next-connect";
 import { prisma } from "#/db/db";
 import { AppError } from "#/classes/ErrorHandling";
 import { getCorsHeaders, optionsMethodResponse } from "#/utils/server/cors";
-import { FaqFormData } from "#/state/initial/adminState";
-import { validateOrRedirect } from "#/utils/server/pages/authAndData";
 import { validate, validateRoleToken } from "#/utils/server/tokens";
 import { unAuthorizedError } from "#/utils/server/commonAppErrors";
 
 
 interface RequestContext {
-    // params: {
-    //     id: string
-    // }
+    params: {
+        id: string
+    }
 }
-
 
 const router = createEdgeRouter<NextRequest, RequestContext>();
 
 
 router
-
-    .post(async (req, ctx) => {
+    .delete(async (req, ctx) => {
         try {
             const valid = await validate(req.cookies)
             if (!valid) {
@@ -32,11 +28,14 @@ router
             if (!validAdmin) {
                 return unAuthorizedError(req)
             }
-            const { data }: { data: Omit<FaqFormData, "id"> } = await req.json()
-            const newFaq = await prisma.faq.create({
-                data: data
+
+            const removed = await prisma.faq.delete({
+                where: {
+                    id: parseInt(ctx.params.id)
+                }
             })
-            let res = new NextResponse(JSON.stringify({ success: true, faq: newFaq }), getCorsHeaders(req, 200));
+
+            let res = new NextResponse(JSON.stringify({ removed: removed, success: true }), getCorsHeaders(req, 200));
             return res
         } catch (err) {
             console.error(err)
@@ -45,7 +44,7 @@ router
     })
 
 
-export async function POST(request: NextRequest, ctx: RequestContext) {
+export async function DELETE(request: NextRequest, ctx: RequestContext) {
     return router.run(request, ctx);
 }
 

@@ -33,5 +33,8 @@ export const formatDate = (date: Date, short?: boolean) => {
 }
 
 
+export const daysInMilliseconds = (n: number) => 24 * 60 * 60 * 1000 * n
+
+
 export default dayjs
 

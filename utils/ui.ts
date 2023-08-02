@@ -1,9 +1,11 @@
-import { DOMElement } from "react"
+
+export const NAVHEIGHT = 96
+
 
 export const appendRichTextClassFromNode = (node: ChildNode) => {
     console.log("node.nodeName: ", node.nodeName)
     if (node.nodeName === "A") {
-        console.log("Here?")
+        /// @ts-ignore
         node.classList.add("link")
     }
     for (var i = 0; i < node.childNodes.length; i++) {

@@ -1,3 +1,4 @@
+import { CATEGORY } from "@prisma/client"
 import React, { ChangeEvent } from "react"
 
 
@@ -32,4 +33,14 @@ export const elevationMap: Partial<{ [k in "100" | "200" | "300" | "400" | "500"
     700: "elevate-700",
     800: "elevate-800",
     900: "elevate-900"
+}
+
+
+export interface EventCardProps {
+    title: string
+    category: CATEGORY
+    date: Date
+    description: string
+    image?: string
+    tags?: string[]
 }

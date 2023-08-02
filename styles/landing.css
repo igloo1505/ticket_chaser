@@ -1,0 +1,22 @@
+/* html { */
+/*   scroll-behavior: sn; */
+/* } */
+
+.landingScrollContainer {
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  margin-top: 0;
+  scroll-snap-type: y mandatory;
+  overflow-y: scroll;
+  /* z-index: -1; */
+}
+
+.landingScrollSection {
+  height: 100vh;
+  position: relative;
+  scroll-snap-align: start;
+  /* // scroll-snap-type: y proximity; */
+}

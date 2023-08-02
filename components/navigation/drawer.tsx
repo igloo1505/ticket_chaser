@@ -37,12 +37,12 @@ const Drawer = connector(({ open }: DrawerProps) => {
     }
     return (
         <>
-            <div className="w-auto transition-transform duration-300 h-screen bg-base-200 fixed top-0 left-0 pt-16 z-[999]"
+            <div className="w-auto transition-transform duration-300 h-screen bg-base-200 fixed top-0 left-0 pt-16 z-[9999]"
                 style={{
                     transform: open ? "translateX(0)" : "translateX(-100%)"
                 }}
             >
-                <ul className="p-4 w-80 h-full">
+                <ul className="p-4 w-80 h-full z-[9999]">
                     {navbarButtons.map((b, i) => {
                         return <DrawerItem item={b} key={`drawer-link-${i}`} />
                     })}

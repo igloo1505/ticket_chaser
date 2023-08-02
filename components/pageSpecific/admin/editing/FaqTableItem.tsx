@@ -19,6 +19,7 @@ const FaqTableItem = ({ item }: { item: Faq }) => {
         }))
 
     }
+
     return (
         <tr>
             <td className="table-cell cursor-grab" onClick={copyLink}>{item.id}</td>

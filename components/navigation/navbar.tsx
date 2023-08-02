@@ -1,5 +1,5 @@
 "use client"
-import { setDarkmode, setViewportData } from '#/actions/uiActions'
+import { handleHeroScroll, setDarkmode, setViewportData } from '#/actions/uiActions'
 import React, { useEffect, useRef } from 'react'
 import { BsFillMoonStarsFill, BsFillSunFill } from 'react-icons/bs'
 import store, { RootState } from '#/state/store';
@@ -11,6 +11,7 @@ import { toggleDrawer } from '#/state/slices/ui'
 import { navbarButtons } from './navbarButtons'
 import { Spin as Hamburger } from 'hamburger-react'
 import NavbarTitle from './navbarTitle';
+import { usePathname, useRouter } from 'next/navigation';
 
 const connector = connect((state: RootState, props: any) => ({
     ui: state.UI,
@@ -25,14 +26,21 @@ interface NavbarProps {
 
 const Navbar = connector(({ ui }: NavbarProps) => {
     const ref = useRef<HTMLDivElement>(null!)
+    const pathname = usePathname()
     useEffect(() => {
         animateDarkmode(ui?.darkMode || true)
     }, [ui])
     const toggleDark = () => {
         setDarkmode(!ui.darkMode)
     }
+    const heroObserver = () => {
+        handleHeroScroll("hero-section-container")
+    }
     const monitorViewport = () => {
         if (!ref.current) return
+        if (pathname.toString() === "/") {
+            heroObserver()
+        }
         setViewportData({
             navbarHeight: ref.current.getBoundingClientRect().height,
             height: window.innerHeight,
@@ -40,19 +48,25 @@ const Navbar = connector(({ ui }: NavbarProps) => {
 
         })
     }
+
+
     useEffect(() => {
         if (typeof window === "undefined") return;
         window.addEventListener("resize", monitorViewport)
-        return () => window.removeEventListener("resize", monitorViewport)
+        window.addEventListener("scroll", heroObserver)
+        return () => {
+            window.removeEventListener("resize", monitorViewport)
+            window.removeEventListener("scroll", heroObserver)
+        }
     }, [])
     return (
-        <div className="drawer">
+        <div className="drawer z-[999999]">
             <input id="mainDrawer" type="checkbox" className="drawer-toggle" />
             <div className="drawer-content flex flex-col">
                 {/* Navbar */}
-                <div className="w-full navbar">
+                <div className="w-full px-6 flex flex-row justify-between py-4 h-nav">
                     <div className="flex justify-center items-center md:hidden" style={{
-                        zIndex: 999999
+                        zIndex: 99999999
                     }}>
                         <Hamburger toggled={ui?.drawer?.open || false} onToggle={() => store.dispatch(toggleDrawer())} />
                     </div>

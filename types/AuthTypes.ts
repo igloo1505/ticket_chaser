@@ -1,6 +1,6 @@
 import type { LegalName, Location, ROLE, User } from "@prisma/client"
 
-export type ToastErrorTypes = "unauthenticated" | "tokenExpired" | "mustBeVerified" | "faqNotFound" | "emailExists" | "userNotFound" | "credentialsInvalid" | "passwordsDontMatch"
+export type ToastErrorTypes = "unauthenticated" | "tokenExpired" | "mustBeVerified" | "faqNotFound" | "emailExists" | "userNotFound" | "credentialsInvalid" | "passwordsDontMatch" | "unauthorized"
 
 
 export type AccessType = ROLE | "AUTHENTICATED" | "DEVELOPMENT" | "UNKNOWN" | false

@@ -1,6 +1,8 @@
 import { darkEvelations, darkTheme } from './daisy/dark'
 import { lightElevations, lightTheme } from './daisy/light'
 import { daisySafeList } from './daisy/safelist'
+import { NAVHEIGHT } from './utils/ui'
+
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
@@ -535,7 +537,8 @@ module.exports = {
             min: 'min-content',
             max: 'max-content',
             fit: 'fit-content',
-            screenNav: `calc(100vh-${theme.navbarHeight})`
+            screenNav: `calc(100vh-${NAVHEIGHT}px)`,
+            nav: `${NAVHEIGHT}px`
         }),
         hueRotate: {
             0: '0deg',

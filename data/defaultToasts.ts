@@ -43,5 +43,10 @@ export const defaultToastConfigs: { [k in ToastErrorTypes]: Omit<ToastError, "to
         variant: "info",
         content: "Please confirm your password. They don't match.",
         title: "Password Mismatch",
-    }
+    },
+    unauthorized: {
+        variant: "error",
+        content: "You do not have permission to do that.",
+        title: "Unauthorized",
+    },
 }

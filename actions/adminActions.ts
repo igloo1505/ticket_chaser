@@ -13,3 +13,9 @@ export const SubmitFaqData = async () => {
         store.dispatch(clearFaqEdit())
     }
 }
+
+export const removeFaq = async (id: number | string) => {
+    const res = await handleAxios("delete", `/api/faqs/remove/${id}`)
+    console.log("res.data: ", res?.data)
+    return res?.data.success
+}
