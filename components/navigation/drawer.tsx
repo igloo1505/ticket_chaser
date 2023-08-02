@@ -47,7 +47,6 @@ const Drawer = connector(({ open }: DrawerProps) => {
                         return <DrawerItem item={b} key={`drawer-link-${i}`} />
                     })}
                 </ul>
-
             </div>
             <Overlay onClick={() => store.dispatch(setDrawerOpen(false))} open={open} />
         </>

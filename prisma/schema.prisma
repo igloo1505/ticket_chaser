@@ -173,8 +173,8 @@ model Event {
     amenitiesId  Int
     tags         Tag[]
     date         DateTime
-    title String
-    description String
+    title        String
+    description  String
 }
 
 model TicketGroup {

@@ -11,9 +11,14 @@ interface Props {
 
 const RichTextEditor = ({ value, onChange }: Props) => {
     return (
-        <div className={"w-full h-full px-4 pb-4 relative bg-base-200 text-base-content"}>
-            <ReactQuill theme="bubble" value={value} onChange={onChange} className={"h-full overflow-hidden"} />
-        </div>
+        <div className={"w-full h-full px-4 pb-4 relative text-base-content rounded-xl"} style={{
+            /* border: "1px solid hsl(var(--bc) / var(--tw-border-opacity))" */
+            border: "1px solid hsl(var(--bc) / 0.25)"
+            /* borderColor: "hsl(var(--bc))" */
+            /* borderColor: "hsl(var(--bc))" */
+        }}>
+            <ReactQuill theme="bubble" value={value} onChange={onChange} className={"h-full overflow-hidden rounded-xl"} />
+        </div >
     )
 }
 

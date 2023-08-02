@@ -8,4 +8,6 @@ export const daisySafeList = [
     "elevate-700",
     "elevate-800",
     "elevate-900",
+    "bc",
+    "tw-border-opacity"
 ]
