@@ -111,7 +111,6 @@ enum CATEGORY {
 
 model Faq {
     id        Int      @id @default(autoincrement())
-    domId     String?
     title     String
     subtitle  String
     body      String

@@ -19,7 +19,7 @@ interface AdminStateType {
 const initialAdminState: AdminStateType = {
     editing: {
         faq: {
-            title: "",
+            title: "How to sign up.",
             subtitle: "",
             body: defaultEditFaqBody
         }

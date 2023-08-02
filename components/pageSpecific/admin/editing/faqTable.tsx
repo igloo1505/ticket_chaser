@@ -19,7 +19,11 @@ interface FaqTableProps {
 const FaqTableHeadItem = ({ val, sortedBy, pageNum, sortKey, sortOrder }: { val: string, sortedBy: keyof Faq, sortKey: keyof Faq, sortOrder?: "asc" | "desc", pageNum: number | string }) => {
     if (sortKey !== sortedBy) {
         return (
-            <th>{val}</th>
+            <th>
+                <Link className={"w-full h-full"} href={`/admin/legit/faqTable?${getFaqTableSearchParams(typeof pageNum === "string" ? parseInt(pageNum) : pageNum, sortKey, sortOrder)}`}>
+                    {val}
+                </Link>
+            </th>
         )
     }
     return (
@@ -33,6 +37,7 @@ const FaqTableHeadItem = ({ val, sortedBy, pageNum, sortKey, sortOrder }: { val:
         </th>
     )
 }
+
 
 const FaqTable = ({ items, sortedBy, sortOrder, pageNum }: FaqTableProps) => {
     return (

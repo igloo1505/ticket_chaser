@@ -34,6 +34,15 @@ const FaqEditFormCard = connector(({ data }: FaqEditFormCardProps) => {
         }))
     }
 
+    const clearForm = () => {
+        store.dispatch(setFaqData({
+            title: "",
+            subtitle: "",
+            body: "<p><br></p>",
+            id: undefined
+        }))
+    }
+
     return (
         <div className={"w-full pt-4 h-full max-h-full gap-4 grid grid-rows-[auto_1fr] @container"}>
             <div className={"w-full grid gap-4 grid-cols-1 @lg:grid-cols-2"}>
@@ -44,6 +53,7 @@ const FaqEditFormCard = connector(({ data }: FaqEditFormCardProps) => {
             </div>
             <RichTextEditor value={data.body} onChange={handleBodyChange} />
             <div className={"w-full flex flex-row justify-end items-center gap-4"}>
+                <Button label="Clear" variants={["btn-error"]} onClick={clearForm} />
                 <Button label="Submit" onClick={SubmitFaqData} />
             </div>
         </div>

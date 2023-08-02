@@ -1,3 +1,4 @@
+import clsx from 'clsx'
 import Link from 'next/link'
 import React from 'react'
 
@@ -9,9 +10,9 @@ interface PaginatorProps {
     href: (n: number) => string
 }
 
-const PaginateButton = ({ item }: { item: PaginateItem }) => {
-    return <div className={""}>
-        <Link href={item.href}>
+const PaginateButton = ({ item, active }: { active: boolean, item: PaginateItem }) => {
+    return <div className={clsx("btn btn-primary", active && "btn-disabled")}>
+        <Link href={item.href} className={clsx(active && "text-primary")}>
             {item.n}
         </Link>
     </div>
@@ -25,8 +26,8 @@ const Paginator = (props: PaginatorProps) => {
 
     }
     return (
-        <div className={"btn-group btn-group-horizontal"}>
-            {nums.map((n) => <PaginateButton item={n} key={`paginate-${n.n}`} />)}
+        <div className={"btn-group btn-group-horizontal mt-4"}>
+            {nums.map((n) => <PaginateButton item={n} active={props.active === n.n} key={`paginate-${n.n}`} />)}
         </div>
     )
 }

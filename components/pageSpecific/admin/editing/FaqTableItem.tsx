@@ -13,7 +13,7 @@ const FaqTableItem = ({ item }: { item: Faq }) => {
         store.dispatch(showToast({
             variant: "success",
             title: "Copied!",
-            content: "Your referal URL was copied to your clipboard.",
+            content: "The internal URL was copied to your clipboard.",
             timeout: 5000,
             isOpen: true
         }))

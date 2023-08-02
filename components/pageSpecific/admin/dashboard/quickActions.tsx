@@ -18,9 +18,14 @@ const actions: QuickActionButtonProps[] = [
         desc: "Set some random values for forms, toasts, notifications and whatnot just to save some time."
     },
     {
-        label: "FAQ Stuff",
+        label: "Add Faqs",
         action: (r) => r.push("/admin/legit/faq"),
         desc: "Set some random values for forms, toasts, notifications and whatnot just to save some time."
+    },
+    {
+        label: "FAQ Table",
+        action: (r) => r.push("/admin/legit/faqTable"),
+        desc: "Faq Table with links to copy the embed link and edit the item."
     },
 ]
 

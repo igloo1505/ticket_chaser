@@ -37,16 +37,16 @@ const FaqTablePage = async ({ searchParams }: FaqTablePageProps) => {
         skip: (pageNum - 1) * perPage
     })
     return (
-        <div className={"w-full flex flex-col justify-center items-center"}>
+        <div className={"w-full flex flex-col justify-center items-center px-6"}>
             <FaqTable items={items} sortedBy={sortedBy} pageNum={pageNum} sortOrder={sortOrder} />
-            <Paginator max={maxPage} active={searchParams.pageNum ? parseInt(searchParams.pageNum) : 1} href={(n: number) => {
+            {maxPage > 1 && <Paginator max={maxPage} active={searchParams.pageNum ? parseInt(searchParams.pageNum) : 1} href={(n: number) => {
                 const sparams = new URLSearchParams({
                     pageNum: `${n}`,
                     sortBy: searchParams.sortBy || "createdAt",
                     sortOrder: searchParams.sortOrder || "desc"
                 })
                 return `/admin/legit/faqTable?${sparams.toString()}`
-            }} />
+            }} />}
         </div>
     )
 }
