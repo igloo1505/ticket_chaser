@@ -13,11 +13,9 @@ export default function RootLayout({
 }) {
     return (
         <html lang="en">
-            <body className={"group"}>
+            <body className={"h-fit relative"}>
                 <StateWrappedUI />
-                <UnderNavbarWrapper>
                 {children}
-                </UnderNavbarWrapper>
             </body>
         </html>
     )

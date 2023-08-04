@@ -20,11 +20,9 @@ export const darkEvelations = {
         "background-color": `color-mix(in srgb, ${darkBackground} ${shadeGradient[3]}%, white)`,
         "box-shadow": "40px 40px 80px #080d17, -40px -40px 80px #14213b"
     },
-
     ".elevate-500": {
         "background-color": `color-mix(in srgb, ${darkBackground} ${shadeGradient[4]}%, white)`
     },
-
     ".elevate-600": {
         "background-color": `color-mix(in srgb, ${darkBackground} ${shadeGradient[5]}%, white)`
     },
@@ -35,6 +33,33 @@ export const darkEvelations = {
         "background-color": `color-mix(in srgb, ${darkBackground} ${shadeGradient[7]}%, white)`
     },
     ".elevate-900": {
+        "background-color": `color-mix(in srgb, ${darkBackground} ${shadeGradient[8]}%, white)`
+    },
+    ".bg-elevate-100": {
+        "background-color": `color-mix(in srgb, ${darkBackground} ${shadeGradient[0]}%, white)`,
+    },
+    ".bg-elevate-200": {
+        "background-color": `color-mix(in srgb, ${darkBackground} ${shadeGradient[1]}%, white)`,
+    },
+    ".bg-elevate-300": {
+        "background-color": `color-mix(in srgb, ${darkBackground} ${shadeGradient[2]}%, white)`,
+    },
+    ".bg-elevate-400": {
+        "background-color": `color-mix(in srgb, ${darkBackground} ${shadeGradient[3]}%, white)`,
+    },
+    ".bg-elevate-500": {
+        "background-color": `color-mix(in srgb, ${darkBackground} ${shadeGradient[4]}%, white)`
+    },
+    ".bg-elevate-600": {
+        "background-color": `color-mix(in srgb, ${darkBackground} ${shadeGradient[5]}%, white)`
+    },
+    ".bg-elevate-700": {
+        "background-color": `color-mix(in srgb, ${darkBackground} ${shadeGradient[6]}%, white)`
+    },
+    ".bg-elevate-800": {
+        "background-color": `color-mix(in srgb, ${darkBackground} ${shadeGradient[7]}%, white)`
+    },
+    ".bg-elevate-900": {
         "background-color": `color-mix(in srgb, ${darkBackground} ${shadeGradient[8]}%, white)`
     },
 }

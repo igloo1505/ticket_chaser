@@ -4,11 +4,12 @@ import React from 'react'
 
 interface LandingScrollSectionProps {
     children: React.ReactNode
+    section: number
 }
 
-const LandingScrollSection = ({ children }: LandingScrollSectionProps) => {
+const LandingScrollSection = ({ children, section }: LandingScrollSectionProps) => {
     return (
-        <section className={"landingScrollSection"}>{children}</section>
+        <section id={`landing-scroll-section-${section}`} className={"landingScrollSection bg-base-100"}>{children}</section>
     )
 }
 

@@ -9,11 +9,11 @@ const Home = async () => {
     /* const { user } = await validateOrRedirect(); */
     /* <AuthObserver user={user} /> */
     return (
-        <div className={"landingScrollContainer"}>
-            <LandingScrollSection>
+        <div className={"landingScrollContainer"} id="landing-scroll-snap-container">
+            <LandingScrollSection section={1}>
                 <HeroSection />
             </LandingScrollSection>
-            <LandingScrollSection>
+            <LandingScrollSection section={2}>
                 <LandingCardSection />
             </LandingScrollSection>
         </div>

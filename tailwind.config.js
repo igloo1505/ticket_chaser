@@ -1038,13 +1038,13 @@ module.exports = {
             {
                 [`${lightTheme}`]: {
                     ...require("daisyui/src/theming/themes")[`[data-theme=${lightTheme}]`],
-                    ...lightElevations
+                    ...lightElevations,
                 },
             },
             {
                 [`${darkTheme}`]: {
                     ...require("daisyui/src/theming/themes")[`[data-theme=${darkTheme}]`],
-                    ...darkEvelations
+                    ...darkEvelations,
                 },
             },
         ],

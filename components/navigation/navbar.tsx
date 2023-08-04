@@ -1,5 +1,5 @@
 "use client"
-import { handleHeroScroll, setDarkmode, setViewportData } from '#/actions/uiActions'
+import { handleHeroScroll, observeLandingScroll, setDarkmode, setViewportData } from '#/actions/uiActions'
 import React, { useEffect, useRef } from 'react'
 import { BsFillMoonStarsFill, BsFillSunFill } from 'react-icons/bs'
 import store, { RootState } from '#/state/store';
@@ -33,14 +33,14 @@ const Navbar = connector(({ ui }: NavbarProps) => {
     const toggleDark = () => {
         setDarkmode(!ui.darkMode)
     }
-    const heroObserver = () => {
-        handleHeroScroll("hero-section-container")
+    const heroObserver = (e: Event) => {
+        console.log("pathname.toString(): ", pathname.toString())
+        if (pathname.toString() !== "/") return
+        observeLandingScroll(e, ref)
     }
-    const monitorViewport = () => {
+    const monitorViewport = (e: Event) => {
         if (!ref.current) return
-        if (pathname.toString() === "/") {
-            heroObserver()
-        }
+        heroObserver(e)
         setViewportData({
             navbarHeight: ref.current.getBoundingClientRect().height,
             height: window.innerHeight,
@@ -53,35 +53,35 @@ const Navbar = connector(({ ui }: NavbarProps) => {
     useEffect(() => {
         if (typeof window === "undefined") return;
         window.addEventListener("resize", monitorViewport)
-        window.addEventListener("scroll", heroObserver)
+        let em = document.getElementById("landing-scroll-snap-container")
+        if (em) {
+            em.addEventListener("scroll", heroObserver)
+        }
         return () => {
             window.removeEventListener("resize", monitorViewport)
-            window.removeEventListener("scroll", heroObserver)
+            let em = document.getElementById("landing-scroll-snap-container")
+            if (em) {
+                em.removeEventListener("scroll", heroObserver)
+            }
         }
     }, [])
     return (
-        <div className="drawer z-[999999]">
-            <input id="mainDrawer" type="checkbox" className="drawer-toggle" />
-            <div className="drawer-content flex flex-col">
-                {/* Navbar */}
-                <div className="w-full px-6 flex flex-row justify-between py-4 h-nav">
-                    <div className="flex justify-center items-center md:hidden" style={{
-                        zIndex: 99999999
-                    }}>
-                        <Hamburger toggled={ui?.drawer?.open || false} onToggle={() => store.dispatch(toggleDrawer())} />
-                    </div>
-                    <div className="flex-row w-full justify-between items-center flex-nowrap hidden md:flex py-3 px-4" ref={ref}>
-                        <NavbarTitle />
-                        <div className={'flex flex-row justify-center items-center gap-4'}>
-                            <IconButton onClick={toggleDark} circle className={'relative flex justify-center items-center'}>
-                                <label className={clsx("h-full w-full swap swap-rotate", ui?.darkMode && "swap-active")}>
-                                    <BsFillMoonStarsFill className={clsx('swap-on')} />
-                                    <BsFillSunFill className={clsx('swap-off')} />
-                                </label>
-                            </IconButton>
-                            {navbarButtons.map((b, i) => <NavbarButton {...b} key={`navbar-button-${i}`} />)}
-                        </div>
-                    </div>
+        <div className="absolute top-0 left-0 w-screen px-6 flex flex-row justify-between py-4 h-nav z-[99999]">
+            <div className="flex justify-center items-center md:hidden" style={{
+                zIndex: 99999999
+            }}>
+                <Hamburger toggled={ui?.drawer?.open || false} onToggle={() => store.dispatch(toggleDrawer())} />
+            </div>
+            <div className="flex-row w-full justify-between items-center flex-nowrap hidden md:flex py-3 px-4" ref={ref}>
+                <NavbarTitle />
+                <div className={'flex flex-row justify-center items-center gap-4'}>
+                    <IconButton onClick={toggleDark} circle className={'relative flex justify-center items-center'}>
+                        <label className={clsx("h-full w-full swap swap-rotate", ui?.darkMode && "swap-active")}>
+                            <BsFillMoonStarsFill className={clsx('swap-on')} />
+                            <BsFillSunFill className={clsx('swap-off')} />
+                        </label>
+                    </IconButton>
+                    {navbarButtons.map((b, i) => <NavbarButton {...b} key={`navbar-button-${i}`} />)}
                 </div>
             </div>
         </div>

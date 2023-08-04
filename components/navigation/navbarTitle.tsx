@@ -5,7 +5,7 @@ import React from 'react'
 const NavbarTitle = () => {
     return (
         <Link href="/">
-            <div className={'text-xl text-white font-bold tracking-wider pl-2'}>SafeStub</div>
+            <div className={'text-xl text-base-content font-bold tracking-wider pl-2'}>SafeStub</div>
         </Link>
     )
 }

@@ -33,4 +33,32 @@ export const lightElevations = {
     ".elevate-900": {
         "background-color": "unset"
     },
+    ".bg-elevate-100": {
+        "background-color": "unset"
+    },
+    ".bg-elevate-200": {
+        "background-color": "unset",
+    },
+    ".bg-elevate-300": {
+        "background-color": "unset",
+    },
+    ".bg-elevate-400": {
+        "background-color": "unset",
+    },
+    ".bg-elevate-500": {
+        "background-color": "unset"
+    },
+
+    ".bg-elevate-600": {
+        "background-color": "unset"
+    },
+    ".bg-elevate-700": {
+        "background-color": "unset"
+    },
+    ".bg-elevate-800": {
+        "background-color": "unset"
+    },
+    ".bg-elevate-900": {
+        "background-color": "unset"
+    },
 }

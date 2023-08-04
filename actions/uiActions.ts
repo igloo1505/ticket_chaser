@@ -71,26 +71,51 @@ interface ScrollPosType {
 }
 
 export const handleHeroScroll = (id: string): ScrollPosType | undefined => {
-    const startOp = 0.7
+    const startOp = 0.5
     const endOp = 1
     const em = document.getElementById(id)
+    const container = getScrollSnapContainer()
     if (typeof window === "undefined" || !em) return;
     const rect = em.getBoundingClientRect()
-    if (!rect) return
+    if (!rect || !container) return
     const vh = window.innerHeight
-    const stop = window.scrollY
+    const stop = container.scrollTop
     const ratio = (vh - stop) / vh
-    let overlay = document.getElementById(`${id}-title`)
+    let overlay = document.getElementById(`${id}-overlay`)
     if (!overlay) return
-    console.log("overlay: ", overlay)
-    const newBg = `hsl(var(--n) / ${startOp + (endOp - startOp) * (1 - ratio)})`
-    console.log("newBg: ", newBg)
-
-    overlay.style.backgroundColor = newBg
+    overlay.style.opacity = `${startOp + (endOp - startOp) * (1 - ratio)}`
 }
 
 export const isSoon = (d: Date) => {
     const diff = new Date(d).valueOf() - Date.now()
     console.log("diff: ", diff)
     return diff > 0 && diff < daysInMilliseconds(3)
+}
+
+
+export const getScrollSnapContainer = () => {
+    if (typeof window === "undefined") return;
+    let em = document.getElementById("landing-scroll-snap-container")
+    return em || false
+}
+
+export const scrollToSection = (section: number) => {
+    if (typeof window === "undefined") return;
+    const em = document.getElementById(`landing-scroll-section-${section}`)
+    if (!em) return
+    em.scrollTo({ top: 0 })
+}
+
+const scrollDirection = (e: Event): "up" | "down" => {
+    console.log("e?: ", e)
+}
+
+export const observeLandingScroll = (e: Event, navbar: React.RefObject<HTMLDivElement>) => {
+    handleHeroScroll("hero-section-container")
+    let em = document.getElementById("landing-scroll-snap-container")
+    if (!em || !navbar.current) return
+    navbar.current.style.transition = "all 0.3s ease-in-out"
+    navbar.current.style.transform = em.scrollTop > 100 ? "translateY(-200px)" : "translateY(0px)"
+    navbar.current.style.opacity = em.scrollTop > 100 ? "0" : "1"
+    console.log("scrollDirection(e): ", scrollDirection(e))
 }

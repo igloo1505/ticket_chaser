@@ -15,9 +15,9 @@ const EventCard = ({ item, container }: Props) => {
     console.log("item.date: ", item.date, new Date(item.date).valueOf())
 
     return (
-        <div className={clsx("card w-96 h-full bg-base-100 shadow-xl", container && container)}>
-            <figure><Image src={item.image} width={1080} height={1080} alt="Shoes" /></figure>
-            <div className="card-body">
+        <div className={clsx("w-full h-full shadow-md hover:shadow-sm bg-elevate-300 hover:bg-elevate-200 grid rounded-md transition-all duration-300 grid-rows-[3fr_2fr]", container && container)}>
+            <figure className={"h-full relative object-cover rounded-tl-md rounded-tr-md"}><Image src={item.image} width={1080} height={1080} alt="Shoes" className={"max-w-full h-full object-cover rounded-tl-md rounded-tr-md"} /></figure>
+            <div className="card-body h-full ">
                 <h2 className="card-title">
                     {item.title}
                     {isSoon(item.date) && <div className="badge badge-secondary">SOON</div>}
@@ -25,7 +25,6 @@ const EventCard = ({ item, container }: Props) => {
                 <p>{item.description}</p>
                 <div className="card-actions justify-end">
                     {item.tags.slice(0, 3).map((t, i) => <div className="badge badge-primary badge-outline" key={`tag-${i}`}>{t}</div>)}
-
                 </div>
             </div>
         </div>
