@@ -1,25 +1,25 @@
 /* html { */
-/*   scroll-behavior: sn; */
+/*   scroll-behavior: smooth; */
 /* } */
 
-.landingScrollContainer {
-  width: 100vw;
-  /* min-height: 100vh; */
-  height: 100vh;
-  position: fixed;
-  top: 0;
-  left: 0;
-  margin-top: 0;
-  scroll-snap-type: y mandatory;
-  overflow-y: scroll;
-  z-index: -1;
-}
+/* .landingScrollContainer { */
+/*   width: 100vw; */
+/*   /* min-height: 100vh; */
+/*   height: 100vh; */
+/*   position: fixed; */
+/*   top: 0; */
+/*   left: 0; */
+/*   margin-top: 0; */
+/*   scroll-snap-type: y mandatory; */
+/*   overflow-y: scroll; */
+/*   z-index: -1; */
+/* } */
 
 .landingScrollSection {
   min-height: 100vh;
   position: relative;
-  scroll-snap-align: start;
-  /* // scroll-snap-type: y proximity; */
+  /* scroll-snap-align: start; */
+  /* scroll-snap-type: y proximity; */
 }
 
 .heroOverlay {

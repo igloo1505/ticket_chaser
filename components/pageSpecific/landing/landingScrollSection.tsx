@@ -9,7 +9,7 @@ interface LandingScrollSectionProps {
 
 const LandingScrollSection = ({ children, section }: LandingScrollSectionProps) => {
     return (
-        <section id={`landing-scroll-section-${section}`} className={"landingScrollSection bg-base-100"}>{children}</section>
+        <section id={`landing-scroll-section-${section}`} className={"landingScrollSection bg-base-100 min-h-screen"}>{children}</section>
     )
 }
 

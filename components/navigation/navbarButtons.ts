@@ -4,7 +4,10 @@ export const navbarButtons: NavbarButtonProps[] = [
     {
         href: "/login",
         label: "Login",
-        displayAuth: "unauthenticated"
+        displayAuth: "unauthenticated",
+        displayFunc: (d) => {
+            return !d.authenticated
+        }
     },
     {
         href: "/admin",

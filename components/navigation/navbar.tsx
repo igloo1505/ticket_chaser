@@ -15,16 +15,18 @@ import { usePathname, useRouter } from 'next/navigation';
 
 const connector = connect((state: RootState, props: any) => ({
     ui: state.UI,
+    authed: state.auth.authenticated,
     props: props
 }))
 
 interface NavbarProps {
     ui: RootState['UI']
+    authed: RootState['auth']['authenticated']
 }
 
 
 
-const Navbar = connector(({ ui }: NavbarProps) => {
+const Navbar = connector(({ ui, authed }: NavbarProps) => {
     const ref = useRef<HTMLDivElement>(null!)
     const pathname = usePathname()
     useEffect(() => {
@@ -34,7 +36,6 @@ const Navbar = connector(({ ui }: NavbarProps) => {
         setDarkmode(!ui.darkMode)
     }
     const heroObserver = (e: Event) => {
-        console.log("pathname.toString(): ", pathname.toString())
         if (pathname.toString() !== "/") return
         observeLandingScroll(e, ref)
     }
@@ -53,20 +54,14 @@ const Navbar = connector(({ ui }: NavbarProps) => {
     useEffect(() => {
         if (typeof window === "undefined") return;
         window.addEventListener("resize", monitorViewport)
-        let em = document.getElementById("landing-scroll-snap-container")
-        if (em) {
-            em.addEventListener("scroll", heroObserver)
-        }
+        window.document.addEventListener("scroll", heroObserver)
         return () => {
             window.removeEventListener("resize", monitorViewport)
-            let em = document.getElementById("landing-scroll-snap-container")
-            if (em) {
-                em.removeEventListener("scroll", heroObserver)
-            }
+            window.document.removeEventListener("scroll", heroObserver)
         }
     }, [])
     return (
-        <div className="absolute top-0 left-0 w-screen px-6 flex flex-row justify-between py-4 h-nav z-[99999]">
+        <div className="absolute top-0 left-0 w-screen px-6 flex flex-row justify-between py-4 h-nav z-[99999] bg-base-100">
             <div className="flex justify-center items-center md:hidden" style={{
                 zIndex: 99999999
             }}>
@@ -81,7 +76,7 @@ const Navbar = connector(({ ui }: NavbarProps) => {
                             <BsFillSunFill className={clsx('swap-off')} />
                         </label>
                     </IconButton>
-                    {navbarButtons.map((b, i) => <NavbarButton {...b} key={`navbar-button-${i}`} />)}
+                    {navbarButtons.map((b, i) => <NavbarButton {...b} authed={authed} key={`navbar-button-${i}`} />)}
                 </div>
             </div>
         </div>

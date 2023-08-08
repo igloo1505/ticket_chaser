@@ -9,5 +9,9 @@ export const daisySafeList = [
     "elevate-800",
     "elevate-900",
     "bc",
-    "tw-border-opacity"
+    "tw-border-opacity",
+    "fill-primary-content",
+    "fill-base-content",
+    "text-primary-content",
+    "text-base-content",
 ]

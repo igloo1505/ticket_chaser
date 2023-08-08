@@ -36,5 +36,13 @@ export const formatDate = (date: Date, short?: boolean) => {
 export const daysInMilliseconds = (n: number) => 24 * 60 * 60 * 1000 * n
 
 
+
+export const isSoon = (d: Date) => {
+    const diff = new Date(d).valueOf() - Date.now()
+    console.log("diff: ", diff)
+    return diff > 0 && diff < daysInMilliseconds(3)
+}
+
+
 export default dayjs
 

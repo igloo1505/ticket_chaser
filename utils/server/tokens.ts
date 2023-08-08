@@ -80,6 +80,10 @@ export const validateRoleToken = async (cookies: CookieJarType, role: protectedR
             return false
         }
     }
+    const userId = cookies.get(tokenMap.userId)?.value
+    if (userId) {
+        await assignUserToken(cookies, userId, cookies.get(tokenMap.rememberMe)?.value === "true" || false)
+    }
     await assignRoleAccessToken(cookies, role)
     return true
 }

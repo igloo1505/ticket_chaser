@@ -27,6 +27,16 @@ const actions: QuickActionButtonProps[] = [
         action: (r) => r.push("/admin/legit/faqTable"),
         desc: "Faq Table with links to copy the embed link and edit the item."
     },
+    {
+        label: "Edit Arenas",
+        action: (r) => r.push("/admin/legit/arenas/edit"),
+        desc: "Edit or Add Arenas"
+    },
+    {
+        label: "Edit Teams",
+        action: (r) => r.push("/admin/legit/teams/edit"),
+        desc: "Edit or Add Teams"
+    },
 ]
 
 interface QAButtonProps {

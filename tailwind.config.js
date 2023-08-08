@@ -537,7 +537,7 @@ module.exports = {
             min: 'min-content',
             max: 'max-content',
             fit: 'fit-content',
-            screenNav: `calc(100vh-${NAVHEIGHT}px)`,
+            screenNav: `calc(100vh - ${NAVHEIGHT}px)`,
             nav: `${NAVHEIGHT}px`
         }),
         hueRotate: {

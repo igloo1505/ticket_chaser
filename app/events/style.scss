@@ -1,0 +1,25 @@
+:root {
+  --filter-panel-width: 380px;
+  --panel-transform: -380px;
+}
+
+// .searchPanel {
+//   transform: translateX(var(--panel-transform));
+// }
+
+.searchPanel-toggle-btn {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: fit-content;
+}
+
+.searchPanelRight {
+  width: 100%;
+}
+
+.eventsFilterPanelContainer {
+  height: 100%;
+  transform-origin: right;
+  grid-template-columns: var(--filter-panel-width) 1fr;
+}

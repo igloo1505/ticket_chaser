@@ -109,6 +109,10 @@ enum CATEGORY {
     Comedy
 }
 
+enum Leagues {
+    NFL
+}
+
 model Faq {
     id        Int      @id @default(autoincrement())
     title     String
@@ -119,18 +123,30 @@ model Faq {
     priority  Int      @default(1)
 }
 
+// BUG: Change this to allow many to many relationships between teams and events. Need to get back on wifi to check syntax.
+model Team {
+    id           Int     @id @default(autoincrement())
+    name         String
+    abbreviation String?
+    league       Leagues @default(NFL)
+    homeArena    Arena?  @relation(fields: [homeArenaId], references: [id])
+    homeArenaId  Int?
+    Event        Event?  @relation(fields: [eventId], references: [id])
+    eventId      Int?
+}
+
 model Location {
-    id              Int             @id @default(autoincrement())
+    id              Int              @id @default(autoincrement())
     street          String?
     zip             Int?
     city            String
     cityId          Int?
-    state           USSTATE         @default(WI)
+    state           USSTATE          @default(WI)
     lat             Float?
     long            Float?
     arena           Arena[]
-    personalDetails PersonalDetails @relation(fields: [userId], references: [id])
-    userId          Int             @unique
+    personalDetails PersonalDetails? @relation(fields: [userId], references: [id])
+    userId          Int?             @unique
 }
 
 model LegalName {
@@ -175,6 +191,7 @@ model Event {
     date         DateTime
     title        String
     description  String
+    participants Team[]
 }
 
 model TicketGroup {
@@ -197,6 +214,7 @@ model Ticket {
 
 model ArenaSection {
     id      Int      @id @default(autoincrement())
+    name    String
     Arena   Arena    @relation(fields: [arenaId], references: [id])
     arenaId Int
     Ticket  Ticket[]
@@ -231,6 +249,7 @@ model Image {
 
 model Arena {
     id               Int            @id @default(autoincrement())
+    name             String
     events           Event[]
     location         Location       @relation(fields: [locationId], references: [id])
     sections         ArenaSection[]
@@ -239,6 +258,7 @@ model Arena {
     arenaAmenitiesId Int
     locationId       Int
     sectionImageId   Int
+    homeTeams        Team[]
 }
 
 model PaymentAccountDetails {

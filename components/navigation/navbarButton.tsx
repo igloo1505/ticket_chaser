@@ -52,7 +52,7 @@ const NavbarButton = connector((props: Props) => {
     }
     useEffect(() => {
         setDisplay(setDisplayState())
-    }, [props.roles])
+    }, [props.roles, props.authed])
     return (
         <Link href={props.href} className={clsx("flex justify-center items-center", display ? "block" : "hidden", props.displayAuth === "development" && "btn btn-error")}>
             {props.label}

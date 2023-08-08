@@ -16,10 +16,10 @@ interface RequestContext {
     // }
 }
 
-const Router = createEdgeRouter<NextRequest, RequestContext>();
+const router = createEdgeRouter<NextRequest, RequestContext>();
 
 
-Router
+router
     .post(async (req, ctx) => {
         try {
             const { user: userRequest }: { user: LoginBaseType } = await req.json()
@@ -60,8 +60,7 @@ Router
 
 
 export async function POST(request: NextRequest, ctx: RequestContext) {
-    return Router.run(request, ctx);
+    return router.run(request, ctx);
 }
 
 export const OPTIONS = optionsMethodResponse
-export const router = Router

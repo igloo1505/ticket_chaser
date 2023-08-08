@@ -16,7 +16,7 @@ const HeroSection = (props: HeroSectionProps) => {
                 <div className="max-w-md text-base-content">
                     <h1 className="mb-5 text-5xl font-bold">{landingPageData.hero.title}</h1>
                     <p className="mb-5">{landingPageData.hero.body}</p>
-                    <Link href="/login">
+                    <Link href="/events">
                         <button className="btn btn-primary">{landingPageData.hero.button}</button>
                     </Link>
                 </div>

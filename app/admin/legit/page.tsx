@@ -1,4 +1,5 @@
 import QuickActions from '#/components/pageSpecific/admin/dashboard/quickActions';
+import UnderNavbarWrapper from '#/components/utility/underNavbarWrapper';
 import React from 'react'
 
 
@@ -9,9 +10,9 @@ interface AdminDashboardPageProps {
 
 const AdminDashboardPage = (props: AdminDashboardPageProps) => {
     return (
-        <div className={"w-full h-full min-h-[inherit] flex flex-col justify-center items-center py-8"}>
+        <UnderNavbarWrapper center>
             <QuickActions />
-        </div>
+        </UnderNavbarWrapper>
     )
 }
 
