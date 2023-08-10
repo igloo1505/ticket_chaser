@@ -5,6 +5,7 @@ import React from 'react'
 import "./style.scss"
 import SearchPanelRight from '#/components/pageSpecific/events/searchPanelRight'
 import { filterPanelsContainer } from '#/types/DomIds'
+import ReduxProvider from '#/components/utility/reduxProvider'
 
 
 interface EventsPageProps {
@@ -15,7 +16,9 @@ interface EventsPageProps {
 const EventsPage = ({ searchParams }: EventsPageProps) => {
     return (
         <div className={"w-screen h-full min-h-screen grid eventsFilterPanelContainer pt-28"} id={filterPanelsContainer}>
-            <SearchFilterPanel />
+            <ReduxProvider>
+                <SearchFilterPanel />
+            </ReduxProvider>
             <SearchPanelRight searchParams={searchParams} />
         </div>
     )

@@ -111,6 +111,15 @@ enum CATEGORY {
 
 enum Leagues {
     NFL
+    NCAA
+}
+
+enum Sports {
+    Basketball
+    Football
+    Soccer
+    MMA
+    Motorsports
 }
 
 model Faq {
@@ -129,6 +138,7 @@ model Team {
     name         String
     abbreviation String?
     league       Leagues @default(NFL)
+    sport        Sports  @default(Football)
     homeArena    Arena?  @relation(fields: [homeArenaId], references: [id])
     homeArenaId  Int?
     Event        Event?  @relation(fields: [eventId], references: [id])

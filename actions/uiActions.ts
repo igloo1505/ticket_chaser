@@ -149,66 +149,81 @@ export const observeLandingScroll = (e: Event, navbar: React.RefObject<HTMLDivEl
 
 const searchInputWidthDiff = 60
 const searchInputPadding = 50
-const openEventFilterPanel = (em: HTMLDivElement) => {
+const openEventFilterPanel = (em: HTMLDivElement, minimal?: boolean) => {
     const pw = getEventsPanelWidth()
-    gsap.fromTo(`#${filterPanelsContainer}`, {
-        width: window.innerWidth,
-        x: 0
-    }, {
-        width: window.innerWidth + pw,
-        x: -pw
-    })
-    gsap.fromTo(`#${filterEventsToggleBtn}`, {
-        x: 0
-    }, {
-        x: 60
-    })
+    if (!minimal) {
 
-    const inputContainer = document.getElementById(`${eventsSearchPageInput}-container`)?.getBoundingClientRect()
-    if (!inputContainer) return
-    gsap.fromTo(`#${eventsSearchPageInput}`, {
-        width: window.innerWidth - pw - searchInputPadding
-    }, {
-        width: window.innerWidth - searchInputWidthDiff - searchInputPadding
-    })
-    // gsap.fromTo(`#${filterEventsToggleBtn}`, {
-    //     text: ""
-    // })
-    // let btn = document.getElementById(filterEventsToggleBtn)
-    // if (btn) {
-    //     btn.classList.remove("text-primary")
-    //     btn.classList.add("text-base-content")
-    // }
+        gsap.fromTo(`#${filterPanelsContainer}`, {
+            width: window.innerWidth,
+            x: 0
+        }, {
+            width: window.innerWidth + pw,
+            x: -pw
+        })
+        gsap.fromTo(`#${filterEventsToggleBtn}`, {
+            x: 0
+        }, {
+            x: 60
+        })
+        gsap.fromTo(`#${eventsSearchPageInput}`, {
+            width: window.innerWidth - pw - searchInputPadding
+        }, {
+            width: window.innerWidth - searchInputWidthDiff - searchInputPadding
+        })
+    }
+
+    if (minimal) {
+        gsap.to(`#${filterPanelsContainer}`, {
+            width: window.innerWidth + pw,
+            x: -pw
+        })
+        gsap.to(`#${filterEventsToggleBtn}`, {
+            x: 60
+        })
+        gsap.to(`#${eventsSearchPageInput}`, {
+            width: window.innerWidth - searchInputWidthDiff - searchInputPadding
+        })
+    }
     em.classList.add(eventsFilterOpenClass)
 }
 
 
-const closeEventFilterPanel = (em: HTMLDivElement) => {
+const closeEventFilterPanel = (em: HTMLDivElement, minimal?: boolean) => {
     const pw = getEventsPanelWidth()
-    gsap.fromTo(`#${filterPanelsContainer}`, {
-        width: window.innerWidth + pw,
-        x: -pw
-    }, {
-        width: window.innerWidth,
-        x: 0
-    })
-    gsap.fromTo(`#${filterEventsToggleBtn}`, {
-        x: 60
-    }, {
-        x: 0
-    })
-    const inputContainer = document.getElementById(`${eventsSearchPageInput}-container`)?.getBoundingClientRect()
-    if (!inputContainer) return
-    gsap.fromTo(`#${eventsSearchPageInput}`, {
-        width: window.innerWidth - searchInputWidthDiff - searchInputPadding
-    }, {
-        width: window.innerWidth - pw - searchInputPadding
-    })
-    // let btn = document.getElementById(filterEventsToggleBtn)
-    // if (btn) {
-    //     btn.classList.remove("text-base-content")
-    //     btn.classList.add("text-primary")
-    // }
+    if (!minimal) {
+
+        gsap.fromTo(`#${filterPanelsContainer}`, {
+            width: window.innerWidth + pw,
+            x: -pw
+        }, {
+            width: window.innerWidth,
+            x: 0
+        })
+        gsap.fromTo(`#${filterEventsToggleBtn}`, {
+            x: 60
+        }, {
+            x: 0
+        })
+        // const inputContainer = document.getElementById(`${eventsSearchPageInput}-container`)?.getBoundingClientRect()
+        // if (!inputContainer) return
+        gsap.fromTo(`#${eventsSearchPageInput}`, {
+            width: window.innerWidth - searchInputWidthDiff - searchInputPadding
+        }, {
+            width: window.innerWidth - pw - searchInputPadding
+        })
+    }
+    if (minimal) {
+        gsap.to(`#${filterPanelsContainer}`, {
+            width: window.innerWidth,
+            x: 0
+        })
+        gsap.to(`#${filterEventsToggleBtn}`, {
+            x: 0
+        })
+        gsap.to(`#${eventsSearchPageInput}`, {
+            width: window.innerWidth - pw - searchInputPadding
+        })
+    }
     em.classList.remove(eventsFilterOpenClass)
 }
 
@@ -231,6 +246,20 @@ export const toggleEventsPageFilterPanel = (open: boolean | "toggle") => {
         return
     }
     closeEventFilterPanel(em)
+}
+
+
+export const handlePanelResize = () => {
+    let em = document.getElementById(filterPanelsContainer) as HTMLDivElement
+    if (!em) return
+    const panelOpen = !em.classList.contains(eventsFilterOpenClass)
+    console.log("panelOpen: ", panelOpen)
+    if (panelOpen) {
+        openEventFilterPanel(em, true)
+    }
+    if (!panelOpen) {
+        closeEventFilterPanel(em, true)
+    }
 }
 
 export const getEventsPanelWidth = () => {

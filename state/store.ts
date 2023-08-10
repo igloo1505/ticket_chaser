@@ -33,7 +33,7 @@ export const makeStore = (): ReturnType<typeof makeConfiguredStore> => {
         // we need it only on client side
         const persistConfig = {
             key: "root",
-            blacklist: ["auth"], // make sure it does not clash with server keys
+            blacklist: ["auth", "form"], // make sure it does not clash with server keys
             storage,
         };
         const persistedReducer = persistReducer(persistConfig, combineReducers(rootReducer));
