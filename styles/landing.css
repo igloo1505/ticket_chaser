@@ -2,6 +2,10 @@
 /*   scroll-behavior: smooth; */
 /* } */
 
+body {
+  scroll-snap-type: y mandatory;
+}
+
 /* .landingScrollContainer { */
 /*   width: 100vw; */
 /*   /* min-height: 100vh; */
@@ -18,8 +22,8 @@
 .landingScrollSection {
   min-height: 100vh;
   position: relative;
-  /* scroll-snap-align: start; */
-  /* scroll-snap-type: y proximity; */
+  scroll-snap-align: start;
+  scroll-snap-type: y mandatory;
 }
 
 .heroOverlay {

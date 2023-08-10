@@ -14,12 +14,10 @@ interface EventsPageProps {
 
 const EventsPage = ({ searchParams }: EventsPageProps) => {
     return (
-        <UnderNavbarWrapper>
-            <div className={"w-screen h-full grid eventsFilterPanelContainer"} id={filterPanelsContainer}>
-                <SearchFilterPanel />
-                <SearchPanelRight searchParams={searchParams} />
-            </div>
-        </UnderNavbarWrapper>
+        <div className={"w-screen h-full min-h-screen grid eventsFilterPanelContainer pt-28"} id={filterPanelsContainer}>
+            <SearchFilterPanel />
+            <SearchPanelRight searchParams={searchParams} />
+        </div>
     )
 }
 

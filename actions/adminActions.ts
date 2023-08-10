@@ -2,6 +2,7 @@ import { EditTeamFormType } from "#/components/forms/editTeam/mainForm"
 import handleAxios from "#/hooks/useAxios"
 import { clearFaqEdit } from "#/state/slices/admin"
 import store, { RootState } from "#/state/store"
+import { Leagues } from "@prisma/client"
 
 export const SubmitFaqData = async () => {
     const data = store.getState().admin.editing.faq
@@ -34,4 +35,9 @@ export const submitTeamData = async (data: EditTeamFormType) => {
     const res = await handleAxios("post", "/api/teams/create", { data: _data })
     console.log("res: ", res)
     return res?.data.success
+}
+
+export const getAvailableTeams = async (league?: Leagues) => {
+    const res = await handleAxios("post", "/api/teams/getAvailable", league ? { league } : {})
+    return res?.data.teams || []
 }

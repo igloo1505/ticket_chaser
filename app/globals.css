@@ -8,11 +8,13 @@
 
 body {
   overflow-x: hidden;
-}
-
-html {
   scroll-behavior: smooth;
 }
+
+/* html { */
+/*   /* scroll-behavior: smooth; */
+*/
+/* } */
 
 .card-body {
   padding-bottom: 1rem;

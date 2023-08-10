@@ -61,7 +61,7 @@ const Navbar = connector(({ ui, authed }: NavbarProps) => {
         }
     }, [])
     return (
-        <div className="absolute top-0 left-0 w-screen px-6 flex flex-row justify-between py-4 h-nav z-[99999] bg-base-100">
+        <div className="absolute top-0 left-0 w-screen px-6 flex flex-row justify-between py-4 h-nav z-[99999] bg-transparent">
             <div className="flex justify-center items-center md:hidden" style={{
                 zIndex: 99999999
             }}>

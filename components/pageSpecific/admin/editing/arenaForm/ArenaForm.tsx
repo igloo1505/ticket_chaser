@@ -23,9 +23,7 @@ const EditArenaForm = (props: EditArenaFormProps) => {
         events: arena?.events || [],
         location: arena?.location || defaultLocationForm,
         sections: arena?.sections || [],
-        homeTeams: arena?.homeTeams || [{
-            name: "Packers"
-        }],
+        homeTeams: arena?.homeTeams || [],
         homeTeamQuery: ""
     })
 

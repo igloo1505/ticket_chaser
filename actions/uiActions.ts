@@ -10,14 +10,14 @@ import { darkTheme } from "#/daisy/dark.js"
 import { lightTheme } from "#/daisy/light.js"
 import { gsap } from "gsap"
 /// @ts-ignore
-import SmoothScroll from 'smooth-scroll'
+// import SmoothScroll from 'smooth-scroll'
 
+// var scroll = new SmoothScroll();
 
 type LoadedThemes = typeof darkTheme | typeof lightTheme
 
 const themes: LoadedThemes[] = [darkTheme, lightTheme]
 
-var scroll = new SmoothScroll();
 
 
 export const setDarkmode = (darkMode: boolean) => {
@@ -136,15 +136,15 @@ export const observeLandingScroll = (e: Event, navbar: React.RefObject<HTMLDivEl
     if (diff >= minScrollTrigger) {
         console.log("SHOULD SCROLL")
     }
-    if (Boolean(window.scrollY <= window.innerHeight * 0.3 && scrollDir === "down" && diff > minScrollTrigger) || Boolean(window.scrollY >= window.innerHeight * 0.3 && scrollDir === "down")) {
-        isScrolling = true
-        let em = document.getElementById("landing-scroll-section-2")
-        scroll.animateScroll(em)
-        isScrolling = false
-        // if (!em) return
-        // em.scrollIntoView({ behavior: "smooth", block: "start", inline: "start" })
-        // em.scrollIntoView(true)
-    }
+    // if (Boolean(window.scrollY <= window.innerHeight * 0.3 && scrollDir === "down" && diff > minScrollTrigger) || Boolean(window.scrollY >= window.innerHeight * 0.3 && scrollDir === "down")) {
+    //     isScrolling = true
+    //     let em = document.getElementById("landing-scroll-section-2")
+    // scroll.animateScroll(em)
+    // isScrolling = false
+    // if (!em) return
+    // em.scrollIntoView({ behavior: "smooth", block: "start", inline: "start" })
+    // em.scrollIntoView({ behavior: "smooth" })
+    // }
 }
 
 const searchInputWidthDiff = 60
