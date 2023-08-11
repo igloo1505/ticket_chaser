@@ -1,5 +1,4 @@
 import { Faq } from "@prisma/client";
-import { URLSearchParams } from "url";
 import { parseDateForQueryParams } from "../dates/dayjs";
 
 interface FaqQueryType {
@@ -38,21 +37,23 @@ export interface EventsPageSearchParams {
     performer?: string
 }
 
-export const genEventSearchParams = (params: EventsPageSearchParams) => {
+export const genEventSearchParams = (params: Partial<EventsPageSearchParams>) => {
     let urlParams = new URLSearchParams()
+    console.log("params: ", params)
     Object.keys(params).map((k) => {
-        if (k !== "byDate") {
+        /// @ts-ignore
+        if (k !== "byDate" && params[k] && params[k] !== "") {
             /// @ts-ignore
             urlParams.set(k, params[k])
         }
         if (k === "byDate") {
             /// @ts-ignore
-            const byDateParams = parseDateForQueryParams(params[k])
-            if (byDateParams?.from) {
-                urlParams.set("from", byDateParams.from)
+            // const byDateParams = parseDateForQueryParams(params[k])
+            if (params.byDate?.from) {
+                urlParams.set("from", params.byDate.from)
             }
-            if (byDateParams?.to) {
-                urlParams.set("to", byDateParams.to)
+            if (params.byDate?.to) {
+                urlParams.set("to", params.byDate.to)
             }
         }
     })
