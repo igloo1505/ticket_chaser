@@ -1,5 +1,5 @@
 "use client"
-import { handleHeroScroll, observeLandingScroll, setDarkmode, setViewportData } from '#/actions/uiActions'
+import { setDarkmode, setViewportData } from '#/actions/uiActions'
 import React, { useEffect, useRef } from 'react'
 import { BsFillMoonStarsFill, BsFillSunFill } from 'react-icons/bs'
 import store, { RootState } from '#/state/store';
@@ -37,7 +37,7 @@ const Navbar = connector(({ ui, authed }: NavbarProps) => {
     }
     const heroObserver = (e: Event) => {
         if (pathname.toString() !== "/") return
-        observeLandingScroll(e, ref)
+        /* observeLandingScroll(e, ref) */
     }
     const monitorViewport = (e: Event) => {
         if (!ref.current) return

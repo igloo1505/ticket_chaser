@@ -22,7 +22,7 @@ interface LoginPageProps {
 const LoginPage = (props: LoginPageProps) => {
 
     return (
-        <div className={'w-full h-full underNavCenter flex flex-col justify-center items-center'}>
+        <div className={'w-full h-full underNavCenter flex flex-col gap-4 justify-center items-center'}>
             <ReduxProvider>
                 <AuthenticateCard />
             </ReduxProvider>

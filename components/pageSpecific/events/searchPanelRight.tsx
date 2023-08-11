@@ -1,6 +1,7 @@
 import React from 'react'
-import SearchBar, { EventsPageSearchParams } from './searchBar'
+import SearchBar from './searchBar'
 import { eventsPanelRight } from '#/types/DomIds'
+import { EventsPageSearchParams } from '#/utils/routing/searchParams'
 
 
 

@@ -6,7 +6,6 @@ import MultiStepButtonGroup from '../inputs/multiStepButtonGroup'
 import { submitTeamData } from '#/actions/adminActions'
 import store from '#/state/store'
 import { showToast } from '#/state/slices/ui'
-import EditTeamStepTwo from './stepTwo'
 
 const maxStep = 1
 

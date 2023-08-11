@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Calendar, CalendarChangeEvent } from "primereact/calendar";
 import { isMobile } from "react-device-detect";
 
@@ -9,6 +9,7 @@ import clsx from "clsx";
 import { formatDate } from "#/utils/dates/dayjs";
 import "primereact/resources/primereact.min.css";
 import "primereact/resources/themes/soho-dark/theme.css"
+import { setEventsDateFilter } from "#/actions/inputActions";
 
 const connector = connect((state: RootState, props: any) => ({
     byDate: state.form.events.panel.filter.byDate,
@@ -43,15 +44,27 @@ const ByDateFilter = connector(({ byDate }: ByDateFilterProps) => {
     const handleChange = (e: CalendarChangeEvent) => {
         let val = e.value
         if (typeof e.value === "string") val = new Date(e.value);
-        store.dispatch(setEventsFilterData({ byDate: val }));
+        if (!val) return
+        setEventsDateFilter(val)
     };
+
+    const formatDateValue = (d: typeof byDate) => {
+        let val = []
+        if (d?.from) {
+            val.push(new Date(d.from))
+        }
+        if (d?.to) {
+            val.push(new Date(d.to))
+        }
+        return val
+    }
 
     return (
         <div className={clsx("w-full min-w-fit min-h-fit flex flex-col justify-start items-start gap-2")}>
             <span className="label-text">By Date</span>
             <Calendar
                 touchUI={isMobile}
-                value={byDate as unknown as string | ""}
+                value={formatDateValue(byDate)}
                 stepMinute={15}
                 onChange={handleChange}
                 hourFormat="12"

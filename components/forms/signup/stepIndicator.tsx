@@ -1,7 +1,7 @@
 "use client"
 import clsx from 'clsx'
 import React, { useEffect, useRef, useState } from 'react'
-import {signupCardId} from "#/components/pageSpecific/login/authenticateCard"
+import { signupCardId } from "#/components/pageSpecific/login/authenticateCard"
 import { RootState } from '#/state/store';
 import { connect } from 'react-redux';
 
@@ -29,21 +29,32 @@ const StepIndicator = connector(({ steps, _activeStep, viewport }: StepIndicator
         setActiveStep(parseInt(_activeStep))
     }, [_activeStep])
     const ref = useRef<HTMLUListElement>(null!)
-    const handleLocation = () => {
-        if (typeof window === "undefined") return;
-        const cardTitle = document.getElementById(`${signupCardId}-title`)
-        if (!cardTitle || !ref.current) return
-        const rect = ref.current.getBoundingClientRect()
-        const t = cardTitle.getBoundingClientRect().height + rect.height + 32
-        ref.current.style.transform = `translate(-50%, -${t}px)`
-        /* ref.current.style.display = rect.y < viewport.navbarHeight || rect.width >= viewport.width - 64 ? "none" : "grid" */
-        ref.current.style.opacity = "1"
-    }
-    useEffect(() => {
-        handleLocation()
-    }, [viewport])
+    /* const handleLocation = () => { */
+    /*     if (typeof window === "undefined") return; */
+    /*     const cardTitle = document.getElementById(`${signupCardId}-title`) */
+    /*     if (!cardTitle || !ref.current) return */
+    /*     const rect = ref.current.getBoundingClientRect() */
+    /*     const cardRect = cardTitle.getBoundingClientRect() */
+    /*     console.log("cardRect: ", cardRect) */
+    /*     console.log("Here?", cardRect.top) */
+    /*     console.log("cardRect.top <= 96 + 150: ", cardRect.top <= 150) */
+    /*     if (cardRect.top <= 150) { */
+    /*         ref.current.style.display = "none" */
+    /*     } */
+    /*     if (cardRect.top > 150) { */
+    /*         ref.current.style.display = "grid" */
+    /*     } */
+    /*     const t = cardRect.height + rect.height + 42 */
+    /*     ref.current.style.transform = `translate(-50%, -${t}px)` */
+    /*     ref.current.style.opacity = "1" */
+    /* } */
+    /* useEffect(() => { */
+    /*     handleLocation() */
+    /*     window.addEventListener("resize", handleLocation) */
+    /*     return () => window.removeEventListener("resize", handleLocation) */
+    /* }, [viewport]) */
     return (
-        <ul className="steps mb-4 absolute left-[50%] lg:steps-horizontal grid-cols-[repeat(3,120px)] hidden md:grid" id={'signup-step-indicator'}
+        <ul className="steps absolute left-[50%] lg:steps-horizontal grid-cols-[repeat(3,120px)] hidden md:grid" id={'signup-step-indicator'}
             ref={ref}
             style={{
                 opacity: 0,

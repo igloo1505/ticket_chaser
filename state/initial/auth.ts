@@ -5,9 +5,12 @@ export interface InitialAuthStateType {
     user?: RetrievedUserData
 }
 
+
+export const initialUserAuthState: InitialAuthStateType['user'] = undefined
+
 const authState: InitialAuthStateType = {
     authenticated: false,
-    user: undefined
+    user: initialUserAuthState
 }
 
 

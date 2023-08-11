@@ -69,7 +69,6 @@ export const animateSignupCardDimensions = async (ref: React.RefObject<HTMLDivEl
 }
 
 export const setActivePositionOnResize = (ref: React.RefObject<HTMLDivElement>) => {
-    console.log("setting on resize...")
     if (!ref.current) return
     const rect = ref.current?.getBoundingClientRect()
     if (!rect) return
@@ -107,10 +106,8 @@ export const signupCardResizeObserver = () => {
     const activeStep = store.getState().form.signUp.activeStep
     const rect = document.getElementById(`multi-step-form-${activeStep}`)?.getBoundingClientRect()
     const formContainer = document.getElementById(multiStepSignupFormContainer)
-    console.log("in resize observer", activeStep)
     if (!rect || !formContainer) return
     const newSize = getNewSignupCardDimensions(rect)
-    console.log("newSize", newSize)
     formContainer.style.width = `${newSize.width}px`
     formContainer.style.height = `${newSize.height}px`
 }

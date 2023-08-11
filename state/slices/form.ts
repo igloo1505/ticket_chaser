@@ -5,6 +5,7 @@ import { CityApiType } from "#/types/inputValidation";
 import { Payload } from "@prisma/client/runtime/library";
 import { RootState } from "../store";
 import { initialFilterState, isInitialFilterState } from "../initial/forms/events";
+import { EventsPageSearchParams } from "#/utils/routing/searchParams";
 
 
 
@@ -27,13 +28,20 @@ const slice = createSlice({
                 ...action.payload
             }
         },
+        setInitialEventsFilterData(state, action: PayloadAction<EventsPageSearchParams>) {
+            state.events.panel.filter.tags = typeof action.payload.tags === "string" ? [action.payload.tags] : action.payload.tags || []
+            state.events.panel.filter.byDate = action.payload.byDate || undefined
+        },
         resetEventsFilter(state) {
             state.events.panel.filter = initialFilterState
+        },
+        removeEventFilterTag(state, action: PayloadAction<string>) {
+            state.events.panel.filter.tags = state.events.panel.filter.tags?.filter((t) => t !== action.payload) || []
         }
     }
 })
 
 
-export const { setSignupFormData, resetEventsFilter, setShowPanelContent, setEventsFilterData, setRetrievedCities } = slice.actions
+export const { setSignupFormData, setInitialEventsFilterData, removeEventFilterTag, resetEventsFilter, setShowPanelContent, setEventsFilterData, setRetrievedCities } = slice.actions
 export default slice.reducer
 

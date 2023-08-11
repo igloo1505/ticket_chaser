@@ -1,13 +1,10 @@
 import LandingCardSection from "#/components/pageSpecific/landing/cardSection";
 import HeroSection from "#/components/pageSpecific/landing/hero";
 import LandingScrollSection from "#/components/pageSpecific/landing/landingScrollSection";
-import { NAVHEIGHT } from "#/utils/ui";
 import "#/styles/landing.css"
 
 
-const Home = async () => {
-    /* const { user } = await validateOrRedirect(); */
-    /* <AuthObserver user={user} /> */
+const Home = () => {
     return (
         <>
             <LandingScrollSection section={1}>

@@ -114,6 +114,26 @@ enum Leagues {
     NCAA
 }
 
+// TODO: Come back and complete this list when on wifi
+enum NFLTeamName {
+   Packers
+   Patriots
+   Bears
+   Panthers
+   Jaguars
+   Dolphins
+   Niners
+   Texans
+   Saints
+   Vikings
+   Broncos
+   Chargers
+   Rams
+   Colts
+   Raiders
+}
+
+
 enum Sports {
     Basketball
     Football
@@ -135,7 +155,7 @@ model Faq {
 // BUG: Change this to allow many to many relationships between teams and events. Need to get back on wifi to check syntax.
 model Team {
     id           Int     @id @default(autoincrement())
-    name         String
+    name         NFLTeamName
     abbreviation String?
     league       Leagues @default(NFL)
     sport        Sports  @default(Football)

@@ -1,11 +1,10 @@
 import StateWrappedUI from '#/components/ui/stateWrappedUI'
-import UnderNavbarWrapper from '#/components/utility/underNavbarWrapper'
 import { cookies } from 'next/headers'
 import './globals.css'
 import { tokenMap } from '#/utils/server/syncrhonousToken'
 /* import { Inter } from 'next/font/google' */
-/* const inter = Inter({ subsets: ['latin'] }) */
 /* className={inter.className} */
+/* const inter = Inter({ subsets: ['latin'] }) */
 
 
 export default function RootLayout({
@@ -15,6 +14,7 @@ export default function RootLayout({
 }) {
     const cookieJar = cookies()
     const validAuth = cookieJar.has(tokenMap.auth) && cookieJar.has(tokenMap.userId)
+    console.log("validAuth: ", validAuth)
     return (
         <html lang="en">
             <body id="document-body">
