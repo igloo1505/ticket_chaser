@@ -62,7 +62,7 @@ const Navbar = connector(({ ui, authed }: NavbarProps) => {
     }, [])
     return (
         <div className="absolute top-0 left-0 w-screen px-6 flex flex-row justify-between py-4 h-nav z-[99999] bg-transparent">
-            <div className="flex justify-center items-center md:hidden" style={{
+            <div className={clsx("flex justify-center items-center md:hidden transition-transform duration-300", ui.drawer.open && "translate-x-[160px]")} style={{
                 zIndex: 99999999
             }}>
                 <Hamburger toggled={ui?.drawer?.open || false} onToggle={() => store.dispatch(toggleDrawer())} />

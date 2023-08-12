@@ -11,6 +11,7 @@ module.exports = {
         "./pages/**/*.{js,ts,jsx,tsx,mdx}",
         "./components/**/*.{js,ts,jsx,tsx,mdx}",
         "./src/**/*.{js,ts,jsx,tsx,mdx}",
+        'node_modules/preline/dist/*.js',
     ],
     presets: [],
     darkMode: 'media', // or 'class'
@@ -1033,6 +1034,7 @@ module.exports = {
         //     pattern: /elevate-\d/gm
         // }
     ],
+
     daisyui: {
         themes: [
             {

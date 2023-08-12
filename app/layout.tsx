@@ -14,12 +14,12 @@ export default function RootLayout({
 }) {
     const cookieJar = cookies()
     const validAuth = cookieJar.has(tokenMap.auth) && cookieJar.has(tokenMap.userId)
-    console.log("validAuth: ", validAuth)
     return (
         <html lang="en">
             <body id="document-body">
                 <StateWrappedUI isAuthenticated={validAuth} />
                 {children}
+                <script src="./node_modules/preline/dist/preline.js" async></script>
             </body>
         </html>
     )

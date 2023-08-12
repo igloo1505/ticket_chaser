@@ -7,6 +7,7 @@ import { setDrawerOpen } from '#/state/slices/ui';
 import { navbarButtons } from './navbarButtons';
 import { NavbarButtonProps } from './navbarButton';
 import Overlay from '../utility/overlay';
+import DrawerContent from '../meraki/drawerContent';
 
 
 
@@ -37,16 +38,12 @@ const Drawer = connector(({ open }: DrawerProps) => {
     }
     return (
         <>
-            <div className="w-auto transition-transform duration-300 h-screen bg-base-200 fixed top-0 left-0 pt-16 z-[9999]"
+            <div className="w-[260px] transition-transform duration-300 h-screen bg-base-200 fixed top-0 left-0 z-[9999]"
                 style={{
                     transform: open ? "translateX(0)" : "translateX(-100%)"
                 }}
             >
-                <ul className="p-4 w-80 h-full z-[9999]">
-                    {navbarButtons.map((b, i) => {
-                        return <DrawerItem item={b} key={`drawer-link-${i}`} />
-                    })}
-                </ul>
+                <DrawerContent />
             </div>
             <Overlay onClick={() => store.dispatch(setDrawerOpen(false))} open={open} />
         </>
@@ -58,3 +55,13 @@ Drawer.displayName = "Drawer"
 
 
 export default Drawer;
+
+
+
+
+
+{/* <ul className="p-4 w-80 h-full z-[9999]"> */ }
+{/*     {navbarButtons.map((b, i) => { */ }
+{/*         return <DrawerItem item={b} key={`drawer-link-${i}`} /> */ }
+{/*     })} */ }
+{/* </ul> */ }
