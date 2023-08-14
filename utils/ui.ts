@@ -2,7 +2,7 @@ import { darkTheme } from "../daisy/dark"
 import { lightTheme } from "../daisy/light"
 
 export const NAVHEIGHT = 96
-
+export const FOOTERHEIGHT = 76
 
 export const appendRichTextClassFromNode = (node: ChildNode) => {
     console.log("node.nodeName: ", node.nodeName)
@@ -38,5 +38,20 @@ export const updateRichTextString = (s: string) => {
 
 
 export const themes = [darkTheme, lightTheme]
-export const dataThemeDark = (val: string) => `data-[theme=${darkTheme}]:${val}`
-export const dataThemeLight = (val: string) => `data-[theme=${lightTheme}]:${val}`
+export const dataThemeDark = (val: string | string[]) => {
+    if (typeof val == "string") {
+        val = [val]
+    }
+    let s = ""
+    val.forEach((j) => s += `data-[theme=${darkTheme}]:${j} `)
+    return s
+}
+
+export const dataThemeLight = (val: string | string[]) => {
+    if (typeof val == "string") {
+        val = [val]
+    }
+    let s = ""
+    val.forEach((j) => s += `data-[theme=${lightTheme}]:${j} `)
+    return s
+}

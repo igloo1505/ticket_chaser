@@ -38,6 +38,9 @@ const Navbar = connector(({ ui, authed }: NavbarProps) => {
     const ref = useRef<HTMLDivElement>(null!)
     const pathname = usePathname()
     useEffect(() => {
+        setDarkmode(ui.darkMode)
+    }, [ui.darkMode])
+    useEffect(() => {
         animateDarkmode(ui?.darkMode || true)
     }, [ui])
     const heroObserver = (e: Event) => {

@@ -3,18 +3,11 @@ import ReduxProvider from '#/components/utility/reduxProvider';
 import React from 'react'
 
 
-interface LoginPageProps {
-    searchParams: {
-        login?: "true"
-    }
-}
-
-const LoginPage = ({ searchParams: { login } }: LoginPageProps) => {
-    console.log("login: ", login, typeof login)
+const LoginPage = () => {
     return (
-        <div className={'w-full h-full underNavCenter flex flex-col gap-4 justify-center items-center'}>
+        <div className={'w-full min-h-[max(100vh,768px)] flex flex-col gap-4 justify-center items-center'}>
             <ReduxProvider>
-                <AuthenticateCard isLogin={Boolean(login && login === "true")} />
+                <AuthenticateCard />
             </ReduxProvider>
         </div>
     )

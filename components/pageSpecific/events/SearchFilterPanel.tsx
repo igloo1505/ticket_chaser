@@ -30,6 +30,8 @@ interface SearchFilterPanelProps {
 
 
 
+/* TODO: Check viewport width here and on smaller screen widths have the filter panel expand 100vw and replace the main panel entirely. */
+
 
 
 const SearchFilterPanel = connector(({ replaceContent, filters, searchParams }: SearchFilterPanelProps) => {

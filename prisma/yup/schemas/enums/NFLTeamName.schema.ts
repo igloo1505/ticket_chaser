@@ -1,3 +1,3 @@
 import * as Yup from 'yup';
 
-export const NFLTeamNameSchema = Yup.mixed().oneOf(["Packers","Patriots","Bears","Panthers","Jaguars","Dolphins","Niners","Texans","Saints","Vikings","Broncos","Chargers","Rams","Colts","Raiders"])
+export const NFLTeamNameSchema = Yup.mixed().oneOf(["Cardinals","Falcons","Ravens","Bills","Panthers","Bengals","Bears","Browns","Cowboys","Broncos","Lions","Texans","Packers","Colts","Rams","Jaguars","Vikings","Chiefs","Saints","Raiders","Giants","Chargers","Eagles","Dolphins","FourtyNiners","Patriots","Seahawks","Jets","Buccaneers","Steelers","Commanders","Titans"])

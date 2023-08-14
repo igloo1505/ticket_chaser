@@ -1,5 +1,7 @@
 import { setDrawerOpen } from '#/state/slices/ui';
 import store from '#/state/store';
+import { dataThemeDark, dataThemeLight } from '#/utils/ui';
+import clsx from 'clsx';
 import type { Route } from 'next';
 import Link from 'next/link';
 import { ParsedUrlQueryInput } from 'querystring';
@@ -27,8 +29,9 @@ const DrawerContentItem = ({ label, onClick, query, Icon, href }: DrawerContentI
     if (onClick) {
         params.onClick = onClick
     }
+    /* TODO: Handle light and dark theme stuff here and for the rest of the drawer. */
     return (
-        <Link className="flex items-center w-full px-4 py-2 mt-5 text-gray-600 transition-colors duration-300 transform rounded-md dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 dark:hover:text-gray-200 hover:text-gray-700"
+        <Link className={clsx("flex items-center w-full px-4 py-2 transition-colors duration-300 transform rounded-md ", dataThemeDark(["text-gray-400", "hover:bg-gray-800", "hover:text-gray-200"]), dataThemeLight(["hover:text-gray-700", "hover:bg-gray-100", "text-gray-600"]))}
             onClick={() => store.dispatch(setDrawerOpen(false))}
             {...params}
         >

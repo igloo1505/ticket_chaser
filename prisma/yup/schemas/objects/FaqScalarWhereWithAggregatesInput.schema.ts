@@ -3,6 +3,7 @@ import * as Yup from 'yup';
 import "../helpers/oneOfSchemas.helper.ts"
 import { IntWithAggregatesFilterObjectSchema } from '../internals';;
 import { StringWithAggregatesFilterObjectSchema } from '../internals';;
+import { EnumFaqCategoryWithAggregatesFilterObjectSchema } from '../internals';;
 import { DateTimeWithAggregatesFilterObjectSchema } from '../internals';
 
 export const FaqScalarWhereWithAggregatesInputObjectSchema = Yup.object({
@@ -12,6 +13,6 @@ Yup.array().of(Yup.lazy(() => FaqScalarWhereWithAggregatesInputObjectSchema.defa
 Yup.number()]),  title: Yup.mixed().oneOfSchemas([StringWithAggregatesFilterObjectSchema,
 Yup.string()]),  subtitle: Yup.mixed().oneOfSchemas([StringWithAggregatesFilterObjectSchema,
 Yup.string()]),  body: Yup.mixed().oneOfSchemas([StringWithAggregatesFilterObjectSchema,
-Yup.string()]),  createdAt: Yup.mixed().oneOfSchemas([DateTimeWithAggregatesFilterObjectSchema]),  updatedAt: Yup.mixed().oneOfSchemas([DateTimeWithAggregatesFilterObjectSchema]),  priority: Yup.mixed().oneOfSchemas([IntWithAggregatesFilterObjectSchema,
+Yup.string()]),  category: Yup.mixed().oneOfSchemas([EnumFaqCategoryWithAggregatesFilterObjectSchema]),  createdAt: Yup.mixed().oneOfSchemas([DateTimeWithAggregatesFilterObjectSchema]),  updatedAt: Yup.mixed().oneOfSchemas([DateTimeWithAggregatesFilterObjectSchema]),  priority: Yup.mixed().oneOfSchemas([IntWithAggregatesFilterObjectSchema,
 Yup.number()])
 });

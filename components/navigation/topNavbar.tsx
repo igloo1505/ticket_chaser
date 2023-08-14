@@ -1,13 +1,15 @@
+"use client"
 import Link from 'next/link';
-import React, { ForwardedRef, forwardRef } from 'react'
+import React, { ForwardedRef, forwardRef, useEffect } from 'react'
 import { BsFillMoonStarsFill, BsFillSunFill } from 'react-icons/bs';
 import IconButton from '../ui/iconButton';
 import NavbarButton from './navbarButton';
 import { navbarButtons } from './navbarButtons';
 import NavbarTitle from './navbarTitle';
-import { RootState } from '#/state/store';
+import store, { RootState } from '#/state/store';
 import clsx from 'clsx';
 import { setDarkmode } from '#/actions/uiActions';
+import { setDarkMode } from '#/state/slices/ui';
 
 
 
@@ -17,9 +19,10 @@ interface TopNavbarProps {
 }
 
 const TopNavbar = forwardRef(({ ui, authed }: TopNavbarProps, ref: ForwardedRef<HTMLDivElement>) => {
-    const toggleDark = () => {
-        setDarkmode(!ui.darkMode)
+    const toggleDark = (darkMode: boolean) => {
+    store.dispatch(setDarkMode(darkMode))
     }
+
     return (
         <div className={"top-0 absolute left-0 w-screen px-6 flex flex-row justify-between py-4 h-nav z-[999] bg-transparent"}>
             <div className={"flex-row w-full justify-between items-center flex-nowrap flex py-3 px-4"} ref={ref}>
@@ -27,7 +30,7 @@ const TopNavbar = forwardRef(({ ui, authed }: TopNavbarProps, ref: ForwardedRef<
                     <NavbarTitle />
                 </Link>
                 <div className={'flex flex-row justify-center items-center gap-4'}>
-                    <IconButton onClick={toggleDark} circle className={'relative flex justify-center items-center'}>
+                    <IconButton onClick={() => toggleDark(!ui.darkMode)} circle className={'relative flex justify-center items-center'}>
                         <label className={clsx("h-full w-full swap swap-rotate", ui?.darkMode && "swap-active")}>
                             <BsFillMoonStarsFill className={clsx('swap-on')} />
                             <BsFillSunFill className={clsx('swap-off')} />

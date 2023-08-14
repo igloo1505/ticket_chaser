@@ -1,4 +1,5 @@
 import { CATEGORY } from "@prisma/client"
+import { Route } from "next"
 import React, { ChangeEvent } from "react"
 
 
@@ -9,7 +10,7 @@ export interface ToastConfigType {
     isOpen?: boolean
     title?: string
     toastId: string
-    clickRedirect?: string
+    clickRedirect?: Route
 }
 
 export interface ContainerProps<T> extends React.HTMLProps<T> { }

@@ -16,6 +16,8 @@ export interface InitialUIStateType {
         payment: modalValue
         idVerification: boolean
         faq: Faq | FaqFormData | false
+        dashboardGuide: boolean
+        shareItem: false | string
     },
     toasts: ToastConfigType[]
     drawer: {
@@ -42,7 +44,9 @@ const initialUiState: InitialUIStateType = {
         privacy: false,
         payment: false,
         idVerification: false,
-        faq: false
+        faq: false,
+        dashboardGuide: false,
+        shareItem: false
     },
     toasts: [],
     drawer: {

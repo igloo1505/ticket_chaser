@@ -3,6 +3,7 @@ import * as Yup from 'yup';
 import "../helpers/oneOfSchemas.helper.ts"
 import { IntFilterObjectSchema } from '../internals';;
 import { StringFilterObjectSchema } from '../internals';;
+import { EnumFaqCategoryFilterObjectSchema } from '../internals';;
 import { DateTimeFilterObjectSchema } from '../internals';
 
 export const FaqWhereInputObjectSchema = Yup.object({
@@ -12,6 +13,6 @@ Yup.array().of(Yup.lazy(() => FaqWhereInputObjectSchema.default(undefined)))]), 
 Yup.number()]),  title: Yup.mixed().oneOfSchemas([StringFilterObjectSchema,
 Yup.string()]),  subtitle: Yup.mixed().oneOfSchemas([StringFilterObjectSchema,
 Yup.string()]),  body: Yup.mixed().oneOfSchemas([StringFilterObjectSchema,
-Yup.string()]),  createdAt: Yup.mixed().oneOfSchemas([DateTimeFilterObjectSchema]),  updatedAt: Yup.mixed().oneOfSchemas([DateTimeFilterObjectSchema]),  priority: Yup.mixed().oneOfSchemas([IntFilterObjectSchema,
+Yup.string()]),  category: Yup.mixed().oneOfSchemas([EnumFaqCategoryFilterObjectSchema]),  createdAt: Yup.mixed().oneOfSchemas([DateTimeFilterObjectSchema]),  updatedAt: Yup.mixed().oneOfSchemas([DateTimeFilterObjectSchema]),  priority: Yup.mixed().oneOfSchemas([IntFilterObjectSchema,
 Yup.number()])
 });

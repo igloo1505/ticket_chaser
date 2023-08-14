@@ -10,6 +10,8 @@ import Overlay from '../utility/overlay';
 import DrawerContentAuthenticated from '../meraki/drawerContent/authenticated';
 import DrawerContentUnAuthenticated from '../meraki/drawerContent/unauthenticated';
 import DrawerContentSwitcher from '../meraki/drawerContent/switcher';
+import { dataThemeDark, dataThemeLight } from '#/utils/ui';
+import clsx from 'clsx';
 
 
 
@@ -27,14 +29,10 @@ interface DrawerProps {
     authenticated: boolean
 }
 
-
 const Drawer = connector(({ open, authenticated }: DrawerProps) => {
-    const setDrawer = (open: boolean) => {
-        store.dispatch(setDrawerOpen(open))
-    }
     return (
         <>
-            <div className="w-[260px] transition-transform duration-300 h-screen bg-base-200 fixed top-0 left-0 z-[1000]"
+            <div className={clsx("w-[260px] transition-transform duration-300 bg-base-100 h-screen fixed top-0 left-0 z-[1000] data-dark:border-gray-700 data-dark:bg-base-200 data-light:border-gray-200")}
                 style={{
                     transform: open ? "translateX(0)" : "translateX(-100%)"
                 }}

@@ -21,10 +21,19 @@ const themes: LoadedThemes[] = [darkTheme, lightTheme]
 
 
 export const setDarkmode = (darkMode: boolean) => {
+    console.log("darkMode: ", darkMode)
     if (typeof window === "undefined") return;
     let t = themes[darkMode ? 0 : 1]
     document.body.setAttribute("data-theme", t)
-    store.dispatch(setDarkMode(darkMode))
+    const htmlEm = document.querySelector("html")
+    if (htmlEm) {
+        if (!darkMode) {
+            htmlEm.classList.remove("dark")
+        }
+        if (darkMode) {
+            htmlEm.classList.add("dark")
+        }
+    }
 }
 
 type Animation = "rubberBand" | "shakeX" | "shakeY" | "headShake" | "swing" | "tada" | "wobble" | "heartBeat" | "bounce"
@@ -91,7 +100,6 @@ export const handleHeroScroll = (id: string): ScrollPosType | undefined => {
     if (!overlay) return
     const newOpacity = `${startOp + (endOp - startOp) * (1 - ratio)}`
     overlay.style.opacity = newOpacity
-    console.log("newOpacity: ", newOpacity)
 }
 
 
@@ -147,7 +155,7 @@ export const observeLandingScroll = (e: Event, navbar: React.RefObject<HTMLDivEl
 
 const searchInputWidthDiff = 60
 const searchInputPadding = 50
-const openEventFilterPanel = (em: HTMLDivElement, minimal?: boolean) => {
+const closeEventFilterPanel = (em: HTMLDivElement, minimal?: boolean) => {
     const pw = getEventsPanelWidth()
     if (!minimal) {
 
@@ -159,9 +167,11 @@ const openEventFilterPanel = (em: HTMLDivElement, minimal?: boolean) => {
             x: -pw
         })
         gsap.fromTo(`#${filterEventsToggleBtn}`, {
-            x: 0
+            x: 0,
+            rotate: 180
         }, {
-            x: 60
+            x: 60,
+            rotate: 0
         })
         gsap.fromTo(`#${eventsSearchPageInput}`, {
             width: window.innerWidth - pw - searchInputPadding
@@ -173,21 +183,25 @@ const openEventFilterPanel = (em: HTMLDivElement, minimal?: boolean) => {
     if (minimal) {
         gsap.to(`#${filterPanelsContainer}`, {
             width: window.innerWidth + pw,
-            x: -pw
+            x: -pw,
+            duration: 0
         })
         gsap.to(`#${filterEventsToggleBtn}`, {
-            x: 60
+            x: 60,
+            rotate: 0,
+            duration: 0
         })
         gsap.to(`#${eventsSearchPageInput}`, {
-            width: window.innerWidth - searchInputWidthDiff - searchInputPadding
+            width: window.innerWidth - searchInputWidthDiff - searchInputPadding,
+            duration: 0
         })
     }
     em.classList.add(eventsFilterOpenClass)
-    store.dispatch(setEventsPanelState(true))
+    store.dispatch(setEventsPanelState(false))
 }
 
 
-const closeEventFilterPanel = (em: HTMLDivElement, minimal?: boolean) => {
+const openEventFilterPanel = (em: HTMLDivElement, minimal?: boolean) => {
     const pw = getEventsPanelWidth()
     if (!minimal) {
 
@@ -199,9 +213,11 @@ const closeEventFilterPanel = (em: HTMLDivElement, minimal?: boolean) => {
             x: 0
         })
         gsap.fromTo(`#${filterEventsToggleBtn}`, {
-            x: 60
+            x: 60,
+            rotate: 0
         }, {
-            x: 0
+            x: 0,
+            rotate: 180
         })
         // const inputContainer = document.getElementById(`${eventsSearchPageInput}-container`)?.getBoundingClientRect()
         // if (!inputContainer) return
@@ -214,17 +230,21 @@ const closeEventFilterPanel = (em: HTMLDivElement, minimal?: boolean) => {
     if (minimal) {
         gsap.to(`#${filterPanelsContainer}`, {
             width: window.innerWidth,
-            x: 0
+            x: 0,
+            duration: 0
         })
         gsap.to(`#${filterEventsToggleBtn}`, {
-            x: 0
+            x: 0,
+            rotate: 180,
+            duration: 0
         })
         gsap.to(`#${eventsSearchPageInput}`, {
-            width: window.innerWidth - pw - searchInputPadding
+            width: window.innerWidth - pw - searchInputPadding,
+            duration: 0
         })
     }
     em.classList.remove(eventsFilterOpenClass)
-    store.dispatch(setEventsPanelState(false))
+    store.dispatch(setEventsPanelState(true))
 }
 
 export const toggleEventsPageFilterPanel = (open: boolean | "toggle") => {
@@ -250,17 +270,9 @@ export const toggleEventsPageFilterPanel = (open: boolean | "toggle") => {
 
 
 export const handlePanelResize = () => {
-    console.log("Abruptly close panel here until there's time to smooth out this transition.")
     let em = document.getElementById(filterPanelsContainer) as HTMLDivElement
     if (!em) return
-    const panelOpen = !em.classList.contains(eventsFilterOpenClass)
-    console.log("panelOpen: ", panelOpen)
-    if (panelOpen) {
-        openEventFilterPanel(em, true)
-    }
-    if (!panelOpen) {
-        closeEventFilterPanel(em, true)
-    }
+    closeEventFilterPanel(em, true)
 }
 
 export const getEventsPanelWidth = () => {

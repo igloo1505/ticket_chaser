@@ -23,7 +23,7 @@ const PersonalDetailsForm = ({ form, setFormData, step, relative }: Props) => {
 
     return (
         <MultiStepTransition step={step} ref={containerRef} activeStep={parseInt(form.activeStep)} relative={Boolean(relative)}>
-            <div className={'w-full grid pb-4 grid-cols-1 grid-rows-[2fr_1fr] xl:grid-cols-[2fr_1fr] md:grid-rows-2 xl:grid-rows-1 xl:gap-2'}>
+            <div className={'w-full min-w-[min(600px,85vw)] grid pb-4 grid-cols-1 grid-rows-[2fr_1fr] xl:grid-cols-[2fr_1fr] md:grid-rows-2 xl:grid-rows-1 xl:gap-2'}>
                 <div className="w-full grid grid-cols-1 md:grid-cols-2 md:gap-2">
                     <TextInput onChange={handleChange} name="first" label="First" value={form.data.name.first}
                         className={"mb-1 min-w-[300px]"}

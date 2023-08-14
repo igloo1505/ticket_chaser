@@ -5,6 +5,8 @@ import DrawerContentAuthenticated from './authenticated'
 import DrawerContentUnAuthenticated from './unauthenticated'
 import store from '#/state/store'
 import { setDrawerOpen } from '#/state/slices/ui'
+import { dataThemeDark, dataThemeLight } from '#/utils/ui'
+import clsx from 'clsx'
 
 
 
@@ -14,7 +16,7 @@ interface DrawerContentSwitcherProps {
 
 const DrawerContentSwitcher = (props: DrawerContentSwitcherProps) => {
     return (
-        <aside className="flex flex-col w-64 h-screen px-4 py-8 overflow-y-auto bg-white border-r rtl:border-r-0 rtl:border-l dark:bg-gray-900 dark:border-gray-700">
+        <aside className={clsx("flex flex-col data-dark:bg-gray-900 data-light:bg-gray-50 w-64 h-screen px-4 py-8 overflow-y-auto border-r rtl:border-r-0 rtl:border-l")}>
             <Link href="/" className={"w-fit"} onClick={() => store.dispatch(setDrawerOpen(false))}>
                 <NavbarTitle className={"text-primary tracking-wider"} />
             </Link>
@@ -24,7 +26,7 @@ const DrawerContentSwitcher = (props: DrawerContentSwitcherProps) => {
                         <path d="M21 21L15 15M17 10C17 13.866 13.866 17 10 17C6.13401 17 3 13.866 3 10C3 6.13401 6.13401 3 10 3C13.866 3 17 6.13401 17 10Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"></path>
                     </svg>
                 </span>
-                <input type="text" className="w-full py-2 pl-10 pr-4 text-gray-700 bg-white border rounded-md dark:bg-gray-900 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:ring-opacity-40 focus:outline-none focus:ring" placeholder="Search" />
+                <input className={clsx("w-full py-2 pl-10 pr-2 border rounded-md focus:border-blue-400  focus:ring-opacity-40 focus:outline-none focus:ring dark:text-gray-300 dark:bg-gray-900", dataThemeDark(["text-gray-300", "bg-gray-900", "focus:border-blue-300"]), dataThemeLight(["text-gray-700", "bg-white", "focus:border-blue-300"]))} type="text" placeholder="Search" />
             </div>
             {props.authenticated ? <DrawerContentAuthenticated /> : <DrawerContentUnAuthenticated />}
         </aside>

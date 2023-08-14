@@ -9,5 +9,5 @@ import { FaqMinOrderByAggregateInputObjectSchema } from '../internals';;
 import { FaqSumOrderByAggregateInputObjectSchema } from '../internals';
 
 export const FaqOrderByWithAggregationInputObjectSchema = Yup.object({
-    id: SortOrderSchema,  title: SortOrderSchema,  subtitle: SortOrderSchema,  body: SortOrderSchema,  createdAt: SortOrderSchema,  updatedAt: SortOrderSchema,  priority: SortOrderSchema,  _count: FaqCountOrderByAggregateInputObjectSchema,  _avg: FaqAvgOrderByAggregateInputObjectSchema,  _max: FaqMaxOrderByAggregateInputObjectSchema,  _min: FaqMinOrderByAggregateInputObjectSchema,  _sum: FaqSumOrderByAggregateInputObjectSchema
+    id: SortOrderSchema,  title: SortOrderSchema,  subtitle: SortOrderSchema,  body: SortOrderSchema,  category: SortOrderSchema,  createdAt: SortOrderSchema,  updatedAt: SortOrderSchema,  priority: SortOrderSchema,  _count: FaqCountOrderByAggregateInputObjectSchema,  _avg: FaqAvgOrderByAggregateInputObjectSchema,  _max: FaqMaxOrderByAggregateInputObjectSchema,  _min: FaqMinOrderByAggregateInputObjectSchema,  _sum: FaqSumOrderByAggregateInputObjectSchema
 });

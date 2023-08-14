@@ -14,7 +14,8 @@ module.exports = {
         'node_modules/preline/dist/*.js',
     ],
     presets: [],
-    darkMode: 'media', // or 'class'
+    // darkMode: ['class', 'data-[theme=night]'], // or 'class'
+    darkMode: 'class', // or 'class'
     theme: {
         accentColor: ({ theme }) => ({
             ...theme('colors'),
@@ -176,7 +177,7 @@ module.exports = {
             fuchsia: colors.fuchsia,
             pink: colors.pink,
             rose: colors.rose,
-            baseDark: {
+            baseLight: {
                 '50': '#f0f7fe',
                 '100': '#ddedfc',
                 '200': '#c3e1fa',
@@ -189,7 +190,7 @@ module.exports = {
                 '900': '#264882',
                 '950': '#0e1729',
             },
-            baseLight: {
+            baseDark: {
                 '50': '#0e1729',
                 '100': '#264882',
                 '200': '#2852a5',
@@ -565,6 +566,7 @@ module.exports = {
             max: 'max-content',
             fit: 'fit-content',
             screenNav: `calc(100vh - ${NAVHEIGHT}px)`,
+            screenMinusFooter: "calc(100vh-76px)",
             nav: `${NAVHEIGHT}px`
         }),
         hueRotate: {
@@ -700,6 +702,7 @@ module.exports = {
             min: 'min-content',
             max: 'max-content',
             fit: 'fit-content',
+            screenMinusFooter: "calc(100vh-76px)",
         },
         minWidth: {
             0: '0px',
@@ -1052,10 +1055,28 @@ module.exports = {
         require("daisyui")
     ],
     safelist: [
-        ...daisySafeList,
         {
             pattern: /p[x|y]-\d/gm
-        }
+        },
+        {
+            pattern: /text-*/gm
+        },
+        {
+            pattern: /bg-*/gm
+        },
+        {
+            pattern: /hover:bg-*/gm
+        },
+        {
+            pattern: /hover:text-*/gm
+        },
+        {
+            pattern: /data-\[theme=night\]:text-*/gm
+        },
+        {
+            pattern: /bg-base[Dark|Light]-\d/gm
+        },
+        ...daisySafeList,
         // {
         //     pattern: /elevate-\d/gm
         // }

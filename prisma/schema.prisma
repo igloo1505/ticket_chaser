@@ -4,8 +4,8 @@ generator client {
 }
 
 generator yup {
-  provider   = "prisma-yup-generator"
-  output     = "./yup"
+    provider = "prisma-yup-generator"
+    output   = "./yup"
 }
 
 datasource db {
@@ -121,23 +121,51 @@ enum Leagues {
 
 // TODO: Come back and complete this list when on wifi
 enum NFLTeamName {
-   Packers
-   Patriots
-   Bears
-   Panthers
-   Jaguars
-   Dolphins
-   Niners
-   Texans
-   Saints
-   Vikings
-   Broncos
-   Chargers
-   Rams
-   Colts
-   Raiders
+    Cardinals
+    Falcons
+    Ravens
+    Bills
+    Panthers
+    Bengals
+    Bears
+    Browns
+    Cowboys
+    Broncos
+    Lions
+    Texans
+    Packers
+    Colts
+    Rams
+    Jaguars
+    Vikings
+    Chiefs
+    Saints
+    Raiders
+    Giants
+    Chargers
+    Eagles
+    Dolphins
+    FourtyNiners
+    Patriots
+    Seahawks
+    Jets
+    Buccaneers
+    Steelers
+    Commanders
+    Titans
 }
 
+enum NFL_Conference {
+    NFC
+    AFC
+}
+
+enum NFL_Division {
+    North
+    West
+    East
+    South
+}
 
 enum Sports {
     Basketball
@@ -147,27 +175,46 @@ enum Sports {
     Motorsports
 }
 
+enum FaqCategory {
+    general
+    billing
+    services
+    trustAndSaftey
+}
+
 model Faq {
-    id        Int      @id @default(autoincrement())
+    id        Int         @id @default(autoincrement())
     title     String
     subtitle  String
     body      String
-    createdAt DateTime @default(now())
-    updatedAt DateTime @default(now())
-    priority  Int      @default(1)
+    category  FaqCategory @default(general)
+    createdAt DateTime    @default(now())
+    updatedAt DateTime    @default(now())
+    priority  Int         @default(1)
+}
+
+model Colors {
+    id        Int     @id @default(autoincrement())
+    primary   String
+    secondary String?
+    Team      Team[]
 }
 
 // BUG: Change this to allow many to many relationships between teams and events. Need to get back on wifi to check syntax.
 model Team {
-    id           Int     @id @default(autoincrement())
+    id           Int             @id @default(autoincrement())
     name         NFLTeamName
     abbreviation String?
-    league       Leagues @default(NFL)
-    sport        Sports  @default(Football)
-    homeArena    Arena?  @relation(fields: [homeArenaId], references: [id])
+    league       Leagues         @default(NFL)
+    sport        Sports          @default(Football)
+    conference   NFL_Conference?
+    division     NFL_Division?
+    colors       Colors?         @relation(fields: [colorsId], references: [id])
+    homeArena    Arena?          @relation(fields: [homeArenaId], references: [id])
     homeArenaId  Int?
-    Event        Event?  @relation(fields: [eventId], references: [id])
+    Event        Event?          @relation(fields: [eventId], references: [id])
     eventId      Int?
+    colorsId     Int?
 }
 
 model Location {

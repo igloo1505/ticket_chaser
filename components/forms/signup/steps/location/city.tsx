@@ -43,7 +43,7 @@ const LocationForm = connector(({ form, retrievedCities, setFormData, step, rela
 
     return (
         <MultiStepTransition step={step} ref={containerRef} activeStep={parseInt(form.activeStep)} relative={Boolean(relative)}>
-            <div className={'w-full h-full py-6 flex flex-col justify-center items-center gap-4'}>
+            <div className={'w-full h-full min-h-[120px] pb-6 flex flex-col justify-center items-center gap-4'}>
                 <Autocomplete
                     maxDisplay={5}
                     inputProps={{

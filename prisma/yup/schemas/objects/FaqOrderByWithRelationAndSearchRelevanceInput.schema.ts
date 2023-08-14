@@ -5,5 +5,5 @@ import { SortOrderSchema } from '../internals';;
 import { FaqOrderByRelevanceInputObjectSchema } from '../internals';
 
 export const FaqOrderByWithRelationAndSearchRelevanceInputObjectSchema = Yup.object({
-    id: SortOrderSchema,  title: SortOrderSchema,  subtitle: SortOrderSchema,  body: SortOrderSchema,  createdAt: SortOrderSchema,  updatedAt: SortOrderSchema,  priority: SortOrderSchema,  _relevance: FaqOrderByRelevanceInputObjectSchema
+    id: SortOrderSchema,  title: SortOrderSchema,  subtitle: SortOrderSchema,  body: SortOrderSchema,  category: SortOrderSchema,  createdAt: SortOrderSchema,  updatedAt: SortOrderSchema,  priority: SortOrderSchema,  _relevance: FaqOrderByRelevanceInputObjectSchema
 });
