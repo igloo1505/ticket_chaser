@@ -6,16 +6,18 @@ import ToastList from './toastList';
 import Drawer from '../navigation/drawer';
 import CombinedModals from './modals/CombinedModals';
 import AuthStateObserver from './AuthObserver';
+import { RootState } from '#/state/store';
 
 
-const StateWrappedUI = ({ isAuthenticated }: { isAuthenticated: boolean }) => {
+
+const StateWrappedUI = ({ isAuthenticated, user, shouldClearCookies }: { isAuthenticated: boolean, user?: RootState['auth']['user'] | undefined, shouldClearCookies: boolean }) => {
     return (
         <ReduxProvider>
             <Navbar />
             <Drawer />
             <ToastList />
             <CombinedModals />
-            <AuthStateObserver isAuthenticated={isAuthenticated} />
+            <AuthStateObserver shouldClearCookies={shouldClearCookies} isAuthenticated={isAuthenticated} user={user} />
         </ReduxProvider>
     )
 }

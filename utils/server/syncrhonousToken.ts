@@ -27,6 +27,7 @@ export const tokenMap: {
 }
 
 
+// HACK: Keep in mind that this function as duplicated in utils/server/pages/authAndData to avoid server action import and export conflicts
 export const clearAuthTokens = (cookies: CookieJarType) => {
     cookies.delete(tokenMap.auth)
     cookies.delete(tokenMap.userId)

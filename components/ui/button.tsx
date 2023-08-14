@@ -12,10 +12,10 @@ export interface ButtonProps {
     className?: string
 }
 
-const Button = ({label, onClick, variants, className}: ButtonProps) => {
+const Button = ({ label, onClick, variants, className }: ButtonProps) => {
     const _varients = variants ? variants.join(" ") : "btn-primary"
     return (
-    <button className={clsx('btn', _varients, className && className)} onClick={onClick}>{label}</button>
+        <button className={clsx('btn', _varients, className && className)} onClick={onClick}>{label}</button>
     )
 }
 

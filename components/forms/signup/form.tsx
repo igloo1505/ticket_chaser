@@ -155,7 +155,7 @@ const SignupMainForm = connector(({ setLogin, formData }: Props) => {
     }
 
     return (
-        <div className={"w-full h-full flex flex-col justify-center items-center"} >
+        <div className={"w-full h-full flex flex-col justify-center items-center"} id={`${multiStepSignupFormContainer}-parent`}>
             <div className={"w-full h-full flex flex-col justify-center items-center relative"} id={multiStepSignupFormContainer} >
                 <BasicInfoForm form={formData} setFormData={handleFormData} step={1}
                     showPasswordMismatch={indicateState.passwordMismatch ? indicateState.passwordMismatch : null}
@@ -166,7 +166,7 @@ const SignupMainForm = connector(({ setLogin, formData }: Props) => {
                 <CityForm form={formData} setFormData={handleFormData} step={4} />
             </div>
             <div className={'card-actions pb-2 w-full h-fit flex flex-col justify-center items-center'} >
-                < div className={clsx('w-full grid gap-4 grid-cols-1', !formData.firstStep && "grid-cols-2")}>
+                <div className={clsx('w-full grid gap-4 grid-cols-1', !formData.firstStep && "grid-cols-2")}>
                     {!formData.firstStep && <Button label="Back" onClick={prevStep} className={'w-full'} />}
                     {
                         formData.lastStep ?

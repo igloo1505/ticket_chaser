@@ -10,8 +10,8 @@ import { EventsPageSearchParams } from "#/utils/routing/searchParams";
 
 
 const slice = createSlice({
-    name: "forms",
-    initialState: initialState.forms as typeof initialState['forms'],
+    name: "form",
+    initialState: initialState.form as typeof initialState['form'],
     reducers: {
         setSignupFormData(state, action: PayloadAction<InitialFormStateType['signUp']>) {
             state.signUp = action.payload

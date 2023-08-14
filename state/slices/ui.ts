@@ -55,11 +55,15 @@ const slice = createSlice({
         },
         setViewportDataState(state, action: PayloadAction<InitialUIStateType['viewport']>) {
             state.viewport = action.payload
+            state.hamburger = action.payload.width <= 768
         },
+        setEventsPanelState(state, action: PayloadAction<boolean>) {
+            state.pages.events.panelOpen = action.payload
+        }
     }
 })
 
 
-export const { showToast, setDrawerOpen, toggleDrawer, clearToast, showModal, hideModal, hideAllModals, setDarkMode, setViewportDataState, showDefaultToast } = slice.actions
+export const { showToast, setEventsPanelState, setDrawerOpen, toggleDrawer, clearToast, showModal, hideModal, hideAllModals, setDarkMode, setViewportDataState, showDefaultToast } = slice.actions
 export default slice.reducer
 

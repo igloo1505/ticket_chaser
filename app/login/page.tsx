@@ -1,30 +1,20 @@
-import StepIndicator, { StepIndicatorStep } from '#/components/forms/signup/stepIndicator';
 import AuthenticateCard from '#/components/pageSpecific/login/authenticateCard';
 import ReduxProvider from '#/components/utility/reduxProvider';
 import React from 'react'
 
 
-const indicatorSteps: StepIndicatorStep[] = [
-    {
-        label: "Login",
-        activeRange: [1]
-    },
-    {
-        label: "Location",
-        activeRange: [2, 3]
-    }
-]
-
 interface LoginPageProps {
-
+    searchParams: {
+        login?: "true"
+    }
 }
 
-const LoginPage = (props: LoginPageProps) => {
-
+const LoginPage = ({ searchParams: { login } }: LoginPageProps) => {
+    console.log("login: ", login, typeof login)
     return (
         <div className={'w-full h-full underNavCenter flex flex-col gap-4 justify-center items-center'}>
             <ReduxProvider>
-                <AuthenticateCard />
+                <AuthenticateCard isLogin={Boolean(login && login === "true")} />
             </ReduxProvider>
         </div>
     )

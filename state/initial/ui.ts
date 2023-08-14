@@ -4,6 +4,9 @@ import { FaqFormData } from "./adminState"
 
 type modalValue = boolean | number
 
+export const shouldHamburger = () => {
+    return typeof window === "undefined" ? true : window.innerWidth <= 768
+}
 
 export interface InitialUIStateType {
     darkMode: boolean,
@@ -22,6 +25,12 @@ export interface InitialUIStateType {
         height: number
         width: number
         navbarHeight: number
+    },
+    hamburger: boolean,
+    pages: {
+        events: {
+            panelOpen: boolean
+        }
     }
 }
 
@@ -43,6 +52,12 @@ const initialUiState: InitialUIStateType = {
         navbarHeight: -1,
         height: -1,
         width: -1
+    },
+    hamburger: false,
+    pages: {
+        events: {
+            panelOpen: false
+        }
     }
 }
 

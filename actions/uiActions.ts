@@ -1,7 +1,7 @@
 "use client"
 import { InterestType, MappedInterestType, initialInterests } from "#/data/interests"
 import { InitialUIStateType } from "#/state/initial/ui"
-import { setDarkMode, setViewportDataState } from "#/state/slices/ui"
+import { setDarkMode, setEventsPanelState, setViewportDataState } from "#/state/slices/ui"
 import store from "#/state/store"
 import { eventsFilterOpenClass, eventsSearchPageInput, filterEventsToggleBtn, filterPanelsContainer } from "#/types/DomIds"
 import { daysInMilliseconds } from "#/utils/dates/dayjs"
@@ -71,10 +71,6 @@ export const handleUnderNavbarWrapper = (height: number) => {
 
 }
 
-export const setViewportData = (data: InitialUIStateType['viewport']) => {
-    handleUnderNavbarWrapper(data.navbarHeight)
-    setViewportDataState(data)
-}
 
 interface ScrollPosType {
     top: number
@@ -93,7 +89,9 @@ export const handleHeroScroll = (id: string): ScrollPosType | undefined => {
     const ratio = (vh - stop) / vh
     let overlay = document.getElementById(`${id}-overlay`)
     if (!overlay) return
-    overlay.style.opacity = `${startOp + (endOp - startOp) * (1 - ratio)}`
+    const newOpacity = `${startOp + (endOp - startOp) * (1 - ratio)}`
+    overlay.style.opacity = newOpacity
+    console.log("newOpacity: ", newOpacity)
 }
 
 
@@ -185,6 +183,7 @@ const openEventFilterPanel = (em: HTMLDivElement, minimal?: boolean) => {
         })
     }
     em.classList.add(eventsFilterOpenClass)
+    store.dispatch(setEventsPanelState(true))
 }
 
 
@@ -225,6 +224,7 @@ const closeEventFilterPanel = (em: HTMLDivElement, minimal?: boolean) => {
         })
     }
     em.classList.remove(eventsFilterOpenClass)
+    store.dispatch(setEventsPanelState(false))
 }
 
 export const toggleEventsPageFilterPanel = (open: boolean | "toggle") => {
@@ -250,6 +250,7 @@ export const toggleEventsPageFilterPanel = (open: boolean | "toggle") => {
 
 
 export const handlePanelResize = () => {
+    console.log("Abruptly close panel here until there's time to smooth out this transition.")
     let em = document.getElementById(filterPanelsContainer) as HTMLDivElement
     if (!em) return
     const panelOpen = !em.classList.contains(eventsFilterOpenClass)
@@ -264,4 +265,12 @@ export const handlePanelResize = () => {
 
 export const getEventsPanelWidth = () => {
     return 380
+}
+
+
+
+export const setViewportData = (data: InitialUIStateType['viewport']) => {
+    console.log("data: ", data)
+    handleUnderNavbarWrapper(data.navbarHeight)
+    store.dispatch(setViewportDataState(data))
 }

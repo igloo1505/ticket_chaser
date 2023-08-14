@@ -8,25 +8,26 @@ import Hamburger from 'hamburger-react';
 import React, { useEffect, useState } from 'react'
 import { AiOutlineArrowRight } from 'react-icons/ai';
 
+import { RootState } from '#/state/store';
+import { connect } from 'react-redux';
 
+const connector = connect((state: RootState, props: any) => ({
+    open: state.UI.pages.events.panelOpen,
+    props: props
+}))
 
 interface FilterPanelToggleButtonProps {
-
+    open: boolean
 }
 
-const FilterPanelToggleButton = (props: FilterPanelToggleButtonProps) => {
-    const [isOpen, setIsOpen] = useState(true)
-    const handleToggle = () => {
-    }
-    useEffect(() => {
-        toggleEventsPageFilterPanel(isOpen)
-    }, [isOpen])
+const FilterPanelToggleButton = connector(({ open }: FilterPanelToggleButtonProps) => {
+    /* toggleEventsPageFilterPanel(isOpen) */
     return (
-        <div className={"searchPanel-toggle-btn w-[48px] h-[48px] bg-transparent rounded-xl text-base-content"} onClick={handleToggle} id={filterEventsToggleBtn} >
-            <Hamburger toggled={!isOpen} onToggle={() => setIsOpen(!isOpen)} />
+        <div className={"searchPanel-toggle-btn w-[48px] h-[48px] bg-transparent rounded-xl text-base-content"} onClick={() => toggleEventsPageFilterPanel(!open)} id={filterEventsToggleBtn} >
+            <Hamburger toggled={!open} />
         </div>
     )
-}
+})
 
 
 FilterPanelToggleButton.displayName = "FilterPanelToggleButton"

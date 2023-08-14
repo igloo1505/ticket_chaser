@@ -6,14 +6,13 @@ export type ToastErrorTypes = "unauthenticated" | "tokenExpired" | "mustBeVerifi
 export type AccessType = ROLE | "AUTHENTICATED" | "DEVELOPMENT" | "UNKNOWN" | false
 
 
-export interface RetrievedUserData extends Omit<User, "password"> {
-    password: undefined,
-    personalDetails: {
+export interface RetrievedUserData extends Partial<User> {
+    password?: undefined
+    personalDetails?: {
         location: Location,
         name: LegalName
     }
 }
-
 
 export interface RedirectType {
     redirectTo?: string

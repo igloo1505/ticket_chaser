@@ -1,12 +1,9 @@
-import Link from 'next/link';
-import React from 'react'
+import clsx from 'clsx';
 
 
-const NavbarTitle = () => {
+const NavbarTitle = ({ className }: { className?: string }) => {
     return (
-        <Link href="/">
-            <div className={'text-xl text-base-content font-bold tracking-wider pl-2'}>SafeStub</div>
-        </Link>
+        <div className={clsx('text-xl text-base-content font-bold tracking-wider pl-2', className && className)}>SafeStub</div>
     )
 }
 

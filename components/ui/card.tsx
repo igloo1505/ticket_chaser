@@ -1,6 +1,7 @@
 import React from 'react'
 import { ContainerProps, Elevation, elevationMap } from '#/types/uiTypes'
 import clsx from 'clsx'
+import { dataThemeDark, dataThemeLight } from '#/utils/ui'
 
 type variants = "image-full" | "card-normal" | "card-compact" | "card-side"
 
@@ -28,7 +29,7 @@ const Card = ({ container, id, titleClasses, elevate, shadow, title, variants, b
         container = {}
     }
     return (
-        <div {...container} className={clsx("card", _variants, container.className && container.className, bordered && "data-dark:border-darkBorder data-light:border-lightBorder", shadow && "shadow-lg", elevate && elevationMap[elevate])} id={id ? id : undefined}>
+        <div {...container} className={clsx("card", _variants, container.className && container.className, bordered && dataThemeDark("border-darkBorder") && bordered && dataThemeLight("border-lightBorder"), shadow && "shadow-lg", elevate && elevationMap[elevate])} id={id ? id : undefined}>
             {title && <div className={clsx('card-title w-full text-center justify-center items-center pt-4', titleClasses && titleClasses)} id={id ? `${id}-title` : undefined}>{title}</div>}
             <div className={clsx('card-body', bodyClasses && bodyClasses)}>
                 {children}

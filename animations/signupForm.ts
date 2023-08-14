@@ -13,9 +13,9 @@ const signupStepTranslateMap: { [k in TransitionStateType]: string } = {
 }
 
 
-const getNewSignupCardDimensions = (rect: DOMRect) => {
+const getNewSignupCardDimensions = (rect: DOMRect, parent?: DOMRect) => {
     return {
-        width: rect.width,
+        width: parent ? rect.width < parent.width ? parent.width : rect.width : rect.width,
         height: rect.height
     }
 }
@@ -38,6 +38,7 @@ export const animateSignupCardDimensions = async (ref: React.RefObject<HTMLDivEl
     if (!ref?.current) return false
     ref.current.style.display = "flex"
     const rect = ref.current.getBoundingClientRect()
+    const parent = document.getElementById(`${multiStepSignupFormContainer}-parent`)
     const tl = gsap.timeline({
         onComplete: () => {
             if (!ref.current) return
@@ -49,7 +50,7 @@ export const animateSignupCardDimensions = async (ref: React.RefObject<HTMLDivEl
     const signupCard = document.getElementById(signupCardId)
     if (!formContainer || !rect || !containerRect || !signupCard) return false
     const isInitial = signupCard.classList.contains("initialRender")
-    const newContainerSize = getNewSignupCardDimensions(rect)
+    const newContainerSize = getNewSignupCardDimensions(rect, parent?.getBoundingClientRect())
     if (isInitial) {
         formContainer.style.opacity = "1"
         formContainer.style.transition = "none"

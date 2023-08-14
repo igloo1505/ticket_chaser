@@ -1,3 +1,5 @@
+import { darkTheme } from "../daisy/dark"
+import { lightTheme } from "../daisy/light"
 
 export const NAVHEIGHT = 96
 
@@ -33,3 +35,8 @@ export const updateRichTextString = (s: string) => {
     val = val.replace("<blockquote", "<blockquote class='richTextItalic'")
     return val
 }
+
+
+export const themes = [darkTheme, lightTheme]
+export const dataThemeDark = (val: string) => `data-[theme=${darkTheme}]:${val}`
+export const dataThemeLight = (val: string) => `data-[theme=${lightTheme}]:${val}`

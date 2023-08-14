@@ -44,3 +44,9 @@ export const logout = async () => {
     store.dispatch(logoutUser())
     window.location.pathname = "/"
 }
+
+
+export const clearAuthTokensRequest = async () => {
+    let res = await handleAxios("get", "/api/auth/clearAuth")
+    return res?.data.success || false
+}

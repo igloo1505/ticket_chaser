@@ -7,7 +7,7 @@ import StepIndicator, { StepIndicatorStep } from '#/components/forms/signup/step
 import Button from '#/components/ui/button';
 import Card from '#/components/ui/card';
 import { LoginBaseType } from '#/types/AuthTypes';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import React, { ChangeEvent, useEffect, useState } from 'react'
 
 export const signupCardId = "signup-card-container"
@@ -33,7 +33,8 @@ const indicatorSteps: StepIndicatorStep[] = [
 
 const AuthenticateCard = () => {
     const router = useRouter()
-    const [authenticateType, setAuthenticateType] = useState<"Sign Up" | "Login">("Sign Up")
+    const isLogin = useSearchParams().get("login") === "true"
+    const [authenticateType, setAuthenticateType] = useState<"Sign Up" | "Login">(isLogin ? "Login" : "Sign Up")
     const [formData, setFormData] = useState<LoginBaseType>({
         email: "",
         password: "",
@@ -52,9 +53,18 @@ const AuthenticateCard = () => {
             router.push("/")
         }
     }
+
+    useEffect(() => {
+        if (typeof window === "undefined") return;
+        let em = document.getElementById(signupCardId)
+        em && (em.style.opacity = "1")
+    }, [])
+    useEffect(() => {
+        setAuthenticateType(isLogin ? "Login" : "Sign Up")
+    }, [isLogin])
     return (
         <Card title={authenticateType} id={signupCardId} shadow elevate={300} container={{
-            className: "max-w-[calc(100vw-2rem)] relative opacity-0 initialRender"
+            className: "max-w-[85vw] min-w-[min(85vw,480px)] relative opacity-0 initialRender"
         }}>
             {authenticateType === "Sign Up" && <StepIndicator steps={indicatorSteps} />}
             {authenticateType === "Login" ?

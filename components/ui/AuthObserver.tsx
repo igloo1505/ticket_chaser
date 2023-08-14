@@ -1,31 +1,32 @@
 "use client"
+import { clearAuthTokensRequest } from '#/actions/authActions'
 import { authFail, authSuccess, setAuthenticated } from '#/state/slices/auth'
-import store from '#/state/store'
+import store, { RootState } from '#/state/store'
 import { RetrievedUserData } from '#/types/AuthTypes'
 import { useEffect } from 'react'
 
 
 
 interface AuthObserverProps {
-    user?: RetrievedUserData | null | undefined
+    user?: RootState['auth']['user']
     isAuthenticated?: boolean
+    shouldClearCookies: boolean
 }
 
 
 
-const AuthStateObserver = ({ user, isAuthenticated }: AuthObserverProps) => {
+const AuthStateObserver = ({ user, isAuthenticated, shouldClearCookies }: AuthObserverProps) => {
     useEffect(() => {
         if (user && isAuthenticated) {
-            console.log("In here user block")
-            store.dispatch(authSuccess(user))
+            store.dispatch(authSuccess(user as RetrievedUserData))
         }
-        if (isAuthenticated && !user) {
-            store.dispatch(setAuthenticated(isAuthenticated))
-        }
-        if (!isAuthenticated) {
+        if (!isAuthenticated || !user) {
+            if (shouldClearCookies) {
+                clearAuthTokensRequest()
+            }
             store.dispatch(authFail())
         }
-    }, [user])
+    }, [user, shouldClearCookies])
     return null
 }
 

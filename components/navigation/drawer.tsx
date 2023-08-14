@@ -7,13 +7,16 @@ import { setDrawerOpen } from '#/state/slices/ui';
 import { navbarButtons } from './navbarButtons';
 import { NavbarButtonProps } from './navbarButton';
 import Overlay from '../utility/overlay';
-import DrawerContent from '../meraki/drawerContent';
+import DrawerContentAuthenticated from '../meraki/drawerContent/authenticated';
+import DrawerContentUnAuthenticated from '../meraki/drawerContent/unauthenticated';
+import DrawerContentSwitcher from '../meraki/drawerContent/switcher';
 
 
 
 const connector = connect((state: RootState, props: any) => {
     return {
         open: state.UI.drawer.open,
+        authenticated: state.auth.authenticated,
         props: props
     }
 })
@@ -21,29 +24,22 @@ const connector = connect((state: RootState, props: any) => {
 
 interface DrawerProps {
     open: boolean
+    authenticated: boolean
 }
 
 
-const DrawerItem = ({ item }: { item: NavbarButtonProps }) => {
-    return (
-        <li>
-            <Link href={item.href}>{item.label}</Link>
-        </li>
-    )
-}
-
-const Drawer = connector(({ open }: DrawerProps) => {
+const Drawer = connector(({ open, authenticated }: DrawerProps) => {
     const setDrawer = (open: boolean) => {
         store.dispatch(setDrawerOpen(open))
     }
     return (
         <>
-            <div className="w-[260px] transition-transform duration-300 h-screen bg-base-200 fixed top-0 left-0 z-[9999]"
+            <div className="w-[260px] transition-transform duration-300 h-screen bg-base-200 fixed top-0 left-0 z-[1000]"
                 style={{
                     transform: open ? "translateX(0)" : "translateX(-100%)"
                 }}
             >
-                <DrawerContent />
+                <DrawerContentSwitcher authenticated={authenticated} />
             </div>
             <Overlay onClick={() => store.dispatch(setDrawerOpen(false))} open={open} />
         </>

@@ -14,6 +14,7 @@ import { handlePanelResize } from '#/actions/uiActions';
 import { EventsPageSearchParams, genEventSearchParams } from '#/utils/routing/searchParams';
 import { setInitialEventsFilterData } from '#/state/slices/form';
 import { useRouter } from 'next/navigation';
+import { dataThemeDark, dataThemeLight } from '#/utils/ui';
 
 const connector = connect((state: RootState, props: any) => ({
     replaceContent: state.form.events.panel.replaceContent,
@@ -53,7 +54,7 @@ const SearchFilterPanel = connector(({ replaceContent, filters, searchParams }: 
     }
 
     return (
-        <div className={"searchPanel relative h-full elevate-200 text-primary-content rounded-tr-xl rounded-br-xl grid grid-rows-[auto_1fr]"}>
+        <div className={clsx("searchPanel relative h-full elevate-200 text-primary-content rounded-tr-xl rounded-br-xl grid grid-rows-[auto_1fr]", dataThemeDark("bg-baseDark-200"), dataThemeLight("bg-baseLight-200"))}>
             <FilterPanelToggleButton />
             <div className={"w-full text-center text-lg text-base-content py-4"}>{EventsPageContent.filterPanel.title}</div>
             <div className={"h-full"}>

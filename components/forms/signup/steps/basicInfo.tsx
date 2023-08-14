@@ -70,7 +70,7 @@ const BasicInfoForm = ({ form, relative, setFormData, showPasswordMismatch, step
         <MultiStepTransition step={step} ref={containerRef} activeStep={parseInt(form.activeStep)} relative={Boolean(relative)}>
             <div className={'w-full min-w-fit min-h-fit flex flex-col justify-center items-center pb-4'}>
                 <TextInput onChange={handleChange} name="email" label="Email" value={form.data.email}
-                    className={"mb-2"}
+                    className={"mb-2 w-full"}
                 />
                 <FormErrorIndicator message={showInvalidEmail}
                     openHeight={errorOpenHeights.showInvalidEmail}
