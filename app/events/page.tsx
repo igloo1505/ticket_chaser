@@ -17,7 +17,7 @@ const EventsPage = ({ searchParams }: EventsPageProps) => {
     return (
         <ReduxProvider>
             <PageContentWrapper>
-                <div className={"w-screen h-full min-h-[calc(100vh-var(--combined-nav-height))] grid origin-right grid-cols-[var(--filter-panel-width)_1fr]"} id={filterPanelsContainer}>
+                <div className={"eventsPageWrapper"} id={filterPanelsContainer}>
                     <SearchFilterPanel searchParams={searchParams} />
                     <SearchPanelRight query={searchParams.query || ""} />
                 </div>

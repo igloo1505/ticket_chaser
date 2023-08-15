@@ -21,10 +21,13 @@ body {
     @apply bg-gray-50 dark:bg-gray-900;
   }
   .panelLight {
-    @apply bg-gray-50 dark:bg-gray-800;
+    @apply bg-gray-100 dark:bg-gray-800;
   }
   .panelBorder {
     @apply border-gray-200 dark:border-gray-700;
+  }
+  .panelBorderLight {
+    @apply border-gray-200 dark:border-gray-600;
   }
 }
 

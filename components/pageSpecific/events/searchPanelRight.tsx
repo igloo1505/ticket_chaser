@@ -2,6 +2,7 @@ import React from 'react'
 import SearchBar from './searchBar'
 import { eventsPanelRight } from '#/types/DomIds'
 import { EventsPageSearchParams } from '#/utils/routing/searchParams'
+import FilterPanelToggleButton from './PanelToggleButton'
 
 
 
@@ -11,7 +12,8 @@ interface SearchPanelRightProps {
 
 const SearchPanelRight = (props: SearchPanelRightProps) => {
     return (
-        <div className={`${eventsPanelRight} h-full w-full`} id={eventsPanelRight}>
+        <div className={"searchPanelRight"} id={eventsPanelRight}>
+            <FilterPanelToggleButton />
             <SearchBar query={props.query} />
         </div>
     )

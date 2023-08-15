@@ -19,6 +19,7 @@ import { dataThemeDark, dataThemeLight } from '#/utils/ui';
 const connector = connect((state: RootState, props: any) => ({
     replaceContent: state.form.events.panel.replaceContent,
     filters: state.form.events.panel.filter,
+    open: state.UI.pages.events.panelOpen,
     props: props
 }))
 
@@ -26,6 +27,7 @@ interface SearchFilterPanelProps {
     replaceContent: RootState['form']['events']['panel']['replaceContent']
     filters: RootState['form']['events']['panel']['filter']
     searchParams: EventsPageSearchParams
+    open: boolean
 }
 
 
@@ -34,7 +36,7 @@ interface SearchFilterPanelProps {
 
 
 
-const SearchFilterPanel = connector(({ replaceContent, filters, searchParams }: SearchFilterPanelProps) => {
+const SearchFilterPanel = connector(({ replaceContent, open, filters, searchParams }: SearchFilterPanelProps) => {
     const [initialFilterState, setIsInitialFilterState] = useState(true)
     const router = useRouter()
     useEffect(() => {
@@ -55,16 +57,18 @@ const SearchFilterPanel = connector(({ replaceContent, filters, searchParams }: 
     }
 
     return (
-        <div className={clsx("panelLight relative h-full elevate-200 text-primary-content rounded-tr-xl rounded-br-xl grid grid-rows-[auto_1fr]")}>
-            <FilterPanelToggleButton />
-            <div className={"w-full text-center text-lg text-base-content py-4"}>{EventsPageContent.filterPanel.title}</div>
-            <div className={"h-full"}>
-                <div id="panel-replace-content-target" className={clsx("w-full h-full flex flex-col justify-start items-center", !replaceContent && "hidden")}>
+        <div className={clsx("filterPanel panelLight text-primary-content panelBorderLight")}
+        >
+            <div className={"filterPanel-content"}>
+                <div className={"w-full text-center text-lg text-base-content py-4"}>{EventsPageContent.filterPanel.title}</div>
+                <div className={"h-full"}>
+                    <div id="panel-replace-content-target" className={clsx("w-full h-full flex flex-col justify-start items-center", !replaceContent && "hidden")}>
+                    </div>
+                    {!replaceContent && <SearchPanelFilters searchParams={searchParams} />}
                 </div>
-                {!replaceContent && <SearchPanelFilters searchParams={searchParams} />}
+                <a role="button" onClick={clearEventFilter} className={clsx("bg-error text-error-content w-[calc(100%-1rem)] ml-2 mb-2 rounded-lg text-center py-2 px-1", initialFilterState && "hidden")}>Clear</a>
+                <a role="button" onClick={redirectToEventQuery} className={clsx("bg-primary text-primary-content w-[calc(100%-1rem)] ml-2 mb-2 rounded-lg text-center py-2 px-1", initialFilterState && "hidden")}>Search</a>
             </div>
-            <a role="button" onClick={clearEventFilter} className={clsx("bg-error text-error-content w-[calc(100%-1rem)] ml-2 mb-2 rounded-lg text-center py-2 px-1", initialFilterState && "hidden")}>Clear</a>
-            <a role="button" onClick={redirectToEventQuery} className={clsx("bg-primary text-primary-content w-[calc(100%-1rem)] ml-2 mb-2 rounded-lg text-center py-2 px-1", initialFilterState && "hidden")}>Search</a>
         </div>
     )
 })

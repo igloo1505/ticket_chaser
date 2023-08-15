@@ -1,6 +1,5 @@
 export const filterPanelsContainer = "events-page-filter-panel-container"
 export const filterEventsToggleBtn = "events-filter-toggle-button"
-export const eventsFilterOpenClass = "eventsFilterPanelContainerOpen"
 export const eventsPanelRight = "searchPanelRight"
 export const eventsSearchPageInput = "events-search-main-input"
 export const eventsSearchPageInputContainer = "events-search-main-input-container"

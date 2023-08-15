@@ -145,125 +145,44 @@ export const observeLandingScroll = (navbar: React.RefObject<HTMLDivElement>) =>
 
 const searchInputWidthDiff = 60
 const searchInputPadding = 50
-const closeEventFilterPanel = (em: HTMLDivElement, minimal?: boolean) => {
-    const pw = getEventsPanelWidth()
-    if (!minimal) {
-
-        gsap.fromTo(`#${filterPanelsContainer}`, {
-            width: window.innerWidth,
-            x: 0
-        }, {
-            width: window.innerWidth + pw,
-            x: -pw
-        })
-        gsap.fromTo(`#${filterEventsToggleBtn}`, {
-            x: 0,
-            rotate: 180
-        }, {
-            x: 60,
-            rotate: 0
-        })
-        gsap.fromTo(`#${eventsSearchPageInput}`, {
-            width: window.innerWidth - pw - searchInputPadding
-        }, {
-            width: window.innerWidth - searchInputWidthDiff - searchInputPadding
-        })
-    }
-
-    if (minimal) {
-        gsap.to(`#${filterPanelsContainer}`, {
-            width: window.innerWidth + pw,
-            x: -pw,
-            duration: 0
-        })
-        gsap.to(`#${filterEventsToggleBtn}`, {
-            x: 60,
-            rotate: 0,
-            duration: 0
-        })
-        gsap.to(`#${eventsSearchPageInput}`, {
-            width: window.innerWidth - searchInputWidthDiff - searchInputPadding,
-            duration: 0
-        })
-    }
-    em.classList.add(eventsFilterOpenClass)
-    store.dispatch(setEventsPanelState(false))
-}
-
-
-const openEventFilterPanel = (em: HTMLDivElement, minimal?: boolean) => {
-    const pw = getEventsPanelWidth()
-    if (!minimal) {
-
-        gsap.fromTo(`#${filterPanelsContainer}`, {
-            width: window.innerWidth + pw,
-            x: -pw
-        }, {
-            width: window.innerWidth,
-            x: 0
-        })
-        gsap.fromTo(`#${filterEventsToggleBtn}`, {
-            x: 60,
-            rotate: 0
-        }, {
-            x: 0,
-            rotate: 180
-        })
-        // const inputContainer = document.getElementById(`${eventsSearchPageInput}-container`)?.getBoundingClientRect()
-        // if (!inputContainer) return
-        gsap.fromTo(`#${eventsSearchPageInput}`, {
-            width: window.innerWidth - searchInputWidthDiff - searchInputPadding
-        }, {
-            width: window.innerWidth - pw - searchInputPadding
-        })
-    }
-    if (minimal) {
-        gsap.to(`#${filterPanelsContainer}`, {
-            width: window.innerWidth,
-            x: 0,
-            duration: 0
-        })
-        gsap.to(`#${filterEventsToggleBtn}`, {
-            x: 0,
-            rotate: 180,
-            duration: 0
-        })
-        gsap.to(`#${eventsSearchPageInput}`, {
-            width: window.innerWidth - pw - searchInputPadding,
-            duration: 0
-        })
-    }
-    em.classList.remove(eventsFilterOpenClass)
-    store.dispatch(setEventsPanelState(true))
-}
 
 export const toggleEventsPageFilterPanel = (open: boolean | "toggle") => {
+    const setState = (open: boolean) => store.dispatch(setEventsPanelState(open))
     if (typeof window === "undefined") return;
     let em = document.getElementById(filterPanelsContainer) as HTMLDivElement
     if (!em) return
     if (open === "toggle") {
-        let isOpen = em.classList.contains(eventsFilterOpenClass)
+        let isOpen = em.classList.contains("open")
         if (isOpen) {
-            closeEventFilterPanel(em)
+            console.log("closing")
+            em.classList.remove("open")
+            setState(false)
         }
         if (!isOpen) {
-            openEventFilterPanel(em)
+            console.log("opening")
+            em.classList.add("open")
+            setState(true)
         }
         return
     }
     if (open) {
-        openEventFilterPanel(em)
+        console.log("opening")
+        em.classList.add("open")
+        setState(true)
+
         return
     }
-    closeEventFilterPanel(em)
+    console.log("closing")
+    em.classList.remove("open")
+    setState(false)
 }
 
 
-export const handlePanelResize = () => {
-    let em = document.getElementById(filterPanelsContainer) as HTMLDivElement
-    if (!em) return
-    closeEventFilterPanel(em, true)
-}
+// export const handlePanelResize = () => {
+//     let em = document.getElementById(filterPanelsContainer) as HTMLDivElement
+//     if (!em) return
+//     closeEventFilterPanel(em, true)
+// }
 
 export const getEventsPanelWidth = () => {
     return 380

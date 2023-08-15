@@ -22,8 +22,9 @@ interface FilterPanelToggleButtonProps {
 
 const FilterPanelToggleButton = connector(({ open }: FilterPanelToggleButtonProps) => {
     return (
-        <div className={"searchPanel-toggle-btn w-[48px] h-[48px] min-w-[48px] bg-transparent rounded-xl text-base-content grid place-items-center cursor-pointer"} onClick={() => toggleEventsPageFilterPanel(!open)} id={filterEventsToggleBtn} >
-            {open ? <HiOutlineXMark className={"w-8 h-8"} /> : <HiMiniAdjustmentsHorizontal className={"w-8 h-8"} />}
+        <div className={"panelBtn text-base-content"} onClick={() => toggleEventsPageFilterPanel("toggle")} id={filterEventsToggleBtn} >
+            <HiOutlineXMark className={"openBtn"} />
+            <HiMiniAdjustmentsHorizontal className={"closeBtn"} />
         </div>
     )
 })
