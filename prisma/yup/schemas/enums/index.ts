@@ -1,6 +1,7 @@
 export * from './TransactionIsolationLevel.schema';
 export * from './FaqScalarFieldEnum.schema';
 export * from './ColorsScalarFieldEnum.schema';
+export * from './LogoScalarFieldEnum.schema';
 export * from './TeamScalarFieldEnum.schema';
 export * from './LocationScalarFieldEnum.schema';
 export * from './LegalNameScalarFieldEnum.schema';
@@ -23,6 +24,7 @@ export * from './QueryMode.schema';
 export * from './FaqOrderByRelevanceFieldEnum.schema';
 export * from './NullsOrder.schema';
 export * from './ColorsOrderByRelevanceFieldEnum.schema';
+export * from './LogoOrderByRelevanceFieldEnum.schema';
 export * from './TeamOrderByRelevanceFieldEnum.schema';
 export * from './LocationOrderByRelevanceFieldEnum.schema';
 export * from './LegalNameOrderByRelevanceFieldEnum.schema';

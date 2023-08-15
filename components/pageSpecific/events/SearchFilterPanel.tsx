@@ -51,12 +51,11 @@ const SearchFilterPanel = connector(({ replaceContent, filters, searchParams }: 
 
     const redirectToEventQuery = () => {
         const query = genEventSearchParams(filters)
-        console.log("query: ", query)
-        // router.push(`/events?${query}`)
+        router.push(`/events?${query}`)
     }
 
     return (
-        <div className={clsx("searchPanel relative h-full elevate-200 text-primary-content rounded-tr-xl rounded-br-xl grid grid-rows-[auto_1fr]", dataThemeDark("bg-baseDark-200"), dataThemeLight("bg-baseLight-200"))}>
+        <div className={clsx("panelLight relative h-full elevate-200 text-primary-content rounded-tr-xl rounded-br-xl grid grid-rows-[auto_1fr]")}>
             <FilterPanelToggleButton />
             <div className={"w-full text-center text-lg text-base-content py-4"}>{EventsPageContent.filterPanel.title}</div>
             <div className={"h-full"}>

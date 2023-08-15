@@ -25,15 +25,14 @@ const makeConfiguredStore = () => configureStore({
     devTools: process.env.NODE_ENV !== "production" || true,
 });
 
-export const makeStore = (): ReturnType<typeof makeConfiguredStore> => {
-    const isServer = typeof window === "undefined";
+export const makeStore = (isServer = typeof window === "undefined"): ReturnType<typeof makeConfiguredStore> => {
     if (isServer) {
         return makeConfiguredStore();
     } else {
         // we need it only on client side
         const persistConfig = {
             key: "root",
-            blacklist: ["auth", "form"], // make sure it does not clash with server keys
+            whitelist: ["form"], // make sure it does not clash with server keys
             storage,
         };
         const persistedReducer = persistReducer(persistConfig, combineReducers(rootReducer));
@@ -47,7 +46,7 @@ export const makeStore = (): ReturnType<typeof makeConfiguredStore> => {
     }
 };
 
-const store = makeStore()
+const store = makeStore(true)
 
 declare global {
     interface Window {

@@ -28,7 +28,7 @@ export const getPreviousDays = (offset: number = 1) => {
     return startOfDay().subtract(offset, 'day')
 }
 
-export const formatDate = (date: Date, short?: boolean) => {
+export const formatDate = (date: Date | string, short?: boolean) => {
     const d = dayjs(date)
     return short ? d.format(dateFormatNoTime) : d.format(dateFormatWithTime)
 }
@@ -44,25 +44,20 @@ export const isSoon = (d: Date) => {
 }
 
 
-export const parseDateForQueryParams = (d: Date | Date[] | string | string[]): { from: string, to?: string } => {
-    let d1;
-    let d2;
+export const getQueryParamsFromDateCalInput = (params: URLSearchParams, d: Date | Date[] | string | string[]): URLSearchParams => {
     if (Array.isArray(d)) {
-        d1 = dayjs(d[0])
-        d2 = dayjs(d[d.length - 1])
+        params.set("from", formatDate(d[0], true))
+        params.set("to", formatDate(d[d.length - 1], true))
+        return params
     }
     if (!Array.isArray(d)) {
-        d1 = dayjs(d)
-        d2 = dayjs(d)
+        params.set("from", formatDate(d, true))
+        params.set("to", formatDate(d, true))
+        return params
     }
-    if (d2?.format("MM-D-YY") === "Invalid Date") {
-        d2 = undefined
-    }
-    return {
-        from: d1?.format("MM-D-YY") || "",
-        to: d2 ? d2?.format("MM-D-YY") : undefined
-    }
+    return params
 }
+
 
 
 export default dayjs

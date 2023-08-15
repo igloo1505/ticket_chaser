@@ -4,6 +4,8 @@
 
 :root {
   --navbar-height: 96px;
+  --footer-height: 76px;
+  --combined-nav-height: 172px;
   --primary-color: #38bdf8;
   --highlight-text-color: #38bdf8;
   --focus-ring: 0 0 0 1px #38bdf8;
@@ -14,12 +16,25 @@ body {
   scroll-behavior: smooth;
 }
 
-/* /* html { */
-*/
-/* /*   /* scroll-behavior: smooth; */ */
-/* */ */
-/* /* } */ */
+@layer components {
+  .panel {
+    @apply bg-gray-50 dark:bg-gray-900;
+  }
+  .panelLight {
+    @apply bg-gray-50 dark:bg-gray-800;
+  }
+  .panelBorder {
+    @apply border-gray-200 dark:border-gray-700;
+  }
+}
 
+.test {
+  border: 1px solid red;
+}
+
+.testbg {
+  background-color: green;
+}
 
 .card-body {
   padding-bottom: 1rem;

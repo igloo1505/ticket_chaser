@@ -1,20 +1,12 @@
 import React from 'react'
 import { HiMiniArrowRightOnRectangle, HiMiniQuestionMarkCircle, HiMiniFingerPrint, HiMiniMapPin } from 'react-icons/hi2'
-import { RootState } from '#/state/store';
-import { connect } from 'react-redux';
 import DrawerContentItem from './drawerContentItem';
-
-const connector = connect((state: RootState, props: any) => ({
-    user: state.auth.user,
-    props: props
-}))
+import DrawerDarkToggle from './DrawerDarkToggle';
 
 
-interface DrawerContentProps {
-    user: RootState['auth']['user']
-}
 
-const DrawerContentUnAuthenticated = connector(({ user }: DrawerContentProps) => {
+
+const DrawerContentUnAuthenticated = () => {
     return (
         <div className="flex flex-col justify-between flex-1 mt-6">
             <nav>
@@ -24,7 +16,6 @@ const DrawerContentUnAuthenticated = connector(({ user }: DrawerContentProps) =>
                         label="Find Events"
                         href="/events"
                     />
-
                     <DrawerContentItem
                         Icon={<HiMiniQuestionMarkCircle className={"w-6 h-6"} />}
                         label="FAQ"
@@ -35,6 +26,7 @@ const DrawerContentUnAuthenticated = connector(({ user }: DrawerContentProps) =>
             <nav>
                 <hr className="my-4 border-gray-200 dark:border-gray-600" />
                 <div className={"flex flex-col justify-start items-start gap-4"}>
+                    <DrawerDarkToggle />
                     <DrawerContentItem Icon={
                         <HiMiniFingerPrint className={"w-6 h-6"} />} label="Login" href={"/login"} query={{ login: "true" }} />
                     <DrawerContentItem Icon={
@@ -43,7 +35,7 @@ const DrawerContentUnAuthenticated = connector(({ user }: DrawerContentProps) =>
             </nav>
         </div>
     )
-})
+}
 
 
 DrawerContentUnAuthenticated.displayName = "DrawerContent"

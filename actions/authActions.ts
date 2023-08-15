@@ -1,19 +1,26 @@
-import { LoginBaseType } from "#/types/AuthTypes";
+import { LoginBaseType, RetrievedUserData } from "#/types/AuthTypes";
 import { CreateUserRequestType, SignupFormType } from "#/state/initial/forms/signup"
 import handleAxios from "#/hooks/useAxios";
 import store from "#/state/store";
 import { authSuccess, logoutUser } from "#/state/slices/auth";
 import { ROLE } from "@prisma/client";
+import { setNavbarType } from "#/state/slices/ui";
 
 
+export const handleAuthSuccess = (user: RetrievedUserData) => {
+    store.dispatch(setNavbarType(true))
+    store.dispatch(authSuccess(user))
+}
 
 export const loginUser = async (data: LoginBaseType, requireRole?: ROLE[]) => {
     const res = await handleAxios("post", "/api/user/authenticate", { user: data })
-    store.dispatch(authSuccess(res?.data.user))
-    if (requireRole) {
-        return requireRole.indexOf(res?.data.user.role) > -1
+    if (res?.data.success) {
+        handleAuthSuccess(res.data.user)
     }
-    return res?.data.success || false
+    if (requireRole) {
+        return { success: requireRole.indexOf(res?.data.user.role) > -1, role: res?.data.user.role || undefined }
+    }
+    return { success: res?.data.success || false, role: res?.data.user.role || undefined }
 }
 
 export const loginAdmin = async (data: LoginBaseType) => {

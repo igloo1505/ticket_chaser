@@ -2,10 +2,9 @@ import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import initialState from "../initial/initialState";
 import { InitialFormStateType } from '../initial/forms/formState'
 import { CityApiType } from "#/types/inputValidation";
-import { Payload } from "@prisma/client/runtime/library";
-import { RootState } from "../store";
-import { initialFilterState, isInitialFilterState } from "../initial/forms/events";
+import { initialFilterState } from "../initial/forms/events";
 import { EventsPageSearchParams } from "#/utils/routing/searchParams";
+import { ValidListItemStep } from "../initial/forms/listItem";
 
 
 
@@ -37,11 +36,14 @@ const slice = createSlice({
         },
         removeEventFilterTag(state, action: PayloadAction<string>) {
             state.events.panel.filter.tags = state.events.panel.filter.tags?.filter((t) => t !== action.payload) || []
+        },
+        setListItemFormStep(state, action: PayloadAction<ValidListItemStep>) {
+            state.listItem.step = action.payload
         }
     }
 })
 
 
-export const { setSignupFormData, setInitialEventsFilterData, removeEventFilterTag, resetEventsFilter, setShowPanelContent, setEventsFilterData, setRetrievedCities } = slice.actions
+export const { setSignupFormData, setListItemFormStep, setInitialEventsFilterData, removeEventFilterTag, resetEventsFilter, setShowPanelContent, setEventsFilterData, setRetrievedCities } = slice.actions
 export default slice.reducer
 

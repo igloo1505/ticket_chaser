@@ -8,7 +8,7 @@ import { LoginBaseType, protectedRoleType, protectedRoles } from "#/types/AuthTy
 import { comparePassword } from "#/utils/server/encryption";
 import { assignRoleAccessToken, assignUserToken } from "#/utils/server/tokens";
 import { ResponseCookies } from "next/dist/compiled/@edge-runtime/cookies";
-
+var colors = require('colors');
 
 interface RequestContext {
     // params: {
@@ -30,6 +30,7 @@ router
                 }
             })
             if (!user) {
+                console.log(`No user found for email address: ${userRequest.email}`.red)
                 const err = new AppError({
                     toastErrorType: "userNotFound",
                     statusCode: 404
@@ -37,19 +38,21 @@ router
                 return err.genResponse(null, req)
             }
             const passMatch = await comparePassword(user.password, userRequest.password)
+            console.log("passMatch: ", passMatch)
             if (!passMatch) {
                 const err = new AppError({
                     toastErrorType: "credentialsInvalid",
                     statusCode: 402
                 })
+                console.log("err: ", err)
                 return err.genResponse(null, req)
             }
             let res = new NextResponse(JSON.stringify({ user: { ...user, password: undefined }, success: true }), getCorsHeaders(req, 200))
             // WARNING: This might not work with this approach. Look at the docs when back on wifi.
 
-            let cookies = await assignUserToken(res.cookies, user.id, userRequest.rememberMe)
+            await assignUserToken(res.cookies, user.id, userRequest.rememberMe)
             if (protectedRoles.indexOf(user.role as protectedRoleType) !== -1) {
-                cookies = await assignRoleAccessToken(cookies, user.role as protectedRoleType, userRequest.rememberMe)
+                await assignRoleAccessToken(res.cookies, user.role as protectedRoleType, userRequest.rememberMe)
             }
             return res
         } catch (err) {

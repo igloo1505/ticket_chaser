@@ -1065,23 +1065,10 @@ module.exports = {
             pattern: /bg-*/gm
         },
         {
-            pattern: /hover:bg-*/gm
-        },
-        {
-            pattern: /hover:text-*/gm
-        },
-        {
-            pattern: /data-\[theme=night\]:text-*/gm
-        },
-        {
             pattern: /bg-base[Dark|Light]-\d/gm
         },
         ...daisySafeList,
-        // {
-        //     pattern: /elevate-\d/gm
-        // }
     ],
-
     daisyui: {
         themes: [
             {

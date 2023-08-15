@@ -24,7 +24,10 @@ const EventCard = ({ item, container }: Props) => {
                 </h2>
                 <p>{item.description}</p>
                 <div className="card-actions justify-end">
-                    {item.tags.slice(0, 3).map((t, i) => <Link href={`/events?${genEventSearchParams({ tags: [t] })}`} className="badge badge-primary badge-outline" key={`tag-${i}`}>{t}</Link>)}
+                    {item.tags.slice(0, 3).map((t, i) => {
+                    const tagSearch = genEventSearchParams({tags: [t]})
+                    return <Link href={tagSearch ? `/events?${tagSearch}` : "/events"} className="badge badge-primary badge-outline" key={`tag-${i}`}>{t}</Link>
+                    })} 
                 </div>
             </div>
         </div>

@@ -48,7 +48,9 @@ const AuthenticateCard = () => {
         })
     }
     const handleLogin = async () => {
-        const success = await loginUser(formData)
+        const { success, role } = await loginUser(formData)
+        console.log("success: ", success)
+        console.log("role: ", role)
         if (success) {
             router.push("/")
         }
@@ -59,9 +61,11 @@ const AuthenticateCard = () => {
         let em = document.getElementById(signupCardId)
         em && (em.style.opacity = "1")
     }, [])
+
     useEffect(() => {
         setAuthenticateType(isLogin ? "Login" : "Sign Up")
     }, [isLogin])
+
     return (
         <Card title={authenticateType} id={signupCardId} shadow elevate={300} container={{
             className: "max-w-[85vw] min-w-[min(85vw,480px)] relative opacity-0 initialRender"

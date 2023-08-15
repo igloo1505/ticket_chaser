@@ -14,18 +14,22 @@ import { ColorsWhereInputObjectSchema } from '../internals';;
 import { ArenaRelationFilterObjectSchema } from '../internals';;
 import { ArenaWhereInputObjectSchema } from '../internals';;
 import { EventRelationFilterObjectSchema } from '../internals';;
-import { EventWhereInputObjectSchema } from '../internals';
+import { EventWhereInputObjectSchema } from '../internals';;
+import { LogoListRelationFilterObjectSchema } from '../internals';
 
 export const TeamWhereInputObjectSchema = Yup.object({
     AND: Yup.mixed().oneOfSchemas([Yup.lazy(() => TeamWhereInputObjectSchema.default(undefined)),
 Yup.array().of(Yup.lazy(() => TeamWhereInputObjectSchema.default(undefined)))]),  OR: Yup.array().of(Yup.lazy(() => TeamWhereInputObjectSchema.default(undefined))),  NOT: Yup.mixed().oneOfSchemas([Yup.lazy(() => TeamWhereInputObjectSchema.default(undefined)),
 Yup.array().of(Yup.lazy(() => TeamWhereInputObjectSchema.default(undefined)))]),  id: Yup.mixed().oneOfSchemas([IntFilterObjectSchema,
 Yup.number()]),  name: Yup.mixed().oneOfSchemas([EnumNFLTeamNameFilterObjectSchema]),  abbreviation: Yup.mixed().oneOfSchemas([StringNullableFilterObjectSchema,
+Yup.string()]),  displayName: Yup.mixed().oneOfSchemas([StringNullableFilterObjectSchema,
+Yup.string()]),  displayName_short: Yup.mixed().oneOfSchemas([StringNullableFilterObjectSchema,
+Yup.string()]),  nickname: Yup.mixed().oneOfSchemas([StringNullableFilterObjectSchema,
 Yup.string()]),  league: Yup.mixed().oneOfSchemas([EnumLeaguesFilterObjectSchema]),  sport: Yup.mixed().oneOfSchemas([EnumSportsFilterObjectSchema]),  conference: Yup.mixed().oneOfSchemas([EnumNFL_ConferenceNullableFilterObjectSchema]),  division: Yup.mixed().oneOfSchemas([EnumNFL_DivisionNullableFilterObjectSchema]),  homeArenaId: Yup.mixed().oneOfSchemas([IntNullableFilterObjectSchema,
 Yup.number()]),  eventId: Yup.mixed().oneOfSchemas([IntNullableFilterObjectSchema,
 Yup.number()]),  colorsId: Yup.mixed().oneOfSchemas([IntNullableFilterObjectSchema,
 Yup.number()]),  colors: Yup.mixed().oneOfSchemas([ColorsRelationFilterObjectSchema,
 ColorsWhereInputObjectSchema]),  homeArena: Yup.mixed().oneOfSchemas([ArenaRelationFilterObjectSchema,
 ArenaWhereInputObjectSchema]),  Event: Yup.mixed().oneOfSchemas([EventRelationFilterObjectSchema,
-EventWhereInputObjectSchema])
+EventWhereInputObjectSchema]),  logos: LogoListRelationFilterObjectSchema
 });

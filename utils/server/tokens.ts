@@ -88,7 +88,7 @@ export const validateRoleToken = async (cookies: CookieJarType, role: protectedR
     return true
 }
 
-export const validate = async (cookies: CookieJarType): Promise<false | string> => {
+export const validate = async (cookies: CookieJarType, noAssign: boolean = false): Promise<false | string> => {
     "use server"
     let authToken = cookies.get(tokenMap.auth)?.value
     let userToken = cookies.get(tokenMap.userId)?.value
@@ -100,7 +100,7 @@ export const validate = async (cookies: CookieJarType): Promise<false | string> 
         return false
     }
     let isValid = `${authId[tokenMap.userId]}` === `${userToken}` ? userToken : false
-    if (isValid) {
+    if (isValid && !noAssign) {
         await assignUserToken(cookies, userToken, Boolean(cookies.get(tokenMap.rememberMe)?.value))
     }
     return isValid

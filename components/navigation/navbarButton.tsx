@@ -33,6 +33,7 @@ interface Props extends NavbarButtonProps {
 
 const NavbarButton = connector((props: Props) => {
     const setDisplayState = () => {
+        console.log("Setting navbar button display state")
         if (props.displayFunc) {
             return props.displayFunc(props.authState)
         }
@@ -51,9 +52,11 @@ const NavbarButton = connector((props: Props) => {
         return true
     }
     const [display, setDisplay] = useState<boolean>(setDisplayState())
+
     useEffect(() => {
         setDisplay(setDisplayState())
-    }, [props.roles, props.authed])
+        /* WARNING: This might need to require props.authed and props.roles as dependencies. They wer included but removed while trying to figure out what's causing this loop. */
+    }, [])
 
     return (
         <Link href={props.href} className={clsx("flex justify-center items-center", display ? "block" : "hidden", props.displayAuth === "development" && "btn btn-error")}>

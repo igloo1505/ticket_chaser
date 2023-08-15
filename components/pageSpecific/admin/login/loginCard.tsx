@@ -30,11 +30,16 @@ const AdminLoginCard = (props: AdminLoginCardProps) => {
     }
 
     const handleLogin = async () => {
-        const success = await loginUser(formData, ["ADMIN"])
+        const { success, role } = await loginUser(formData, ["ADMIN"])
+        console.log("success: ", success)
         if (success) {
-            router.replace("/admin/legit")
+            if(role === "ADMIN"){
+            return router.replace("/admin/legit")
+            }
+            router.replace("/dashboard")
         }
     }
+
     return (
         <Card title="Admin Login" shadow elevate={"200"} container={{
             className: "min-w-[min(400px,85vw)] max-w-[calc(100vw-2rem)]"

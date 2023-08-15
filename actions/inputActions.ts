@@ -27,8 +27,5 @@ export const clearEventFilter = async () => {
 }
 
 export const setEventsDateFilter = (val: Date | Date[] | string) => {
-    console.log("val: ", val)
-    let d = parseDateForQueryParams(val)
-    console.log("d: ", d)
-    store.dispatch(setEventsFilterData({ byDate: d }));
+    store.dispatch(setEventsFilterData({ byDate: val }));
 }

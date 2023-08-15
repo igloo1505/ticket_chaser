@@ -19,10 +19,7 @@ const connector = connect((state: RootState, props: any) => ({
 /* TODO: Definitely find better calendar picker without all this extra css*/
 export const FilterCalendar = connector(({ byDate }) => {
     const handleChange = (e: CalendarChangeEvent) => {
-        let val;
-        if (typeof e.value === "string") val = new Date(e.value);
-        if (Array.isArray(e.value)) val = e.value[0];
-        store.dispatch(setEventsFilterData({ byDate: val }));
+        store.dispatch(setEventsFilterData({ byDate: e.value }));
     };
     return (
         <Calendar
@@ -48,23 +45,12 @@ const ByDateFilter = connector(({ byDate }: ByDateFilterProps) => {
         setEventsDateFilter(val)
     };
 
-    const formatDateValue = (d: typeof byDate) => {
-        let val = []
-        if (d?.from) {
-            val.push(new Date(d.from))
-        }
-        if (d?.to) {
-            val.push(new Date(d.to))
-        }
-        return val
-    }
-
     return (
         <div className={clsx("w-full min-w-fit min-h-fit flex flex-col justify-start items-start gap-2")}>
             <span className="label-text">By Date</span>
             <Calendar
                 touchUI={isMobile}
-                value={formatDateValue(byDate)}
+                value={byDate}
                 stepMinute={15}
                 onChange={handleChange}
                 hourFormat="12"

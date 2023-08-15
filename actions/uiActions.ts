@@ -1,18 +1,12 @@
 "use client"
-import { InterestType, MappedInterestType, initialInterests } from "#/data/interests"
+import { MappedInterestType, initialInterests } from "#/data/interests"
 import { InitialUIStateType } from "#/state/initial/ui"
-import { setDarkMode, setEventsPanelState, setViewportDataState } from "#/state/slices/ui"
+import { setEventsPanelState, setViewportDataState } from "#/state/slices/ui"
 import store from "#/state/store"
 import { eventsFilterOpenClass, eventsSearchPageInput, filterEventsToggleBtn, filterPanelsContainer } from "#/types/DomIds"
-import { daysInMilliseconds } from "#/utils/dates/dayjs"
-import { CATEGORY } from "@prisma/client"
 import { darkTheme } from "#/daisy/dark.js"
 import { lightTheme } from "#/daisy/light.js"
 import { gsap } from "gsap"
-/// @ts-ignore
-// import SmoothScroll from 'smooth-scroll'
-
-// var scroll = new SmoothScroll();
 
 type LoadedThemes = typeof darkTheme | typeof lightTheme
 
@@ -21,7 +15,6 @@ const themes: LoadedThemes[] = [darkTheme, lightTheme]
 
 
 export const setDarkmode = (darkMode: boolean) => {
-    console.log("darkMode: ", darkMode)
     if (typeof window === "undefined") return;
     let t = themes[darkMode ? 0 : 1]
     document.body.setAttribute("data-theme", t)
@@ -93,7 +86,7 @@ export const handleHeroScroll = (id: string): ScrollPosType | undefined => {
     if (typeof window === "undefined" || !em) return;
     const rect = em.getBoundingClientRect()
     if (!rect) return
-    const vh = window.innerHeight
+    const vh = window.innerHeight * 1.1
     const stop = window.scrollY
     const ratio = (vh - stop) / vh
     let overlay = document.getElementById(`${id}-overlay`)
@@ -118,19 +111,16 @@ export const scrollToSection = (section: number) => {
 
 let prevScroll = 0
 let minScrollTrigger = 20
-const scrollDirection = (e: Event): { scrollDir: "up" | "down", diff: number } => {
+const scrollDirection = (): { scrollDir: "up" | "down", diff: number } => {
     const diff = window.scrollY - prevScroll
     const val = prevScroll < window.scrollY ? "down" : "up"
     prevScroll = window.scrollY
     return { scrollDir: val, diff: diff }
 }
 
-let isScrolling = false
-export const observeLandingScroll = (e: Event, navbar: React.RefObject<HTMLDivElement>) => {
+export const observeLandingScroll = (navbar: React.RefObject<HTMLDivElement>) => {
     handleHeroScroll("hero-section-container")
-    console.log("isScrolling: ", isScrolling)
-    if (isScrolling) return
-    const { scrollDir, diff } = scrollDirection(e)
+    const { scrollDir, diff } = scrollDirection()
     // if (scrollDir === "down") {
     //     e.preventDefault()
     //     e.stopPropagation()

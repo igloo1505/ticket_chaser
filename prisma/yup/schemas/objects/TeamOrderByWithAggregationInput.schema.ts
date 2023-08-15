@@ -11,6 +11,9 @@ import { TeamSumOrderByAggregateInputObjectSchema } from '../internals';
 
 export const TeamOrderByWithAggregationInputObjectSchema = Yup.object({
     id: SortOrderSchema,  name: SortOrderSchema,  abbreviation: Yup.mixed().oneOfSchemas([SortOrderSchema,
+SortOrderInputObjectSchema]),  displayName: Yup.mixed().oneOfSchemas([SortOrderSchema,
+SortOrderInputObjectSchema]),  displayName_short: Yup.mixed().oneOfSchemas([SortOrderSchema,
+SortOrderInputObjectSchema]),  nickname: Yup.mixed().oneOfSchemas([SortOrderSchema,
 SortOrderInputObjectSchema]),  league: SortOrderSchema,  sport: SortOrderSchema,  conference: Yup.mixed().oneOfSchemas([SortOrderSchema,
 SortOrderInputObjectSchema]),  division: Yup.mixed().oneOfSchemas([SortOrderSchema,
 SortOrderInputObjectSchema]),  homeArenaId: Yup.mixed().oneOfSchemas([SortOrderSchema,

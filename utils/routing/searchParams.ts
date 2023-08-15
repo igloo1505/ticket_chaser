@@ -1,5 +1,5 @@
 import { Faq } from "@prisma/client";
-import { parseDateForQueryParams } from "../dates/dayjs";
+import { getQueryParamsFromDateCalInput } from "../dates/dayjs";
 
 interface FaqQueryType {
     page: string
@@ -28,10 +28,7 @@ export const readFaqTablSearchParams = (query: string) => {
 
 export interface EventsPageSearchParams {
     tags?: string[] | string
-    byDate?: {
-        from: string | undefined
-        to: string | undefined
-    }
+    byDate?: Date | Date[] | string | null
     category?: string
     query?: string
     performer?: string
@@ -42,18 +39,20 @@ export const genEventSearchParams = (params: Partial<EventsPageSearchParams>) =>
     console.log("params: ", params)
     Object.keys(params).map((k) => {
         /// @ts-ignore
-        if (k !== "byDate" && params[k] && params[k] !== "") {
+        if (k !== "byDate" && typeof params[k] == "string" && params[k] !== "") {
+            /// @ts-ignore
+            urlParams.set(k, params[k])
+        }
+        /// @ts-ignore
+        if (k !== "byDate" && Array.isArray(params[k]) && params[k].length > 0) {
             /// @ts-ignore
             urlParams.set(k, params[k])
         }
         if (k === "byDate") {
             /// @ts-ignore
             // const byDateParams = parseDateForQueryParams(params[k])
-            if (params.byDate?.from) {
-                urlParams.set("from", params.byDate.from)
-            }
-            if (params.byDate?.to) {
-                urlParams.set("to", params.byDate.to)
+            if (params.byDate) {
+                getQueryParamsFromDateCalInput(urlParams, params.byDate)
             }
         }
     })

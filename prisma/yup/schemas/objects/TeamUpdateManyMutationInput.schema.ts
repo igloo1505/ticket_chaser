@@ -10,5 +10,8 @@ import { NullableEnumNFL_DivisionFieldUpdateOperationsInputObjectSchema } from '
 
 export const TeamUpdateManyMutationInputObjectSchema = Yup.object({
     name: Yup.mixed().oneOfSchemas([EnumNFLTeamNameFieldUpdateOperationsInputObjectSchema]),  abbreviation: Yup.mixed().oneOfSchemas([Yup.string(),
+NullableStringFieldUpdateOperationsInputObjectSchema]),  displayName: Yup.mixed().oneOfSchemas([Yup.string(),
+NullableStringFieldUpdateOperationsInputObjectSchema]),  displayName_short: Yup.mixed().oneOfSchemas([Yup.string(),
+NullableStringFieldUpdateOperationsInputObjectSchema]),  nickname: Yup.mixed().oneOfSchemas([Yup.string(),
 NullableStringFieldUpdateOperationsInputObjectSchema]),  league: Yup.mixed().oneOfSchemas([EnumLeaguesFieldUpdateOperationsInputObjectSchema]),  sport: Yup.mixed().oneOfSchemas([EnumSportsFieldUpdateOperationsInputObjectSchema]),  conference: Yup.mixed().oneOfSchemas([NullableEnumNFL_ConferenceFieldUpdateOperationsInputObjectSchema]),  division: Yup.mixed().oneOfSchemas([NullableEnumNFL_DivisionFieldUpdateOperationsInputObjectSchema])
 });

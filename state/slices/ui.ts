@@ -5,8 +5,6 @@ import initialUiState, { InitialUIStateType } from "../initial/ui";
 import { v4 as uuid } from 'uuid';
 import { ToastErrorTypes } from "#/types/AuthTypes";
 import { defaultToastConfigs } from "#/data/defaultToasts";
-import { handleUnderNavbarWrapper } from "#/actions/uiActions";
-import { RootState } from "../store";
 
 
 const slice = createSlice({
@@ -53,17 +51,22 @@ const slice = createSlice({
         setDarkMode(state, action: PayloadAction<boolean>) {
             state.darkMode = action.payload
         },
+        toggleDarkMode(state) {
+            state.darkMode = !state.darkMode
+        },
         setViewportDataState(state, action: PayloadAction<InitialUIStateType['viewport']>) {
             state.viewport = action.payload
-            state.hamburger = action.payload.width <= 768
         },
         setEventsPanelState(state, action: PayloadAction<boolean>) {
             state.pages.events.panelOpen = action.payload
-        }
+        },
+        setNavbarType(state, action: PayloadAction<boolean>) {
+            state.hamburger = action.payload
+        },
     }
 })
 
 
-export const { showToast, setEventsPanelState, setDrawerOpen, toggleDrawer, clearToast, showModal, hideModal, hideAllModals, setDarkMode, setViewportDataState, showDefaultToast } = slice.actions
+export const { showToast, setEventsPanelState, toggleDarkMode, setNavbarType, setDrawerOpen, toggleDrawer, clearToast, showModal, hideModal, hideAllModals, setDarkMode, setViewportDataState, showDefaultToast } = slice.actions
 export default slice.reducer
 

@@ -1,12 +1,10 @@
 import { ToastConfigType } from "#/types/uiTypes"
 import { Faq } from "@prisma/client"
 import { FaqFormData } from "./adminState"
+import store from "../store"
 
 type modalValue = boolean | number
 
-export const shouldHamburger = () => {
-    return typeof window === "undefined" ? true : window.innerWidth <= 768
-}
 
 export interface InitialUIStateType {
     darkMode: boolean,
@@ -28,7 +26,7 @@ export interface InitialUIStateType {
         width: number
         navbarHeight: number
     },
-    hamburger: boolean,
+    hamburger: boolean | null,
     pages: {
         events: {
             panelOpen: boolean
@@ -57,12 +55,17 @@ const initialUiState: InitialUIStateType = {
         height: -1,
         width: -1
     },
-    hamburger: false,
+    hamburger: null,
     pages: {
         events: {
             panelOpen: false
         }
     }
+}
+
+
+export const shouldHamburger = (authed: boolean) => {
+    return authed || typeof window === "undefined" ? true : window.innerWidth <= 768
 }
 
 

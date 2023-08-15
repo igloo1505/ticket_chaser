@@ -8,7 +8,7 @@ import { navbarButtons } from './navbarButtons';
 import NavbarTitle from './navbarTitle';
 import store, { RootState } from '#/state/store';
 import clsx from 'clsx';
-import { setDarkmode } from '#/actions/uiActions';
+/* import { setDarkmode } from '#/actions/uiActions'; */
 import { setDarkMode } from '#/state/slices/ui';
 
 
@@ -20,7 +20,7 @@ interface TopNavbarProps {
 
 const TopNavbar = forwardRef(({ ui, authed }: TopNavbarProps, ref: ForwardedRef<HTMLDivElement>) => {
     const toggleDark = (darkMode: boolean) => {
-    store.dispatch(setDarkMode(darkMode))
+        store.dispatch(setDarkMode(darkMode))
     }
 
     return (

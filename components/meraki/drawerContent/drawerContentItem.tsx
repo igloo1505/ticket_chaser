@@ -10,30 +10,47 @@ import { UrlObject } from 'url';
 
 
 
-interface DrawerContentItemProps {
+export interface DrawerContentItemProps {
     Icon: React.ReactNode
     label: string
-    href: Route
+    href?: Route
     query?: string | ParsedUrlQueryInput | null | undefined
     onClick?: () => void
 }
 
 const DrawerContentItem = ({ label, onClick, query, Icon, href }: DrawerContentItemProps) => {
-    let params: { href: Route | UrlObject, query?: object, onClick?: () => void } = { href }
+    let params: { href?: Route | UrlObject, query?: object, onClick?: () => void } = {}
+    if (href) {
+        params.href = href
+    }
     if (query) {
         params.href = {
             pathname: href,
             query: query
         }
     }
-    if (onClick) {
-        params.onClick = onClick
+    params.onClick = () => {
+        store.dispatch(setDrawerOpen(false))
+        if (onClick) {
+            onClick()
+        }
     }
     /* TODO: Handle light and dark theme stuff here and for the rest of the drawer. */
+    if (!href && onClick) {
+        const p = params as Omit<typeof params, "href">
+        return (
+            <a role="button" className={clsx("flex items-center w-full px-4 py-2 transition-colors duration-300 transform rounded-md hover:text-gray-700 hover:bg-gray-100 text-gray-600 dark:text-gray-400 dark:hover:bg-gray-800 dark:hover:text-gray-200")}
+                {...p}
+            >
+                {Icon}
+                <span className="mx-4 font-medium">{label}</span>
+            </a>
+        )
+    }
+    const p = params as Omit<typeof params, "href"> & { href: Route }
     return (
-        <Link className={clsx("flex items-center w-full px-4 py-2 transition-colors duration-300 transform rounded-md ", dataThemeDark(["text-gray-400", "hover:bg-gray-800", "hover:text-gray-200"]), dataThemeLight(["hover:text-gray-700", "hover:bg-gray-100", "text-gray-600"]))}
-            onClick={() => store.dispatch(setDrawerOpen(false))}
-            {...params}
+        <Link className={clsx("flex items-center w-full px-4 py-2 transition-colors duration-300 transform rounded-md hover:text-gray-700 hover:bg-gray-100 text-gray-600 dark:text-gray-400 dark:hover:bg-gray-800 dark:hover:text-gray-200")}
+            {...p}
         >
             {Icon}
             <span className="mx-4 font-medium">{label}</span>

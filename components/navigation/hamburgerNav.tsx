@@ -8,7 +8,6 @@ import React from 'react'
 
 interface HamburgerNavBarProps {
     ui: RootState['UI']
-    authed: RootState['auth']['authenticated']
 }
 
 const HamburgerNavBar = ({ ui }: HamburgerNavBarProps) => {

@@ -1,9 +1,10 @@
 import { RetrievedUserData } from "#/types/AuthTypes"
+import { transformUserForClientState } from "#/utils/server/transformUserForClientState"
 import { User } from "@prisma/client"
 
 export interface InitialAuthStateType {
     authenticated: boolean
-    user?: RetrievedUserData | User
+    user?: RetrievedUserData
 }
 
 

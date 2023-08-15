@@ -2,17 +2,14 @@ import React from 'react'
 import NavbarTitle from '../navigation/navbarTitle';
 import Link from 'next/link';
 import clsx from 'clsx';
-import { dataThemeDark, dataThemeLight } from '#/utils/ui';
+import { FOOTERHEIGHT, dataThemeDark, dataThemeLight } from '#/utils/ui';
 
 
-
-interface FooterProps {
-
-}
-
-const Footer = (props: FooterProps) => {
+const Footer = () => {
     return (
-        <footer className={clsx(dataThemeDark("bg-gray-900"), dataThemeLight("bg-white"))}>
+        <footer className={"w-screen"} style={{
+            height: `${FOOTERHEIGHT}px`,
+        }}>
             <div className="container flex flex-col items-center justify-between p-6 mx-auto space-y-4 sm:space-y-0 sm:flex-row">
                 <Link href="/">
                     <NavbarTitle className={"text-primary"} />

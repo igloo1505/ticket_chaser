@@ -2,10 +2,6 @@ import { EventsPageSearchParams } from "#/utils/routing/searchParams";
 import { Event } from "@prisma/client";
 
 export interface FilterEventsFilterDataType extends EventsPageSearchParams {
-    byDate?: {
-        from: undefined | string
-        to: undefined | string
-    }
     tags: string[] | undefined
 }
 

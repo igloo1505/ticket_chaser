@@ -1,13 +1,12 @@
 import initialState from "../initial/initialState";
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { RetrievedUserData } from "#/types/AuthTypes";
-// import { initialUserAuthState } from "../initial/auth";
 
 
 
 const slice = createSlice({
     name: "auth",
-    initialState: initialState.auth,
+    initialState: initialState.auth as typeof initialState['auth'],
     reducers: {
         authSuccess(state, action: PayloadAction<RetrievedUserData>) {
             state.user = action.payload
