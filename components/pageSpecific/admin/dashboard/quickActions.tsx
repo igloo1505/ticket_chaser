@@ -1,6 +1,6 @@
 "use client"
 import { logout } from "#/actions/authActions"
-import { setDevelopmentState } from "#/actions/devActions"
+import { setDevelopmentState, showDemoToasts } from "#/actions/devActions"
 import Button from "#/components/ui/button"
 import { useRouter } from 'next/navigation'
 
@@ -37,6 +37,12 @@ const actions: QuickActionButtonProps[] = [
         action: (r) => r.push("/admin/legit/teams/edit"),
         desc: "Edit or Add Teams"
     },
+    {
+        label: "Demo Toasts",
+        action: () => showDemoToasts(),
+        desc: "Show all toast types"
+    },
+
 ]
 
 interface QAButtonProps {

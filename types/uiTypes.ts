@@ -4,7 +4,7 @@ import React, { ChangeEvent } from "react"
 
 
 export interface ToastConfigType {
-    variant?: "success" | "info" | "warn" | "error"
+    variant: "success" | "info" | "warn" | "error"
     content: string
     timeout?: number | null
     isOpen?: boolean

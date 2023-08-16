@@ -33,8 +33,8 @@ const AdminLoginCard = (props: AdminLoginCardProps) => {
         const { success, role } = await loginUser(formData, ["ADMIN"])
         console.log("success: ", success)
         if (success) {
-            if(role === "ADMIN"){
-            return router.replace("/admin/legit")
+            if (role === "ADMIN") {
+                return router.replace("/admin/legit")
             }
             router.replace("/dashboard")
         }

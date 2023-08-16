@@ -1,5 +1,7 @@
 import { setSignupFormData } from "#/state/slices/form"
+import { showToast } from "#/state/slices/ui"
 import store from "#/state/store"
+import { genToastConfig } from "./notificationActions"
 
 export const setDevelopmentState = () => {
     const state = store.getState()
@@ -24,4 +26,20 @@ export const setDevelopmentState = () => {
             }
         }
     }))
+}
+
+
+export const showDemoToasts = () => {
+    const sampleBody = "Libero ut suscipit nam sit ut at. Metus amet eros molestie tristique nam faucibus convallis est praesent nibh enim tortor feugiat convallis imperdiet porttitor arcu praesent et ac diam pulvinar."
+    const toasts = [
+        genToastConfig({ variant: "info", content: "Info" }),
+        genToastConfig({ variant: "success", content: "Success" }),
+        genToastConfig({ variant: "warn", content: "Warning" }),
+        genToastConfig({ variant: "error", content: "Error" }),
+        // genToastConfig({ variant: "info", content: sampleBody }),
+        // genToastConfig({ variant: "success", content: sampleBody }),
+        // genToastConfig({ variant: "warn", content: sampleBody }),
+        // genToastConfig({ variant: "error", content: sampleBody }),
+    ]
+    toasts.forEach((t) => store.dispatch(showToast(t)))
 }

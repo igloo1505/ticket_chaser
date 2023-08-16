@@ -5,10 +5,8 @@ import { HiOutlineRectangleGroup } from 'react-icons/hi2';
 
 
 const DashboardIcon = (props: IconProps) => {
-    let params: { className?: string } = {}
-    props.className && (params.className = props.className)
     return (
-        <HiOutlineRectangleGroup {...params} />
+        <HiOutlineRectangleGroup {...props} />
     )
 }
 

@@ -5,10 +5,8 @@ import { HiOutlineHashtag } from 'react-icons/hi2';
 
 
 const TagIcon = (props: IconProps) => {
-    let params: { className?: string } = {}
-    props.className && (params.className = props.className)
     return (
-        <HiOutlineHashtag {...params} />
+        <HiOutlineHashtag {...props} />
     )
 }
 

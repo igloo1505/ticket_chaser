@@ -5,10 +5,8 @@ import { HiOutlineTicket } from 'react-icons/hi2';
 
 
 const TicketIcon = (props: IconProps) => {
-    let params: { className?: string } = {}
-    props.className && (params.className = props.className)
     return (
-        <HiOutlineTicket {...params} />
+        <HiOutlineTicket {...props} />
     )
 }
 

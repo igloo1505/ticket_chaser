@@ -3,15 +3,13 @@ import { MappedInterestType, initialInterests } from "#/data/interests"
 import { InitialUIStateType } from "#/state/initial/ui"
 import { setEventsPanelState, setViewportDataState } from "#/state/slices/ui"
 import store from "#/state/store"
-import { eventsFilterOpenClass, eventsSearchPageInput, filterEventsToggleBtn, filterPanelsContainer } from "#/types/DomIds"
+import { filterPanelsContainer } from "#/types/DomIds"
 import { darkTheme } from "#/daisy/dark.js"
 import { lightTheme } from "#/daisy/light.js"
-import { gsap } from "gsap"
 
 type LoadedThemes = typeof darkTheme | typeof lightTheme
 
 const themes: LoadedThemes[] = [darkTheme, lightTheme]
-
 
 
 export const setDarkmode = (darkMode: boolean) => {
@@ -121,10 +119,6 @@ const scrollDirection = (): { scrollDir: "up" | "down", diff: number } => {
 export const observeLandingScroll = (navbar: React.RefObject<HTMLDivElement>) => {
     handleHeroScroll("hero-section-container")
     const { scrollDir, diff } = scrollDirection()
-    // if (scrollDir === "down") {
-    //     e.preventDefault()
-    //     e.stopPropagation()
-    // }
     if (!navbar.current) return
     navbar.current.style.transition = "all 0.3s ease-in-out"
     navbar.current.style.transform = window.scrollY > 100 ? "translateY(-200px)" : "translateY(0px)"
@@ -132,19 +126,7 @@ export const observeLandingScroll = (navbar: React.RefObject<HTMLDivElement>) =>
     if (diff >= minScrollTrigger) {
         console.log("SHOULD SCROLL")
     }
-    // if (Boolean(window.scrollY <= window.innerHeight * 0.3 && scrollDir === "down" && diff > minScrollTrigger) || Boolean(window.scrollY >= window.innerHeight * 0.3 && scrollDir === "down")) {
-    //     isScrolling = true
-    //     let em = document.getElementById("landing-scroll-section-2")
-    // scroll.animateScroll(em)
-    // isScrolling = false
-    // if (!em) return
-    // em.scrollIntoView({ behavior: "smooth", block: "start", inline: "start" })
-    // em.scrollIntoView({ behavior: "smooth" })
-    // }
 }
-
-const searchInputWidthDiff = 60
-const searchInputPadding = 50
 
 export const toggleEventsPageFilterPanel = (open: boolean | "toggle") => {
     const setState = (open: boolean) => store.dispatch(setEventsPanelState(open))
@@ -178,12 +160,6 @@ export const toggleEventsPageFilterPanel = (open: boolean | "toggle") => {
 }
 
 
-// export const handlePanelResize = () => {
-//     let em = document.getElementById(filterPanelsContainer) as HTMLDivElement
-//     if (!em) return
-//     closeEventFilterPanel(em, true)
-// }
-
 export const getEventsPanelWidth = () => {
     return 380
 }
@@ -195,3 +171,5 @@ export const setViewportData = (data: InitialUIStateType['viewport']) => {
     handleUnderNavbarWrapper(data.navbarHeight)
     store.dispatch(setViewportDataState(data))
 }
+
+

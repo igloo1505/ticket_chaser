@@ -1,15 +1,12 @@
 "use client"
 import { toggleEventsPageFilterPanel } from '#/actions/uiActions';
-import ui from '#/state/initial/ui';
-import { toggleDrawer } from '#/state/slices/ui';
-import store from '#/state/store';
 import { filterEventsToggleBtn } from '#/types/DomIds';
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import { HiMiniAdjustmentsHorizontal, HiOutlineXMark } from 'react-icons/hi2';
 
 import { RootState } from '#/state/store';
 import { connect } from 'react-redux';
-import clsx from 'clsx';
+import CloseIcon from '#/components/ui/icons/close';
 
 const connector = connect((state: RootState, props: any) => ({
     open: state.UI.pages.events.panelOpen,
@@ -23,7 +20,7 @@ interface FilterPanelToggleButtonProps {
 const FilterPanelToggleButton = connector(({ open }: FilterPanelToggleButtonProps) => {
     return (
         <div className={"panelBtn text-base-content"} onClick={() => toggleEventsPageFilterPanel("toggle")} id={filterEventsToggleBtn} >
-            <HiOutlineXMark className={"openBtn"} />
+            <CloseIcon className={"openBtn"} />
             <HiMiniAdjustmentsHorizontal className={"closeBtn"} />
         </div>
     )

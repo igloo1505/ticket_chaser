@@ -5,10 +5,8 @@ import { HiOutlineLockClosed } from 'react-icons/hi2';
 
 
 const LogoutIcon = (props: IconProps) => {
-    let params: { className?: string } = {}
-    props.className && (params.className = props.className)
     return (
-        <HiOutlineLockClosed {...params} />
+        <HiOutlineLockClosed {...props} />
     )
 }
 

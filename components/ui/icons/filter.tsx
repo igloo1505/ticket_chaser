@@ -5,10 +5,8 @@ import { HiOutlineFunnel } from 'react-icons/hi2';
 
 
 const FilterIcon = (props: IconProps) => {
-    let params: { className?: string } = {}
-    props.className && (params.className = props.className)
     return (
-        <HiOutlineFunnel {...params} />
+        <HiOutlineFunnel {...props} />
     )
 }
 
