@@ -6,7 +6,7 @@ const dummyUsers: Prisma.UserCreateArgs[] = []
 for (var i = 1; i < 50; i++) {
     dummyUsers.push({
         data: {
-            email: "user`${i}@gmail.com",
+            email: `user${i}@gmail.com`,
             password: "Password123!",
             role: "USER" as ROLE,
             personalDetails: {

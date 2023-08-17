@@ -13,7 +13,7 @@ interface PageContentWrapperProps {
 const PageContentWrapper = ({ children, removePadding, center }: PageContentWrapperProps) => {
     return (
         <div className={clsx("min-h-screen grid grid-rows-[1fr_var(--footer-height)]", center && "place-items-center")}>
-            <div className={clsx("min-h-[calc(100vh-var(--footer-height))] h-fit relative", !removePadding && "pt-[--navbar-height]")}>{children}</div>
+            <div className={clsx("min-h-[calc(100vh-var(--footer-height))] relative", !removePadding && "pt-[--navbar-height]")}>{children}</div>
             <Footer />
         </div>
     )

@@ -10,11 +10,13 @@ import { LocationMinOrderByAggregateInputObjectSchema } from '../internals';;
 import { LocationSumOrderByAggregateInputObjectSchema } from '../internals';
 
 export const LocationOrderByWithAggregationInputObjectSchema = Yup.object({
-    id: SortOrderSchema,  street: Yup.mixed().oneOfSchemas([SortOrderSchema,
+    id: SortOrderSchema,  uniqueKey: Yup.mixed().oneOfSchemas([SortOrderSchema,
+SortOrderInputObjectSchema]),  street: Yup.mixed().oneOfSchemas([SortOrderSchema,
 SortOrderInputObjectSchema]),  zip: Yup.mixed().oneOfSchemas([SortOrderSchema,
 SortOrderInputObjectSchema]),  city: SortOrderSchema,  cityId: Yup.mixed().oneOfSchemas([SortOrderSchema,
-SortOrderInputObjectSchema]),  state: SortOrderSchema,  lat: Yup.mixed().oneOfSchemas([SortOrderSchema,
+SortOrderInputObjectSchema]),  state: Yup.mixed().oneOfSchemas([SortOrderSchema,
+SortOrderInputObjectSchema]),  lat: Yup.mixed().oneOfSchemas([SortOrderSchema,
 SortOrderInputObjectSchema]),  long: Yup.mixed().oneOfSchemas([SortOrderSchema,
-SortOrderInputObjectSchema]),  userId: Yup.mixed().oneOfSchemas([SortOrderSchema,
+SortOrderInputObjectSchema]),  country: SortOrderSchema,  userId: Yup.mixed().oneOfSchemas([SortOrderSchema,
 SortOrderInputObjectSchema]),  _count: LocationCountOrderByAggregateInputObjectSchema,  _avg: LocationAvgOrderByAggregateInputObjectSchema,  _max: LocationMaxOrderByAggregateInputObjectSchema,  _min: LocationMinOrderByAggregateInputObjectSchema,  _sum: LocationSumOrderByAggregateInputObjectSchema
 });

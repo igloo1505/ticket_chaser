@@ -8,6 +8,7 @@ import { getUserInServerComponent } from '#/utils/server/serverActions/getUser'
 import colors from 'colors'
 /* export const revalidate = 3600 */
 
+
 export default async function RootLayout({
     children,
 }: {
@@ -22,7 +23,7 @@ export default async function RootLayout({
     }
     return (
         <html lang="en" className={"dark"}>
-            <body id="document-body" data-theme={darkTheme} className={"group"}>
+            <body id="document-body" data-theme={darkTheme} className={"group bg-base-100 min-h-screen"}>
                 <StateWrappedUI isAuthenticated={Boolean(user)} shouldClearCookies={user === "shouldRemoveCookies"} user={typeof user === "string" ? undefined : user} />
                 {children}
             </body>

@@ -153,6 +153,13 @@ enum NFLTeamName {
     Steelers
     Commanders
     Titans
+    TBD
+}
+
+enum Country {
+    US
+    GER
+    UK
 }
 
 enum NFL_Conference {
@@ -214,6 +221,7 @@ model Logo {
 // BUG: Change this to allow many to many relationships between teams and events. Need to get back on wifi to check syntax.
 model Team {
     id                Int             @id @default(autoincrement())
+    uniqueKey         String?         @unique
     name              NFLTeamName
     abbreviation      String?
     displayName       String?
@@ -234,13 +242,15 @@ model Team {
 
 model Location {
     id              Int              @id @default(autoincrement())
+    uniqueKey       String?          @unique
     street          String?
     zip             Int?
     city            String
     cityId          Int?
-    state           USSTATE          @default(WI)
+    state           USSTATE?         @default(WI)
     lat             Float?
     long            Float?
+    country         Country          @default(US)
     arena           Arena[]
     personalDetails PersonalDetails? @relation(fields: [userId], references: [id])
     userId          Int?             @unique
@@ -332,7 +342,7 @@ model ArenaAmenities {
 
 model Tag {
     id    Int     @id @default(autoincrement())
-    value String
+    value String  @unique
     Event Event[]
 }
 
@@ -346,15 +356,16 @@ model Image {
 
 model Arena {
     id               Int            @id @default(autoincrement())
-    name             String
+    uniqueKey        String?        @unique
+    name             String         @unique
     events           Event[]
     location         Location       @relation(fields: [locationId], references: [id])
     sections         ArenaSection[]
     amenities        ArenaAmenities @relation(fields: [arenaAmenitiesId], references: [id])
-    sectionImage     Image          @relation(fields: [sectionImageId], references: [id])
+    sectionImage     Image?         @relation(fields: [sectionImageId], references: [id])
     arenaAmenitiesId Int
     locationId       Int
-    sectionImageId   Int
+    sectionImageId   Int?
     homeTeams        Team[]
 }
 

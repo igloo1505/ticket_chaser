@@ -44,6 +44,7 @@ export * from './Sports.schema';
 export * from './NFL_Conference.schema';
 export * from './NFL_Division.schema';
 export * from './USSTATE.schema';
+export * from './Country.schema';
 export * from './ROLE.schema';
 export * from './VERIFICATIONSTATUS.schema';
 export * from './CATEGORY.schema';

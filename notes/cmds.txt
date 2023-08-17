@@ -1,0 +1,2 @@
+move into project | cd /Users/bigsexy/Desktop/currentProjects/paidWork/ticket_chaser
+check out database | npx dotenv -e .env.local -- prisma studio 

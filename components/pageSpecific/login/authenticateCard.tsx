@@ -47,6 +47,7 @@ const AuthenticateCard = () => {
             [target.name]: target.value
         })
     }
+
     const handleLogin = async () => {
         const { success, role } = await loginUser(formData)
         console.log("success: ", success)
@@ -67,29 +68,32 @@ const AuthenticateCard = () => {
     }, [isLogin])
 
     return (
-        <Card title={authenticateType} id={signupCardId} shadow elevate={300} container={{
-            className: "max-w-[85vw] min-w-[min(85vw,480px)] relative opacity-0 initialRender"
-        }}>
-            {authenticateType === "Sign Up" && <StepIndicator steps={indicatorSteps} />}
-            {authenticateType === "Login" ?
-                <LoginForm formData={formData} handleChange={handleChange}>
-                    <div className={'card-actions pb-2 w-full h-fit flex flex-col justify-center items-center'}>
-                        <div className={'w-full grid grid-cols-1 sm:grid-cols-2 py-4 gap-4'}>
-                            <div className={'flex flex-row justify-start sm:justify-center items-center w-full sm:w-fit'}>
-                                <Checkbox name="admin-login-rememberme" label="Remember Me" value={formData.rememberMe} onChange={() => setFormData({
-                                    ...formData,
-                                    rememberMe: !formData.rememberMe
-                                })} />
-                            </div>
-                            <Button label="Login" onClick={handleLogin} />
-                        </div>
-                        <Button label="Create an account" onClick={() => setAuthenticateType("Sign Up")} className={'w-full'} />
-                    </div>
-                </LoginForm>
+        <Card title= { authenticateType } id = { signupCardId } shadow elevate = { 300} container = {{
+        className: "max-w-[85vw] min-w-[min(85vw,480px)] relative opacity-0 initialRender"
+    }
+}>
+    { authenticateType === "Sign Up" && <StepIndicator steps={ indicatorSteps } />}
+{
+    authenticateType === "Login" ?
+    <LoginForm formData={ formData } handleChange = { handleChange } >
+        <div className={ 'card-actions pb-2 w-full h-fit flex flex-col justify-center items-center' }>
+            <div className={ 'w-full grid grid-cols-1 sm:grid-cols-2 py-4 gap-4' }>
+                <div className={ 'flex flex-row justify-start sm:justify-center items-center w-full sm:w-fit' }>
+                    <Checkbox name="admin-login-rememberme" label = "Remember Me" value = { formData.rememberMe } onChange = {() => setFormData({
+                        ...formData,
+                        rememberMe: !formData.rememberMe
+                    })
+} />
+    < /div>
+    < Button label = "Login" onClick = { handleLogin } />
+        </div>
+        < Button label = "Create an account" onClick = {() => setAuthenticateType("Sign Up")} className = { 'w-full'} />
+            </div>
+            < /LoginForm>
                 :
-                <SignupMainForm setLogin={() => setAuthenticateType("Login")} />
+<SignupMainForm setLogin={ () => setAuthenticateType("Login") } />
             }
-        </Card>
+</Card>
     )
 }
 

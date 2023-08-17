@@ -32,7 +32,7 @@ export const setDevelopmentState = () => {
 export const showDemoToasts = () => {
     const sampleBody = "Libero ut suscipit nam sit ut at. Metus amet eros molestie tristique nam faucibus convallis est praesent nibh enim tortor feugiat convallis imperdiet porttitor arcu praesent et ac diam pulvinar."
     const toasts = [
-        genToastConfig({ variant: "info", content: "Info" }),
+        genToastConfig({ variant: "info", content: "Information", title: "Info" }),
         genToastConfig({ variant: "success", content: "Success" }),
         genToastConfig({ variant: "warn", content: "Warning" }),
         genToastConfig({ variant: "error", content: "Error" }),

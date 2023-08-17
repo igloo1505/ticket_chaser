@@ -4,5 +4,5 @@ import "../helpers/oneOfSchemas.helper.ts"
 
 
 export const TeamWhereUniqueInputObjectSchema = Yup.object({
-    id: Yup.number()
+    id: Yup.number(),  uniqueKey: Yup.string()
 });

@@ -19,7 +19,7 @@ interface PreSeedTeamType extends Omit<Prisma.TeamCreateInput, "colors" | "logos
 
 const preSeedTeams: PreSeedTeamType[] = data.sports[0].leagues[0].teams.map((t) => ({
     abbreviation: t.team.abbreviation,
-    name: t.team.name as NFLTeamName,
+    name: t.team.name === "49ers" ? "FourtyNiners" : t.team.name as NFLTeamName,
     nickname: t.team.nickname,
     displayName: t.team.displayName,
     displayName_short: t.team.shortDisplayName,

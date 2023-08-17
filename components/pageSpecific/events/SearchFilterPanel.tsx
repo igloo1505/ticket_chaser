@@ -10,7 +10,6 @@ import SearchPanelFilters from './SearchPanelFilters';
 import clsx from 'clsx';
 import { clearEventFilter } from '#/actions/inputActions';
 import { isInitialFilterState } from '#/state/initial/forms/events';
-import { handlePanelResize } from '#/actions/uiActions';
 import { EventsPageSearchParams, genEventSearchParams } from '#/utils/routing/searchParams';
 import { setInitialEventsFilterData } from '#/state/slices/form';
 import { useRouter } from 'next/navigation';
@@ -35,7 +34,6 @@ interface SearchFilterPanelProps {
 /* TODO: Check viewport width here and on smaller screen widths have the filter panel expand 100vw and replace the main panel entirely. */
 
 
-
 const SearchFilterPanel = connector(({ replaceContent, open, filters, searchParams }: SearchFilterPanelProps) => {
     const [initialFilterState, setIsInitialFilterState] = useState(true)
     const router = useRouter()
@@ -45,11 +43,6 @@ const SearchFilterPanel = connector(({ replaceContent, open, filters, searchPara
     useEffect(() => {
         setIsInitialFilterState(isInitialFilterState(filters))
     }, [filters])
-
-    useEffect(() => {
-        window.addEventListener("resize", handlePanelResize)
-        return () => window.removeEventListener("resize", handlePanelResize)
-    }, [])
 
     const redirectToEventQuery = () => {
         const query = genEventSearchParams(filters)
@@ -66,7 +59,7 @@ const SearchFilterPanel = connector(({ replaceContent, open, filters, searchPara
                     </div>
                     {!replaceContent && <SearchPanelFilters searchParams={searchParams} />}
                 </div>
-                <a role="button" onClick={clearEventFilter} className={clsx("bg-error text-error-content w-[calc(100%-1rem)] ml-2 mb-2 rounded-lg text-center py-2 px-1", initialFilterState && "hidden")}>Clear</a>
+                <a role="button" onClick={clearEventFilter} className={clsx("bg-red-600 text-white dark:bg-red-400 dark:text-error-content w-[calc(100%-1rem)] ml-2 mb-2 rounded-lg text-center py-2 px-1", initialFilterState && "hidden")}>Clear</a>
                 <a role="button" onClick={redirectToEventQuery} className={clsx("bg-primary text-primary-content w-[calc(100%-1rem)] ml-2 mb-2 rounded-lg text-center py-2 px-1", initialFilterState && "hidden")}>Search</a>
             </div>
         </div>

@@ -10,7 +10,8 @@ import { LogoOrderByRelationAggregateInputObjectSchema } from '../internals';;
 import { TeamOrderByRelevanceInputObjectSchema } from '../internals';
 
 export const TeamOrderByWithRelationAndSearchRelevanceInputObjectSchema = Yup.object({
-    id: SortOrderSchema,  name: SortOrderSchema,  abbreviation: Yup.mixed().oneOfSchemas([SortOrderSchema,
+    id: SortOrderSchema,  uniqueKey: Yup.mixed().oneOfSchemas([SortOrderSchema,
+SortOrderInputObjectSchema]),  name: SortOrderSchema,  abbreviation: Yup.mixed().oneOfSchemas([SortOrderSchema,
 SortOrderInputObjectSchema]),  displayName: Yup.mixed().oneOfSchemas([SortOrderSchema,
 SortOrderInputObjectSchema]),  displayName_short: Yup.mixed().oneOfSchemas([SortOrderSchema,
 SortOrderInputObjectSchema]),  nickname: Yup.mixed().oneOfSchemas([SortOrderSchema,

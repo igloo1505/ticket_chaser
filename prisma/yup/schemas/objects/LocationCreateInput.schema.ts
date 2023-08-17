@@ -5,5 +5,5 @@ import { ArenaCreateNestedManyWithoutLocationInputObjectSchema } from '../intern
 import { PersonalDetailsCreateNestedOneWithoutLocationInputObjectSchema } from '../internals';
 
 export const LocationCreateInputObjectSchema = Yup.object({
-    street: Yup.mixed().oneOfSchemas([Yup.string()]),  zip: Yup.mixed().oneOfSchemas([Yup.number()]),  city: Yup.string().required(),  cityId: Yup.mixed().oneOfSchemas([Yup.number()]),  lat: Yup.mixed().oneOfSchemas([Yup.number()]),  long: Yup.mixed().oneOfSchemas([Yup.number()]),  arena: ArenaCreateNestedManyWithoutLocationInputObjectSchema,  personalDetails: PersonalDetailsCreateNestedOneWithoutLocationInputObjectSchema
+    uniqueKey: Yup.mixed().oneOfSchemas([Yup.string()]),  street: Yup.mixed().oneOfSchemas([Yup.string()]),  zip: Yup.mixed().oneOfSchemas([Yup.number()]),  city: Yup.string().required(),  cityId: Yup.mixed().oneOfSchemas([Yup.number()]),  lat: Yup.mixed().oneOfSchemas([Yup.number()]),  long: Yup.mixed().oneOfSchemas([Yup.number()]),  arena: ArenaCreateNestedManyWithoutLocationInputObjectSchema,  personalDetails: PersonalDetailsCreateNestedOneWithoutLocationInputObjectSchema
 });

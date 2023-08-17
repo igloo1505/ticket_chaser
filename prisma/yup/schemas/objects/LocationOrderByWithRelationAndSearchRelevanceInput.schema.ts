@@ -8,11 +8,13 @@ import { PersonalDetailsOrderByWithRelationAndSearchRelevanceInputObjectSchema }
 import { LocationOrderByRelevanceInputObjectSchema } from '../internals';
 
 export const LocationOrderByWithRelationAndSearchRelevanceInputObjectSchema = Yup.object({
-    id: SortOrderSchema,  street: Yup.mixed().oneOfSchemas([SortOrderSchema,
+    id: SortOrderSchema,  uniqueKey: Yup.mixed().oneOfSchemas([SortOrderSchema,
+SortOrderInputObjectSchema]),  street: Yup.mixed().oneOfSchemas([SortOrderSchema,
 SortOrderInputObjectSchema]),  zip: Yup.mixed().oneOfSchemas([SortOrderSchema,
 SortOrderInputObjectSchema]),  city: SortOrderSchema,  cityId: Yup.mixed().oneOfSchemas([SortOrderSchema,
-SortOrderInputObjectSchema]),  state: SortOrderSchema,  lat: Yup.mixed().oneOfSchemas([SortOrderSchema,
+SortOrderInputObjectSchema]),  state: Yup.mixed().oneOfSchemas([SortOrderSchema,
+SortOrderInputObjectSchema]),  lat: Yup.mixed().oneOfSchemas([SortOrderSchema,
 SortOrderInputObjectSchema]),  long: Yup.mixed().oneOfSchemas([SortOrderSchema,
-SortOrderInputObjectSchema]),  userId: Yup.mixed().oneOfSchemas([SortOrderSchema,
+SortOrderInputObjectSchema]),  country: SortOrderSchema,  userId: Yup.mixed().oneOfSchemas([SortOrderSchema,
 SortOrderInputObjectSchema]),  arena: ArenaOrderByRelationAggregateInputObjectSchema,  personalDetails: PersonalDetailsOrderByWithRelationAndSearchRelevanceInputObjectSchema,  _relevance: LocationOrderByRelevanceInputObjectSchema
 });

@@ -9,8 +9,8 @@ import { ImageWhereUniqueInputObjectSchema } from '../internals';;
 import { ImageUpdateWithoutArenaInputObjectSchema } from '../internals';;
 import { ImageUncheckedUpdateWithoutArenaInputObjectSchema } from '../internals';
 
-export const ImageUpdateOneRequiredWithoutArenaNestedInputObjectSchema = Yup.object({
+export const ImageUpdateOneWithoutArenaNestedInputObjectSchema = Yup.object({
     create: Yup.mixed().oneOfSchemas([ImageCreateWithoutArenaInputObjectSchema,
-ImageUncheckedCreateWithoutArenaInputObjectSchema]),  connectOrCreate: ImageCreateOrConnectWithoutArenaInputObjectSchema,  upsert: ImageUpsertWithoutArenaInputObjectSchema,  connect: ImageWhereUniqueInputObjectSchema,  update: Yup.mixed().oneOfSchemas([ImageUpdateWithoutArenaInputObjectSchema,
+ImageUncheckedCreateWithoutArenaInputObjectSchema]),  connectOrCreate: ImageCreateOrConnectWithoutArenaInputObjectSchema,  upsert: ImageUpsertWithoutArenaInputObjectSchema,  disconnect: Yup.boolean(),  delete: Yup.boolean(),  connect: ImageWhereUniqueInputObjectSchema,  update: Yup.mixed().oneOfSchemas([ImageUpdateWithoutArenaInputObjectSchema,
 ImageUncheckedUpdateWithoutArenaInputObjectSchema])
 });

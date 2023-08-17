@@ -5,5 +5,5 @@ import { EventUncheckedCreateNestedManyWithoutArenaInputObjectSchema } from '../
 import { TeamUncheckedCreateNestedManyWithoutHomeArenaInputObjectSchema } from '../internals';
 
 export const ArenaUncheckedCreateWithoutSectionsInputObjectSchema = Yup.object({
-    id: Yup.number(),  name: Yup.string().required(),  arenaAmenitiesId: Yup.number().required(),  locationId: Yup.number().required(),  sectionImageId: Yup.number().required(),  events: EventUncheckedCreateNestedManyWithoutArenaInputObjectSchema,  homeTeams: TeamUncheckedCreateNestedManyWithoutHomeArenaInputObjectSchema
+    id: Yup.number(),  uniqueKey: Yup.mixed().oneOfSchemas([Yup.string()]),  name: Yup.string().required(),  arenaAmenitiesId: Yup.number().required(),  locationId: Yup.number().required(),  sectionImageId: Yup.mixed().oneOfSchemas([Yup.number()]),  events: EventUncheckedCreateNestedManyWithoutArenaInputObjectSchema,  homeTeams: TeamUncheckedCreateNestedManyWithoutHomeArenaInputObjectSchema
 });

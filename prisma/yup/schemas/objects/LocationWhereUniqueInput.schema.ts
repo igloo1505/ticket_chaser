@@ -4,5 +4,5 @@ import "../helpers/oneOfSchemas.helper.ts"
 
 
 export const LocationWhereUniqueInputObjectSchema = Yup.object({
-    id: Yup.number(),  userId: Yup.number()
+    id: Yup.number(),  uniqueKey: Yup.string(),  userId: Yup.number()
 });

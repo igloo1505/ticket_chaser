@@ -1,11 +1,11 @@
 import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
 import { createEdgeRouter } from "next-connect";
-import cData from '#/data/server/USOnly.json'
 import { getCorsHeaders, optionsMethodResponse } from "#/utils/server/cors";
 import { LocationJSONData, StateByName } from "#/types/inputValidation";
 import { AppError } from "#/classes/ErrorHandling";
 
+import cData from '#/data/server/USOnly.json'
 const cityData = cData as LocationJSONData
 
 interface RequestContext {

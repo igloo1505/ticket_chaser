@@ -4,5 +4,5 @@ import "../helpers/oneOfSchemas.helper.ts"
 
 
 export const TagWhereUniqueInputObjectSchema = Yup.object({
-    id: Yup.number()
+    id: Yup.number(),  value: Yup.string()
 });

@@ -3,6 +3,6 @@ import * as Yup from 'yup';
 import "../helpers/oneOfSchemas.helper.ts"
 
 
-export const EnumUSSTATEFieldUpdateOperationsInputObjectSchema = Yup.object({
+export const EnumCountryFieldUpdateOperationsInputObjectSchema = Yup.object({
   
 });

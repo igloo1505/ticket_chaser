@@ -1,11 +1,8 @@
 import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
 import { createEdgeRouter } from "next-connect";
-import { prisma } from "#/db/db";
-import { AppError } from "#/classes/ErrorHandling";
 import { getCorsHeaders, optionsMethodResponse } from "#/utils/server/cors";
 import { CityDataType, CityFilterQueryParams, LocationJSONData, StateByName } from "#/types/inputValidation";
-import { USSTATE } from "@prisma/client";
 import cData from '#/data/server/USOnly.json'
 
 const cityData = cData as LocationJSONData

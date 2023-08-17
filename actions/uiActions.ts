@@ -112,6 +112,7 @@ let minScrollTrigger = 20
 const scrollDirection = (): { scrollDir: "up" | "down", diff: number } => {
     const diff = window.scrollY - prevScroll
     const val = prevScroll < window.scrollY ? "down" : "up"
+
     prevScroll = window.scrollY
     return { scrollDir: val, diff: diff }
 }
@@ -167,7 +168,6 @@ export const getEventsPanelWidth = () => {
 
 
 export const setViewportData = (data: InitialUIStateType['viewport']) => {
-    console.log("data: ", data)
     handleUnderNavbarWrapper(data.navbarHeight)
     store.dispatch(setViewportDataState(data))
 }

@@ -4,5 +4,5 @@ import "../helpers/oneOfSchemas.helper.ts"
 import { SortOrderSchema } from '../internals';
 
 export const TeamCountOrderByAggregateInputObjectSchema = Yup.object({
-    id: SortOrderSchema,  name: SortOrderSchema,  abbreviation: SortOrderSchema,  displayName: SortOrderSchema,  displayName_short: SortOrderSchema,  nickname: SortOrderSchema,  league: SortOrderSchema,  sport: SortOrderSchema,  conference: SortOrderSchema,  division: SortOrderSchema,  homeArenaId: SortOrderSchema,  eventId: SortOrderSchema,  colorsId: SortOrderSchema
+    id: SortOrderSchema,  uniqueKey: SortOrderSchema,  name: SortOrderSchema,  abbreviation: SortOrderSchema,  displayName: SortOrderSchema,  displayName_short: SortOrderSchema,  nickname: SortOrderSchema,  league: SortOrderSchema,  sport: SortOrderSchema,  conference: SortOrderSchema,  division: SortOrderSchema,  homeArenaId: SortOrderSchema,  eventId: SortOrderSchema,  colorsId: SortOrderSchema
 });
